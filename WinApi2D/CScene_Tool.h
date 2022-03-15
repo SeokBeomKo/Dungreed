@@ -12,6 +12,7 @@ public:
 	~CScene_Tool();
 
 	virtual void update();
+	virtual void render();
 
 	virtual void Enter();
 	virtual void Exit();

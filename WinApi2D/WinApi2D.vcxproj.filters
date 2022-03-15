@@ -64,6 +64,18 @@
     <Filter Include="Resouce\CD2DImage">
       <UniqueIdentifier>{7be60d72-5b7b-4f9d-b116-6bc827b05510}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Mainlobby">
+      <UniqueIdentifier>{108b62eb-ee52-43dd-acf9-d791f54b26e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mainlobby\Cloud">
+      <UniqueIdentifier>{ff3c6d85-5616-4b67-8873-fd5d33d1ee6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mainlobby\UI">
+      <UniqueIdentifier>{a2f89540-71e3-4a45-89aa-4ee9c5fb62c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mainlobby\Main">
+      <UniqueIdentifier>{60a5f7b2-f413-4823-a651-e61ebfc6b3e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -174,11 +186,20 @@
     <ClInclude Include="CD2DImage.h">
       <Filter>Resouce\CD2DImage</Filter>
     </ClInclude>
-    <ClInclude Include="Map_Start.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CRenderManager.h">
       <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_Cloud00.h">
+      <Filter>Object\Mainlobby\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_Cloud01.h">
+      <Filter>Object\Mainlobby\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_Sky.h">
+      <Filter>Object\Mainlobby\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MainLogo.h">
+      <Filter>Object\Mainlobby\Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,11 +293,20 @@
     <ClCompile Include="CD2DImage.cpp">
       <Filter>Resouce\CD2DImage</Filter>
     </ClCompile>
-    <ClCompile Include="Map_Start.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CRenderManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_Cloud00.cpp">
+      <Filter>Object\Mainlobby\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_Cloud01.cpp">
+      <Filter>Object\Mainlobby\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_Sky.cpp">
+      <Filter>Object\Mainlobby\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MainLogo.cpp">
+      <Filter>Object\Mainlobby\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -294,5 +324,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

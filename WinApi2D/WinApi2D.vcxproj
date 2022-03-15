@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Back_Cloud01.h" />
+    <ClInclude Include="Back_Sky.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CButtonUI.h" />
@@ -183,7 +185,8 @@
     <ClInclude Include="CUIManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Map_Start.h" />
+    <ClInclude Include="Back_Cloud00.h" />
+    <ClInclude Include="MainLogo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="struct.h" />
@@ -191,6 +194,8 @@
     <ClInclude Include="WinApi2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Back_Cloud01.cpp" />
+    <ClCompile Include="Back_Sky.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CButtonUI.cpp" />
@@ -221,7 +226,8 @@
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUIManager.cpp" />
-    <ClCompile Include="Map_Start.cpp" />
+    <ClCompile Include="Back_Cloud00.cpp" />
+    <ClCompile Include="MainLogo.cpp" />
     <ClCompile Include="WinApi2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,7 @@
     <Image Include="WinApi2D.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
