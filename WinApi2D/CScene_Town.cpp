@@ -3,6 +3,7 @@
 
 #include "CGameObject.h"
 #include "CPlayer.h"
+#include "Sky_Day.h"
 
 #include "CSound.h"
 #include "CD2DImage.h"
@@ -33,12 +34,16 @@ void CScene_Town::Enter()
 
 	// Player 추가
 	CGameObject* pPlayer = new CPlayer;
-	pPlayer->SetPos(fPoint(200, 200));
+	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	
+	Sky_Day* skyday = new Sky_Day;
+	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
+	AddObject(skyday, GROUP_GAMEOBJ::BACKGROUND);
 	
 
 	// Camera Look 지정
-	CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());
+	//CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 

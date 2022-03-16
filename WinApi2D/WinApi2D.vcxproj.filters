@@ -58,29 +58,35 @@
     <Filter Include="Object\UI">
       <UniqueIdentifier>{e6177611-ca95-4efd-98d5-4a87ca547807}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Character">
-      <UniqueIdentifier>{a0374c23-f28b-40d4-a4f4-380a7473d4b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resouce\CD2DImage">
       <UniqueIdentifier>{7be60d72-5b7b-4f9d-b116-6bc827b05510}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Mainlobby">
-      <UniqueIdentifier>{108b62eb-ee52-43dd-acf9-d791f54b26e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Mainlobby\Cloud">
-      <UniqueIdentifier>{ff3c6d85-5616-4b67-8873-fd5d33d1ee6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Mainlobby\UI">
-      <UniqueIdentifier>{a2f89540-71e3-4a45-89aa-4ee9c5fb62c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Mainlobby\Main">
-      <UniqueIdentifier>{60a5f7b2-f413-4823-a651-e61ebfc6b3e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\Start">
       <UniqueIdentifier>{1a12c70c-bfd0-401a-acdb-3ff6892f9d52}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\Town">
       <UniqueIdentifier>{5e5dc476-b54c-442b-b616-bb70c487731e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\00.CScene_Start">
+      <UniqueIdentifier>{108b62eb-ee52-43dd-acf9-d791f54b26e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\00.CScene_Start\UI">
+      <UniqueIdentifier>{a2f89540-71e3-4a45-89aa-4ee9c5fb62c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\01.CScene_Town">
+      <UniqueIdentifier>{736900fb-d2f9-4576-9663-a87b117f2f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Character">
+      <UniqueIdentifier>{a0374c23-f28b-40d4-a4f4-380a7473d4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\01.CScene_Town\BackGround">
+      <UniqueIdentifier>{a8b47034-517d-46d7-8c19-dfd89cd898bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\00.CScene_Start\BackGround">
+      <UniqueIdentifier>{ff3c6d85-5616-4b67-8873-fd5d33d1ee6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\00.CScene_Start\Logo">
+      <UniqueIdentifier>{60a5f7b2-f413-4823-a651-e61ebfc6b3e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,31 +199,34 @@
       <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Back_Cloud00.h">
-      <Filter>Object\Mainlobby\Cloud</Filter>
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="Back_Cloud01.h">
-      <Filter>Object\Mainlobby\Cloud</Filter>
-    </ClInclude>
-    <ClInclude Include="Back_Sky.h">
-      <Filter>Object\Mainlobby\Main</Filter>
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="MainLogo.h">
-      <Filter>Object\Mainlobby\Main</Filter>
+      <Filter>Object\00.CScene_Start\Logo</Filter>
     </ClInclude>
     <ClInclude Include="CStartUI.h">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClInclude>
     <ClInclude Include="COptionUI.h">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClInclude>
     <ClInclude Include="CExitUI.h">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClInclude>
     <ClInclude Include="CScene_Start.h">
       <Filter>Scene\Start</Filter>
     </ClInclude>
     <ClInclude Include="CScene_Town.h">
       <Filter>Scene\Town</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_Sky.h">
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky_Day.h">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -312,31 +321,34 @@
       <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Back_Cloud00.cpp">
-      <Filter>Object\Mainlobby\Cloud</Filter>
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="Back_Cloud01.cpp">
-      <Filter>Object\Mainlobby\Cloud</Filter>
-    </ClCompile>
-    <ClCompile Include="Back_Sky.cpp">
-      <Filter>Object\Mainlobby\Main</Filter>
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="MainLogo.cpp">
-      <Filter>Object\Mainlobby\Main</Filter>
+      <Filter>Object\00.CScene_Start\Logo</Filter>
     </ClCompile>
     <ClCompile Include="CStartUI.cpp">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClCompile>
     <ClCompile Include="COptionUI.cpp">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClCompile>
     <ClCompile Include="CExitUI.cpp">
-      <Filter>Object\Mainlobby\UI</Filter>
+      <Filter>Object\00.CScene_Start\UI</Filter>
     </ClCompile>
     <ClCompile Include="CScene_Start.cpp">
       <Filter>Scene\Start</Filter>
     </ClCompile>
     <ClCompile Include="CScene_Town.cpp">
       <Filter>Scene\Town</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_Sky.cpp">
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Sky_Day.cpp">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

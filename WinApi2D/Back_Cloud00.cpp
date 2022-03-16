@@ -26,8 +26,6 @@ void Back_Cloud00::update()
 
     SetPos(pos);
 
-    SetPos(pos);
-
     if (pos.x < -1900.f)
     {
         SetPos(fPoint(WINSIZEX / 2 + 2500.f, WINSIZEY / 2));

@@ -31,7 +31,7 @@ void CSoundManager::update()
 	m_pSystem->update();		// 반드시 매 프레임마다 업데이트 되어야 함. fmod에서 하래
 }
 
-void CSoundManager::AddSound(wstring keyName, wstring filePath, bool bgm, bool loop)
+void CSoundManager::AddSound(wstring keyName, wstring filePath, bool bgm)
 {
 	CSound* pSound;
 	if (bgm)

@@ -135,10 +135,10 @@ CSound* CResourceManager::LoadSound(const wstring& strKey, const wstring& strRel
 CSound* CResourceManager::LoadBGM(const wstring& strKey, const wstring& strRelativePath)
 {
 	CSound* pBGM = m_pBGM;
-	//if (nullptr != pBGM)
-	//	return pBGM;
+	if (nullptr != pBGM)
+		return pBGM;
 
-	// TODO : ...
+	// TODO : 일단 LoadSound 로 변경
 
 	// Sound 저장 경로 확인
 	wstring strFilePath = CPathManager::getInst()->GetRelativeContentPath();

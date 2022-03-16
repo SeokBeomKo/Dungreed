@@ -57,8 +57,8 @@ void ExitCheck(DWORD_PTR, DWORD_PTR)
 
 void CScene_Start::Enter()
 {
-	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\Skies Are Blue.mp3", true);
-	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", true);
+	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\Skies Are Blue.mp3", false);
+	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", false);
 	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
 	// 타일 로딩

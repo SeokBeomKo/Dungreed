@@ -19,7 +19,7 @@ public:
 	void init();
 	void update();
 
-	void AddSound(wstring keyName, wstring filePath, bool bgm = false, bool loop = false);
+	void AddSound(wstring keyName, wstring filePath, bool bgm = false);
 	void Play(wstring keyName);
 	void Stop(wstring keyName);
 	void Pause(wstring keyName);
