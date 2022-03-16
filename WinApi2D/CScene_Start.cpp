@@ -34,12 +34,14 @@ void CScene_Start::update()
 	if (KeyDown(VK_F3))
 	{
 		ChangeScn(GROUP_SCENE::TOOL);
+		CSoundManager::getInst()->Stop(L"CScene_Start_bgm");
 	}
 } 
 
 void StartCheck(DWORD_PTR, DWORD_PTR)
 {
 	ChangeScn(GROUP_SCENE::TOWN);
+	CSoundManager::getInst()->Stop(L"CScene_Start_bgm");
 }
 
 void OptionCheck(DWORD_PTR, DWORD_PTR)
@@ -56,6 +58,7 @@ void ExitCheck(DWORD_PTR, DWORD_PTR)
 void CScene_Start::Enter()
 {
 	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\Skies Are Blue.mp3", true);
+	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", true);
 	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
 	// 타일 로딩

@@ -22,13 +22,13 @@ void CScene_Town::update()
 	if (KeyDown(VK_TAB))
 	{
 		ChangeScn(GROUP_SCENE::START);
+		CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 	}
 }
 
 void CScene_Town::Enter()
 {
 	// TODO : 브금전환...
-	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", true);
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
 
 	// Player 추가

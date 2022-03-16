@@ -39,7 +39,6 @@ void CSound::Play()
 
 void CSound::Pause()
 {
-	
 	assert(m_pChannel);
 	m_pChannel->setPaused(true);
 }
