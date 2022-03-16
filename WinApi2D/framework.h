@@ -55,6 +55,7 @@ enum class GROUP_SCENE
 {
 	TOOL,
 	START,
+	TOWN,
 	STAGE_01,
 	STAGE_02,
 

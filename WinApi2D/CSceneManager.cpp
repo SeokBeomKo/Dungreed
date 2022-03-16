@@ -3,6 +3,7 @@
 
 #include "CScene_Start.h"
 #include "CScene_Tool.h"
+#include "CScene_Town.h"
 
 CSceneManager::CSceneManager()
 {
@@ -51,6 +52,9 @@ void CSceneManager::init()
 
 	m_arrScene[(size_t)GROUP_SCENE::TOOL] = new CScene_Tool;
 	m_arrScene[(size_t)GROUP_SCENE::TOOL]->SetName(L"Tool_Scene");
+
+	m_arrScene[(size_t)GROUP_SCENE::TOWN] = new CScene_Town;
+	m_arrScene[(size_t)GROUP_SCENE::TOWN]->SetName(L"Town_Scene");
 
 	m_pCurScene = m_arrScene[(size_t)GROUP_SCENE::START];
 	m_pCurScene->Enter();

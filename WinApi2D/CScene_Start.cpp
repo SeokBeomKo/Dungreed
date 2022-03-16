@@ -5,9 +5,12 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
+// BackGround
 #include "Back_Cloud00.h"
 #include "Back_Cloud01.h"
 #include "Back_Sky.h"
+
+// UI
 #include "MainLogo.h"
 #include "CStartUI.h"
 #include "COptionUI.h"
@@ -31,13 +34,12 @@ void CScene_Start::update()
 	if (KeyDown(VK_F3))
 	{
 		ChangeScn(GROUP_SCENE::TOOL);
-		CSoundManager::getInst()->Stop(L"bgm");
 	}
-}
+} 
 
 void StartCheck(DWORD_PTR, DWORD_PTR)
 {
-	// TODO : 씬전환 (TOWN 으로 입장)
+	ChangeScn(GROUP_SCENE::TOWN);
 }
 
 void OptionCheck(DWORD_PTR, DWORD_PTR)
@@ -53,18 +55,13 @@ void ExitCheck(DWORD_PTR, DWORD_PTR)
 
 void CScene_Start::Enter()
 {
-	CSoundManager::getInst()->AddSound(L"bgm", L"sound\\Skies Are Blue.mp3", true);
-	CSoundManager::getInst()->Play(L"bgm");
+	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\Skies Are Blue.mp3", true);
+	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
 	// 타일 로딩
-	wstring path = CPathManager::getInst()->GetContentPath();
-	path += L"tile\\Start.tile";
+	//wstring path = CPathManager::getInst()->GetContentPath();
+	//path += L"tile\\Start.tile";
 	//LoadTile(path);
-
-	// Player 추가
-	CGameObject* pPlayer = new CPlayer;
-	pPlayer->SetPos(fPoint(200, 200));
-	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	Back_Sky* backsky = new Back_Sky;
 	backsky->Load(L"Back_Sky", L"texture\\background\\BackSky.png");
@@ -95,6 +92,7 @@ void CScene_Start::Enter()
 	CStartUI* pStartUI = new CStartUI();
 	pStartUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 100.f));
 	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
+	pStartUI->SetClickedCallBack(StartCheck, 0, 0);
 	AddObject(pStartUI, GROUP_GAMEOBJ::UI);
 
 	COptionUI* pOptiontUI = new COptionUI();
