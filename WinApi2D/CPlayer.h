@@ -8,6 +8,10 @@ class CPlayer : public CGameObject
 {
 private:
 	CD2DImage* m_pImg;
+	CD2DImage* m_pImg2;
+	CD2DImage* m_pImg3;
+	CD2DImage* m_pImg4;
+
 	float m_fVelocity = 300;
 
 	void CreateMissile();

@@ -9,9 +9,11 @@
 
 CPlayer::CPlayer()
 {
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
-	
-	fPoint m_pImgScale = fPoint(m_pImg->GetWidth() * 2.f, m_pImg->GetHeight() * 2.f);
+	m_pImg  = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
+	m_pImg2 = CResourceManager::getInst()->LoadD2DImage(L"PlayerRun", L"texture\\player\\PlayerRun.png");
+	m_pImg3 = CResourceManager::getInst()->LoadD2DImage(L"PlayerJump", L"texture\\player\\PlayerJump.png");
+	m_pImg4 = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
+
 	SetName(L"Player");
 	SetScale(fPoint(32.f *4, 32.f*4));
 
@@ -22,20 +24,15 @@ CPlayer::CPlayer()
 
 	CreateAnimator();
 	GetAnimator()->CreateAnimation(L"PlayerIdleright",		m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
-	//GetAnimator()->CreateAnimation(L"RightNone",			m_pImg, fPoint(0.f, 70.f),	fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.5f, 2);
-	//GetAnimator()->CreateAnimation(L"LeftMove",			m_pImg, fPoint(0.f, 140.f),	fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 3);
-	//GetAnimator()->CreateAnimation(L"RightMove",			m_pImg, fPoint(0.f, 210.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 3);
-	//GetAnimator()->CreateAnimation(L"LeftHit",			m_pImg, fPoint(140.f, 0.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 1);
-	//GetAnimator()->CreateAnimation(L"RightHit",			m_pImg, fPoint(140.f, 70.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 1);
-	//GetAnimator()->Play(L"LeftNone");
-
+	GetAnimator()->CreateAnimation(L"PlayerIdleleft",		m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
+	GetAnimator()->CreateAnimation(L"PlayerRunright",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
+	GetAnimator()->CreateAnimation(L"PlayerRunleft",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
 
 	//CAnimation* pAni;
 	//pAni = GetAnimator()->FindAnimation(L"LeftMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 	//pAni = GetAnimator()->FindAnimation(L"RightMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
-	GetAnimator()->Play(L"PlayerIdleright");
 }
 
 CPlayer::~CPlayer()
@@ -51,26 +48,60 @@ CPlayer* CPlayer::Clone()
 void CPlayer::update()
 {
 	fPoint pos = GetPos();
+	fPoint realpos = pos;
+	realpos = CCameraManager::getInst()->GetRenderPos(realpos);
 
 	if (Key('A'))
 	{
 		pos.x -= m_fVelocity * fDT;
-		GetAnimator()->Play(L"PlayerIdleright");
+		if (MousePos().x <= realpos.x)
+		{
+			GetAnimator()->Play(L"PlayerRunleft");
+		}
+		else
+		{
+			GetAnimator()->Play(L"PlayerRunright");
+		}
 	}
-	if (Key('D'))
+	else if (Key('D'))
 	{
 		pos.x += m_fVelocity * fDT;
-		GetAnimator()->Play(L"PlayerIdleright");
-	}				   
+		if (MousePos().x <= realpos.x)
+		{
+			GetAnimator()->Play(L"PlayerRunleft");
+		}
+		else
+		{
+			GetAnimator()->Play(L"PlayerRunright");
+		}
+	}
+
+	else
+	{
+		if (MousePos().x <= realpos.x)
+		{
+			GetAnimator()->Play(L"PlayerIdleleft");
+		}
+		else
+		{
+			GetAnimator()->Play(L"PlayerIdleright");
+		}
+	}
+
+	if (Key(VK_SPACE) || Key('W'))
+	{
+		// TODO : มกวม
+	}
 
 	SetPos(pos);
 
-	if (KeyDown(VK_SPACE))
+
+	if (KeyDown('B'))
 	{
 		CreateMissile();
 		GetAnimator()->Play(L"PlayerIdleright");
 	}
-	GetAnimator()->Play(L"PlayerIdleright");
+
 	GetAnimator()->update();
 }
 
