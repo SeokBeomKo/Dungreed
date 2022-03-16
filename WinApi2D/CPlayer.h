@@ -20,6 +20,6 @@ public:
 	virtual void update();
 	virtual void render();
 
-	
+	void Load(wstring strKey, wstring strPath);
 };
 

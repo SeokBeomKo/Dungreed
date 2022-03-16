@@ -33,7 +33,7 @@ void CScene_Town::Enter()
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
 
 	// Player Ãß°¡
-	CGameObject* pPlayer = new CPlayer;
+	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 	

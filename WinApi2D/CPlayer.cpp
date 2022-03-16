@@ -5,14 +5,16 @@
 #include "CTexture.h"
 #include "CCollider.h"
 #include "CAnimator.h"
-#include "CAnimation.h"
 #include "CD2DImage.h"
 
 CPlayer::CPlayer()
 {
-	SetName(L"Player");
 	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
-	fPoint m_pImgScale = (fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
+	
+	fPoint m_pImgScale = fPoint(m_pImg->GetWidth() * 2.f, m_pImg->GetHeight() * 2.f);
+	SetName(L"Player");
+	SetScale(fPoint(32.f *4, 32.f*4));
+
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 32.f));
@@ -33,6 +35,7 @@ CPlayer::CPlayer()
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 	//pAni = GetAnimator()->FindAnimation(L"RightMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
+	GetAnimator()->Play(L"PlayerIdleright");
 }
 
 CPlayer::~CPlayer()
@@ -73,6 +76,7 @@ void CPlayer::update()
 
 void CPlayer::render()
 {
+
 	component_render();
 }
 
@@ -87,4 +91,10 @@ void CPlayer::CreateMissile()
 	pMissile->SetDir(fVec2(1, 0));
 
 	CreateObj(pMissile, GROUP_GAMEOBJ::MISSILE_PLAYER);
+}
+
+void CPlayer::Load(wstring strKey, wstring strPath)
+{
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
+	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }
