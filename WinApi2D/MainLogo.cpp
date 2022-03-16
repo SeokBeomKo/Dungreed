@@ -23,7 +23,7 @@ void MainLogo::update()
 
 void MainLogo::render()
 {
-    fPoint pos = fPoint(WINSIZEX / 2, WINSIZEY / 2 - 100.f);
+    fPoint pos = fPoint(WINSIZEX / 2, WINSIZEY / 2 - 125.f);
     fPoint scale = GetScale();
 
     CRenderManager::getInst()->RenderImage(

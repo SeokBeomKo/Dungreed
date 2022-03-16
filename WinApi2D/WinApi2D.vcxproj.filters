@@ -201,6 +201,9 @@
     <ClInclude Include="MainLogo.h">
       <Filter>Object\Mainlobby\Main</Filter>
     </ClInclude>
+    <ClInclude Include="CStartUI.h">
+      <Filter>Object\Mainlobby\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="MainLogo.cpp">
       <Filter>Object\Mainlobby\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CStartUI.cpp">
+      <Filter>Object\Mainlobby\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

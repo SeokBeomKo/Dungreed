@@ -9,6 +9,7 @@
 #include "Back_Cloud01.h"
 #include "Back_Sky.h"
 #include "MainLogo.h"
+#include "CStartUI.h"
 
 #include "CSound.h"
 #include "CD2DImage.h"
@@ -72,6 +73,10 @@ void CScene_Start::Enter()
 	MainLogo* logo = new MainLogo;
 	logo->Load(L"MainLogo", L"texture\\background\\MainLogo.png");
 	AddObject(logo, GROUP_GAMEOBJ::BACKGROUND);
+
+	CStartUI* pStartUI = new CStartUI();
+	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
+	AddObject(pStartUI, GROUP_GAMEOBJ::UI);
 
 	// Monster Ãß°¡
 	//CMonster* pMonster = new CMonster;

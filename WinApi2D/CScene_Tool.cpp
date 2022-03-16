@@ -88,7 +88,7 @@ void CScene_Tool::Enter()
 	ShowWindow(m_hWnd, SW_SHOW);
 
 	// UI 생성
-	/*
+	
 	CPanelUI* pPanelUI = new CPanelUI();
 	pPanelUI->SetScale(fPoint(200.f, 80.f));
 	pPanelUI->SetPos(fPoint(WINSIZEX - pPanelUI->GetScale().x, 0.f));		// UI는 카메라의 위치와 상관없이 절대 좌표를 통해 구현
@@ -109,7 +109,7 @@ void CScene_Tool::Enter()
 	pBtnUI->SetScale(fPoint(100.f, 100.f));
 	pBtnUI->SetPos(fPoint(100.f, 100.f));
 	pBtnUI->SetClickedCallBack(ChangeScene, 0, 0);
-	AddObject(pBtnUI, GROUP_GAMEOBJ::UI);*/
+	AddObject(pBtnUI, GROUP_GAMEOBJ::UI);
 }
 
 void CScene_Tool::Exit()
