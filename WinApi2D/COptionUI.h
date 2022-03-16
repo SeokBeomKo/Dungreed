@@ -1,13 +1,13 @@
 #pragma once
 #include "CButtonUI.h"
-class CExitUI :
+class COptionUI :
     public CButtonUI
 {
 public:
 	CD2DImage* pimg;
 
-	CExitUI();
-	~CExitUI();
+	COptionUI();
+	~COptionUI();
 
 	virtual void render();
 

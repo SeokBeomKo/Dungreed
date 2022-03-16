@@ -1,24 +1,24 @@
 #include "framework.h"
-#include "CStartUI.h"
+#include "COptionUI.h"
 #include "CD2DImage.h"
 
-CStartUI::CStartUI()
+COptionUI::COptionUI()
 {
 	pimg = new CD2DImage;
 }
 
-CStartUI::~CStartUI()
+COptionUI::~COptionUI()
 {
 }
 
-void CStartUI::render()
+void COptionUI::render()
 {
 	fPoint pos = GetPos();
 	fPoint scale = GetScale();
 
 	if (IsMouseOn())
 	{
-		pimg = CResourceManager::getInst()->LoadD2DImage(L"PlayOn_Kor", L"texture\\ui\\PlayOn_Kor.png");
+		pimg = CResourceManager::getInst()->LoadD2DImage(L"OptionOn_Kor", L"texture\\ui\\OptionOn_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
 			pos.x - scale.x / 2.f,
@@ -29,7 +29,7 @@ void CStartUI::render()
 	}
 	else
 	{
-		pimg = CResourceManager::getInst()->LoadD2DImage(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
+		pimg = CResourceManager::getInst()->LoadD2DImage(L"OptionOff_Kor", L"texture\\ui\\OptionOff_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
 			pos.x - scale.x / 2.f,
@@ -40,7 +40,7 @@ void CStartUI::render()
 	}
 }
 
-void CStartUI::Load(wstring strKey, wstring strPath)
+void COptionUI::Load(wstring strKey, wstring strPath)
 {
 	pimg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
 	SetScale(fPoint(pimg->GetWidth() * 4.f, pimg->GetHeight() * 4.f));

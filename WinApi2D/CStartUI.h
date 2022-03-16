@@ -3,9 +3,6 @@
 class CStartUI :
     public CButtonUI
 {
-private:
-	bool m_pMouseon;
-
 public:
 	CD2DImage* pimg;
 
@@ -13,8 +10,6 @@ public:
 	~CStartUI();
 
 	virtual void render();
-
-	void MouseOnCheck();
 
 	void Load(wstring strKey, wstring strPath);
 };

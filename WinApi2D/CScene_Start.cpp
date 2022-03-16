@@ -10,6 +10,8 @@
 #include "Back_Sky.h"
 #include "MainLogo.h"
 #include "CStartUI.h"
+#include "COptionUI.h"
+#include "CExitUI.h"
 
 #include "CSound.h"
 #include "CD2DImage.h"
@@ -31,6 +33,22 @@ void CScene_Start::update()
 		ChangeScn(GROUP_SCENE::TOOL);
 		CSoundManager::getInst()->Stop(L"bgm");
 	}
+}
+
+void StartCheck(DWORD_PTR, DWORD_PTR)
+{
+	// TODO : 씬전환 (TOWN 으로 입장)
+}
+
+void OptionCheck(DWORD_PTR, DWORD_PTR)
+{
+	// TODO : 가능하다면 볼륨 조정
+}
+
+void ExitCheck(DWORD_PTR, DWORD_PTR)
+{
+	// 윈도우 종료 함수
+	PostQuitMessage(0);
 }
 
 void CScene_Start::Enter()
@@ -78,6 +96,17 @@ void CScene_Start::Enter()
 	pStartUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 100.f));
 	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
 	AddObject(pStartUI, GROUP_GAMEOBJ::UI);
+
+	COptionUI* pOptiontUI = new COptionUI();
+	pOptiontUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 150.f));
+	pOptiontUI->Load(L"OptionOff_Kor", L"texture\\ui\\OptionOff_Kor.png");
+	AddObject(pOptiontUI, GROUP_GAMEOBJ::UI);
+
+	CExitUI* pExitUI = new CExitUI();
+	pExitUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 200.f));
+	pExitUI->Load(L"ExitOff_Kor", L"texture\\ui\\ExitOff_Kor.png");
+	pExitUI->SetClickedCallBack(ExitCheck, 0, 0);
+	AddObject(pExitUI, GROUP_GAMEOBJ::UI);
 
 	// 윈도우 종료 함수 PostQuitMessage(0);
 

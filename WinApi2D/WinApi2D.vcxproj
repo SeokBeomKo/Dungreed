@@ -167,6 +167,7 @@
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="COptionUI.h" />
     <ClInclude Include="CPanelUI.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayer.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="COptionUI.cpp" />
     <ClCompile Include="CPanelUI.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayer.cpp" />
