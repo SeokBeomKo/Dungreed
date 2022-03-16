@@ -75,8 +75,11 @@ void CScene_Start::Enter()
 	AddObject(logo, GROUP_GAMEOBJ::BACKGROUND);
 
 	CStartUI* pStartUI = new CStartUI();
+	pStartUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 100.f));
 	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
 	AddObject(pStartUI, GROUP_GAMEOBJ::UI);
+
+	// 윈도우 종료 함수 PostQuitMessage(0);
 
 	// Monster 추가
 	//CMonster* pMonster = new CMonster;

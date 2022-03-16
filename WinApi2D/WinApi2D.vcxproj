@@ -162,6 +162,7 @@
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CD2DImage.h" />
     <ClInclude Include="CEventManager.h" />
+    <ClInclude Include="CExitUI.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMissile.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CD2DImage.cpp" />
     <ClCompile Include="CEventManager.cpp" />
+    <ClCompile Include="CExitUI.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMissile.cpp" />
