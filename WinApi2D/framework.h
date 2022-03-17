@@ -66,7 +66,21 @@ enum class GROUP_TILE
 {
 	NONE,
 	GROUND,
+	PLATFORM,
 	WALL,
+	SLOPE,
+
+	SIZE,
+};
+
+enum class MON_STATE
+{
+	IDLE,
+	PATROL,
+	TRACE,
+	ATT,
+	RUN,
+	DEAD,
 
 	SIZE,
 };

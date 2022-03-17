@@ -93,19 +93,19 @@ void CScene_Start::Enter()
 	AddObject(logo, GROUP_GAMEOBJ::BACKGROUND);
 
 	CStartUI* pStartUI = new CStartUI();
-	pStartUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 100.f));
 	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
+	pStartUI->SetPos(fPoint(WINSIZEX / 2 - pStartUI->GetScale().x /2, WINSIZEY / 2 + 100.f - pStartUI->GetScale().y / 2));
 	pStartUI->SetClickedCallBack(StartCheck, 0, 0);
 	AddObject(pStartUI, GROUP_GAMEOBJ::UI);
 
 	COptionUI* pOptiontUI = new COptionUI();
-	pOptiontUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 150.f));
 	pOptiontUI->Load(L"OptionOff_Kor", L"texture\\ui\\OptionOff_Kor.png");
+	pOptiontUI->SetPos(fPoint(WINSIZEX / 2 - pOptiontUI->GetScale().x / 2, WINSIZEY / 2 + 150.f - pOptiontUI->GetScale().y / 2));
 	AddObject(pOptiontUI, GROUP_GAMEOBJ::UI);
 
 	CExitUI* pExitUI = new CExitUI();
-	pExitUI->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 200.f));
 	pExitUI->Load(L"ExitOff_Kor", L"texture\\ui\\ExitOff_Kor.png");
+	pExitUI->SetPos(fPoint(WINSIZEX / 2 - pExitUI->GetScale().x / 2, WINSIZEY / 2 + 200.f - pExitUI->GetScale().y / 2));
 	pExitUI->SetClickedCallBack(ExitCheck, 0, 0);
 	AddObject(pExitUI, GROUP_GAMEOBJ::UI);
 

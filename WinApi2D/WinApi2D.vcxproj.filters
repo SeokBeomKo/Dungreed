@@ -237,6 +237,9 @@
     <ClInclude Include="TownLayer_Day.h">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="CTileButton.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="TownLayer_Day.cpp">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileButton.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

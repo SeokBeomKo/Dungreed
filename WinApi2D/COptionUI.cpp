@@ -21,10 +21,10 @@ void COptionUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"OptionOn_Kor", L"texture\\ui\\OptionOn_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 	else
@@ -32,10 +32,10 @@ void COptionUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"OptionOff_Kor", L"texture\\ui\\OptionOff_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 }

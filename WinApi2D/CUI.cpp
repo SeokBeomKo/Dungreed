@@ -65,29 +65,35 @@ void CUI::render()
 
 	if (m_bLbtnDown)
 	{
+		CRenderManager::getInst()->RenderFillRectangle(
+			fptPos.x,
+			fptPos.y,
+			fptPos.x + fptScale.x,
+			fptPos.y + fptScale.y,
+			RGB(255, 255, 255)
+		);
 		CRenderManager::getInst()->RenderRectangle(
-			//fptPos.x,
-			//fptPos.y,
-			//fptPos.x + fptScale.x,
-			//fptPos.y + fptScale.y,
-			fptPos.x - fptScale.x / 2.f,
-			fptPos.y - fptScale.y / 2.f,
-			fptPos.x + fptScale.x / 2.f,
-			fptPos.y + fptScale.y / 2.f,
+			fptPos.x,
+			fptPos.y,
+			fptPos.x + fptScale.x,
+			fptPos.y + fptScale.y,
 			RGB(0, 255, 0));
 	}
 	else
 	{
-		CRenderManager::getInst()->RenderRectangle(
-			//fptPos.x,
-			//fptPos.y,
-			//fptPos.x + fptScale.x,
-			//fptPos.y + fptScale.y,
-			fptPos.x - fptScale.x / 2.f,
-			fptPos.y - fptScale.y / 2.f,
-			fptPos.x + fptScale.x / 2.f,
-			fptPos.y + fptScale.y / 2.f,
-			RGB(0, 0, 0));
+		CRenderManager::getInst()->RenderFillRectangle(
+			fptPos.x,
+			fptPos.y,
+			fptPos.x + fptScale.x,
+			fptPos.y + fptScale.y,
+			RGB(255, 255, 255)
+		);
+	CRenderManager::getInst()->RenderRectangle(
+		fptPos.x,
+		fptPos.y,
+		fptPos.x + fptScale.x,
+		fptPos.y + fptScale.y,
+		RGB(0, 0, 0));
 	}
 
 	render_child();
@@ -183,10 +189,12 @@ void CUI::MouseOnCheck()
 		fptMousePos = CCameraManager::getInst()->GetRenderPos(fptMousePos);
 	}
 
-	if (m_fptFinalPos.x - fptScale.x / 2.f <= fptMousePos.x &&
-		m_fptFinalPos.x + fptScale.x / 2.f >= fptMousePos.x &&
-		m_fptFinalPos.y - fptScale.y / 2.f <= fptMousePos.y &&
-		m_fptFinalPos.y + fptScale.y / 2.f >= fptMousePos.y)
+	//if (m_fptFinalPos.x - fptScale.x / 2.f <= fptMousePos.x &&
+	//	m_fptFinalPos.x + fptScale.x / 2.f >= fptMousePos.x &&
+	//	m_fptFinalPos.y - fptScale.y / 2.f <= fptMousePos.y &&
+	//	m_fptFinalPos.y + fptScale.y / 2.f >= fptMousePos.y)
+	if (m_fptFinalPos.x <= fptMousePos.x && fptMousePos.x <= m_fptFinalPos.x + fptScale.x
+		&& m_fptFinalPos.y <= fptMousePos.y && fptMousePos.y <= m_fptFinalPos.y + fptScale.y)
 	{
 		m_bMouseOn = true;
 	}

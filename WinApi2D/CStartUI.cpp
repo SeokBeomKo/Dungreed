@@ -21,10 +21,10 @@ void CStartUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"PlayOn_Kor", L"texture\\ui\\PlayOn_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 	else
@@ -32,10 +32,10 @@ void CStartUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 }

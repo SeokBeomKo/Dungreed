@@ -21,10 +21,10 @@ void CExitUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"ExitOn_Kor", L"texture\\ui\\ExitOn_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 	else
@@ -32,10 +32,10 @@ void CExitUI::render()
 		pimg = CResourceManager::getInst()->LoadD2DImage(L"ExitOff_Kor", L"texture\\ui\\ExitOff_Kor.png");
 		CRenderManager::getInst()->RenderImage(
 			pimg,
-			pos.x - scale.x / 2.f,
-			pos.y - scale.y / 2.f,
-			pos.x + scale.x / 2.f,
-			pos.y + scale.y / 2.f
+			pos.x,
+			pos.y,
+			pos.x + scale.x,
+			pos.y + scale.y
 		);
 	}
 }

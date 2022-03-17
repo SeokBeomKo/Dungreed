@@ -59,6 +59,7 @@ void CRenderManager::init()
 	{
 
 	}
+
 	// 텍스트 포맷 생성
 	m_pWriteFactory->CreateTextFormat(
 		L"굴림",
@@ -95,7 +96,7 @@ void CRenderManager::RenderFrame(CD2DImage* img, float dstX, float dstY, float d
 		m_pRenderTarget->DrawBitmap(img->GetImage(), imgRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, srcRect);
 	}
 }
-	
+
 void CRenderManager::RenderRevFrame(CD2DImage* img, float dstX, float dstY, float dstW, float dstH, float srcX, float srcY, float srcW, float srcH)
 {
 	D2D1_RECT_F imgRect = { dstX, dstY, dstW, dstH };
@@ -115,7 +116,6 @@ void CRenderManager::RenderRevFrame(CD2DImage* img, float dstX, float dstY, floa
 
 void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW, float dstH, float fontSize, COLORREF color)
 {
-
 	int red = color & 0xFF;
 	int green = (color >> 8) & 0xFF;
 	int blue = (color >> 16) & 0xFF;
@@ -136,11 +136,12 @@ void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW,
 		m_pTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	}
 
+	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
 	m_pRenderTarget->DrawTextW(str.c_str(), (UINT)str.size(), m_pTextFormat,
 		D2D1::RectF(dstX, dstY, dstW, dstH), m_pBrush);
 }
 
-void CRenderManager::RenderRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color)
+void CRenderManager::RenderRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth)
 {
 	D2D1_RECT_F m_imgRect = { dstX, dstY, dstW, dstH };
 
@@ -149,7 +150,7 @@ void CRenderManager::RenderRectangle(float dstX, float dstY, float dstW, float d
 	int blue = (color >> 16) & 0xFF;
 
 	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
-	m_pRenderTarget->DrawRectangle(m_imgRect, m_pBrush);
+	m_pRenderTarget->DrawRectangle(m_imgRect, m_pBrush, strokeWidth);
 }
 
 void CRenderManager::RenderFillRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color, float alpha)
@@ -164,7 +165,7 @@ void CRenderManager::RenderFillRectangle(float dstX, float dstY, float dstW, flo
 	m_pRenderTarget->FillRectangle(m_imgRect, m_pBrush);
 }
 
-void CRenderManager::RenderEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color)
+void CRenderManager::RenderEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth)
 {
 	D2D1_ELLIPSE m_imgRect = { dstX, dstY, dstW, dstH };
 
@@ -173,7 +174,7 @@ void CRenderManager::RenderEllipse(float dstX, float dstY, float dstW, float dst
 	int blue = (color >> 16) & 0xFF;
 
 	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
-	m_pRenderTarget->DrawEllipse(m_imgRect, m_pBrush);
+	m_pRenderTarget->DrawEllipse(m_imgRect, m_pBrush, strokeWidth);
 }
 
 void CRenderManager::RenderFillEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color)
@@ -192,10 +193,11 @@ void CRenderManager::RenderLine(fPoint startPoint, fPoint endPoint, COLORREF col
 {
 	D2D1_POINT_2F start = { startPoint.x, startPoint.y };
 	D2D1_POINT_2F end = { endPoint.x, endPoint.y };
+
 	int red = color & 0xFF;
 	int green = (color >> 8) & 0xFF;
 	int blue = (color >> 16) & 0xFF;
-	
+
 	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
 	m_pRenderTarget->DrawLine(start, end, m_pBrush, strokeWidth);
 }
