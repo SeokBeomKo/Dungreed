@@ -4,8 +4,8 @@
 
 Back_Sky::Back_Sky()
 {
-	pimg = new CD2DImage;
-	pimg = CResourceManager::getInst()->LoadD2DImage(L"Back_Sky", L"texture\\background\\BackSky.png");
+    m_pImg = new CD2DImage;
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(L"Back_Sky", L"texture\\background\\BackSky.png");
 }
 
 Back_Sky::~Back_Sky()
@@ -27,7 +27,7 @@ void Back_Sky::render()
     fPoint scale = GetScale();
 
     CRenderManager::getInst()->RenderImage(
-        pimg,
+        m_pImg,
         pos.x - scale.x / 2.f,
         pos.y - scale.y / 2.f,
         pos.x + scale.x / 2.f,
@@ -37,6 +37,6 @@ void Back_Sky::render()
 
 void Back_Sky::Load(wstring strKey, wstring strPath)
 {
-    pimg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
-    SetScale(fPoint(pimg->GetWidth() * 4.f, pimg->GetHeight() * 4.f));
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
+    SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }

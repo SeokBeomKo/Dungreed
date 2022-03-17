@@ -4,8 +4,8 @@
 
 Back_Cloud01::Back_Cloud01()
 {
-	pimg = new CD2DImage;
-	pimg = CResourceManager::getInst()->LoadD2DImage(L"BackCloud01", L"texture\\background\\BackCloud01.png");
+    m_pImg = new CD2DImage;
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(L"BackCloud01", L"texture\\background\\BackCloud01.png");
 }
 
 Back_Cloud01::~Back_Cloud01()
@@ -38,7 +38,7 @@ void Back_Cloud01::render()
     fPoint scale = GetScale();
 
     CRenderManager::getInst()->RenderImage(
-        pimg,
+        m_pImg,
         pos.x - scale.x / 2.f,
         pos.y - scale.y / 2.f,
         pos.x + scale.x / 2.f,
@@ -48,6 +48,6 @@ void Back_Cloud01::render()
 
 void Back_Cloud01::Load(wstring strKey, wstring strPath)
 {
-    pimg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
-    SetScale(fPoint(pimg->GetWidth() * 4.f, pimg->GetHeight() * 4.f));
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
+    SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }

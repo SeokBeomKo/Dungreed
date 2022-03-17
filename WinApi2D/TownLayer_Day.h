@@ -1,15 +1,15 @@
 #pragma once
 #include "CGameObject.h"
-class Sky_Day :
+class TownLayer_Day :
     public CGameObject
 {
 public:
-	CD2DImage* m_pimg;
+	CD2DImage* m_pImg;
 
-	Sky_Day();
-	~Sky_Day();
+	TownLayer_Day();
+	~TownLayer_Day();
 
-	virtual Sky_Day* Clone();
+	virtual TownLayer_Day* Clone();
 	virtual void update();
 	virtual void render();
 

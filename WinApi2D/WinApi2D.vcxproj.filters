@@ -61,12 +61,6 @@
     <Filter Include="Resouce\CD2DImage">
       <UniqueIdentifier>{7be60d72-5b7b-4f9d-b116-6bc827b05510}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Start">
-      <UniqueIdentifier>{1a12c70c-bfd0-401a-acdb-3ff6892f9d52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Town">
-      <UniqueIdentifier>{5e5dc476-b54c-442b-b616-bb70c487731e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\00.CScene_Start">
       <UniqueIdentifier>{108b62eb-ee52-43dd-acf9-d791f54b26e9}</UniqueIdentifier>
     </Filter>
@@ -87,6 +81,15 @@
     </Filter>
     <Filter Include="Object\00.CScene_Start\Logo">
       <UniqueIdentifier>{60a5f7b2-f413-4823-a651-e61ebfc6b3e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\00.Start">
+      <UniqueIdentifier>{1a12c70c-bfd0-401a-acdb-3ff6892f9d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\01.Town">
+      <UniqueIdentifier>{5e5dc476-b54c-442b-b616-bb70c487731e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CScene">
+      <UniqueIdentifier>{18a78f49-3c56-4337-94b0-7ac14790f1cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +123,6 @@
     <ClInclude Include="CKeyManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
@@ -152,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="CEventManager.h">
       <Filter>Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CScene_Tool.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="CAnimator.h">
       <Filter>Engine\Component\Animator</Filter>
@@ -217,15 +214,27 @@
       <Filter>Object\00.CScene_Start\UI</Filter>
     </ClInclude>
     <ClInclude Include="CScene_Start.h">
-      <Filter>Scene\Start</Filter>
+      <Filter>Scene\00.Start</Filter>
     </ClInclude>
     <ClInclude Include="CScene_Town.h">
-      <Filter>Scene\Town</Filter>
+      <Filter>Scene\01.Town</Filter>
     </ClInclude>
     <ClInclude Include="Back_Sky.h">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="Sky_Day.h">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene_Tool.h">
+      <Filter>Scene\CScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Scene\CScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TownBG_Day.h">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="TownLayer_Day.h">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
@@ -244,9 +253,6 @@
     </ClCompile>
     <ClCompile Include="CKeyManager.cpp">
       <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Engine\Manager</Filter>
@@ -274,9 +280,6 @@
     </ClCompile>
     <ClCompile Include="CEventManager.cpp">
       <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene_Tool.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Engine\Component\Animator</Filter>
@@ -339,15 +342,27 @@
       <Filter>Object\00.CScene_Start\UI</Filter>
     </ClCompile>
     <ClCompile Include="CScene_Start.cpp">
-      <Filter>Scene\Start</Filter>
+      <Filter>Scene\00.Start</Filter>
     </ClCompile>
     <ClCompile Include="CScene_Town.cpp">
-      <Filter>Scene\Town</Filter>
+      <Filter>Scene\01.Town</Filter>
     </ClCompile>
     <ClCompile Include="Back_Sky.cpp">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="Sky_Day.cpp">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene_Tool.cpp">
+      <Filter>Scene\CScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Scene\CScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TownBG_Day.cpp">
+      <Filter>Object\01.CScene_Town\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="TownLayer_Day.cpp">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClCompile>
   </ItemGroup>

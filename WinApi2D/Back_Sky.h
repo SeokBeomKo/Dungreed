@@ -5,7 +5,7 @@ class Back_Sky :
     public CGameObject
 {
 public:
-	CD2DImage* pimg;
+	CD2DImage* m_pImg;
 
 	Back_Sky();
 	~Back_Sky();

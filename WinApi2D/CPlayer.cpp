@@ -27,6 +27,8 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PlayerIdleleft",		m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
 	GetAnimator()->CreateAnimation(L"PlayerRunright",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
 	GetAnimator()->CreateAnimation(L"PlayerRunleft",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
+	GetAnimator()->CreateAnimation(L"PlayerJumpright",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
+	GetAnimator()->CreateAnimation(L"PlayerJumpleft",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
 
 	//CAnimation* pAni;
 	//pAni = GetAnimator()->FindAnimation(L"LeftMove");
@@ -51,16 +53,15 @@ void CPlayer::update()
 	fPoint realpos = pos;
 	realpos = CCameraManager::getInst()->GetRenderPos(realpos);
 
-	if (Key('A'))
+	if (Key(VK_SPACE) || Key('W'))
 	{
-		pos.x -= m_fVelocity * fDT;
 		if (MousePos().x <= realpos.x)
 		{
-			GetAnimator()->Play(L"PlayerRunleft");
+			GetAnimator()->Play(L"PlayerJumpleft");
 		}
 		else
 		{
-			GetAnimator()->Play(L"PlayerRunright");
+			GetAnimator()->Play(L"PlayerJumpright");
 		}
 	}
 	else if (Key('D'))
@@ -75,7 +76,19 @@ void CPlayer::update()
 			GetAnimator()->Play(L"PlayerRunright");
 		}
 	}
-
+	else if (Key('A'))
+	{
+	pos.x -= m_fVelocity * fDT;
+	if (MousePos().x <= realpos.x)
+	{
+		GetAnimator()->Play(L"PlayerRunleft");
+	}
+	else
+	{
+		GetAnimator()->Play(L"PlayerRunright");
+	}
+	}
+	
 	else
 	{
 		if (MousePos().x <= realpos.x)
@@ -88,10 +101,7 @@ void CPlayer::update()
 		}
 	}
 
-	if (Key(VK_SPACE) || Key('W'))
-	{
-		// TODO : มกวม
-	}
+	
 
 	SetPos(pos);
 

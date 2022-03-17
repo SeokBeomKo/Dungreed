@@ -10,7 +10,7 @@ private:
 	float m_fVelocity = 80.f;
 
 public:
-	CD2DImage* pimg;
+	CD2DImage* m_pImg;
 
 	Back_Cloud01();
 	~Back_Cloud01();
