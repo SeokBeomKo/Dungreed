@@ -8,8 +8,9 @@
 #include "CTile.h"
 #include "CD2DImage.h"
 
-#define GR_POWER 1600
+#define GR_POWER 2000
 #define GR_TIME 1000
+#define DS_SEC	0.15
 
 CPlayer::CPlayer()
 {
@@ -62,28 +63,66 @@ void CPlayer::MoveUpdate()
 	fPoint pos = GetPos();
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
+	if (KeyDown(VK_RBUTTON))
+	{
+		IsDash = true;
+		IsDashOff = false;
+		IsJump = false;
 
+		mousePos = MousePos();
+		playerPos = realpos;
+		dashdir.x = mousePos.x - playerPos.x;
+		dashdir.y = mousePos.y - playerPos.y;
+
+		m_fTime = GR_TIME;
+		m_fTimex = GR_TIME;
+	}
+	
 	if (KeyDown(VK_SPACE) || KeyDown('W'))
 	{
-		IsJump = true;
-		m_fTime = GR_TIME;
-		m_fGravity = GR_POWER;
+		if (!(m_jumpCount == 0))
+		{
+			--m_jumpCount;
+			IsJump = true;
+			m_fTime = GR_TIME;
+		}
 	}
-	if (IsJump)
+	if (IsDash)
+	{
+		m_dashDis += fDT;
+		if (IsDashOff)
+		{
+			IsDash = false;
+			m_dashDis = 0.f;
+			m_fTime = 0.f;
+		}
+		m_fTime -= m_fGravity * fDT;
+		
+		pos.x += m_fTimex * dashdir.normalize().x * fDT;
+		pos.y += m_fTime * dashdir.normalize().y * fDT;
+		
+	}
+	else if (IsJump)
 	{
 		m_fTime -= m_fGravity * fDT;
 		pos.y -= m_fTime * fDT;
 		if (m_fTime <= 0.f)
 		{
 			IsJump = false;
+			m_fTime = 0.f;
 		}
 	}
 	else if (GR)
 	{
 		m_fGravity = GR_POWER;
 		m_fTime += m_fGravity * fDT;
+		if (m_fTime > 1600.f)
+		{
+			m_fTime = 1600.f;
+		}
 		pos.y += m_fTime * fDT;
 	}
+
 	if (Key('D'))
 	{
 		pos.x += m_fVelocity * fDT;
@@ -175,6 +214,8 @@ void CPlayer::render()
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
+	m_jumpCount = 2;
+	IsDashOff = true;
 }
 
 void CPlayer::OnCollision(CCollider* pOther)
