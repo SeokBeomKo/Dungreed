@@ -5,7 +5,9 @@
 #include "CTexture.h"
 #include "CCollider.h"
 #include "CAnimator.h"
+#include "CTile.h"
 #include "CD2DImage.h"
+
 
 CPlayer::CPlayer()
 {
@@ -133,7 +135,7 @@ void CPlayer::render()
 void CPlayer::OnCollision(CCollider* pOther)
 {
 	CGameObject* pOtherObj = pOther->GetObj();
-	if (pOtherObj->GetName() == L"")
+	if (pOtherObj->GetName() == L"GROUND")
 	{
 		GR = false;
 	}

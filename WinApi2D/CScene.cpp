@@ -153,11 +153,19 @@ void CScene::LoadTile(const wstring& strPath)
         {
             // TODO : OBB 충돌체 추가
         }
-        else if (GROUP_TILE::NONE != newTile->GetGroup())
+        else if (GROUP_TILE::GROUND == newTile->GetGroup())
         {
             newTile->CreateCollider();
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"GROUND");
+        }
+        else if (GROUP_TILE::WALL == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"WALL");
         }
 
         AddObject(newTile, GROUP_GAMEOBJ::TILE);
