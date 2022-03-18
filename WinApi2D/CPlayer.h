@@ -16,6 +16,10 @@ private:
 
 	float m_fVelocity = 300;
 
+	float m_fSpeed = 0;
+	bool IsJump = false;
+	bool Isright = true;
+
 	bool GR = true;
 
 	void CreateMissile();
@@ -26,6 +30,10 @@ public:
 	virtual CPlayer* Clone();
 
 	virtual void update();
+
+	void MoveUpdate();
+	void AniUpdate();
+	
 	virtual void render();
 	virtual void OnCollision(CCollider* pOther);
 	

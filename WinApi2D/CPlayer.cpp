@@ -51,6 +51,12 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::update()
 {
+	MoveUpdate();
+	AniUpdate();
+}
+
+void CPlayer::MoveUpdate()
+{
 	fPoint pos = GetPos();
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
@@ -61,66 +67,88 @@ void CPlayer::update()
 		m_fTime += fDT * 20;
 	}
 
-	if (Key(VK_SPACE) || Key('W'))
-	{
-		if (MousePos().x <= realpos.x)
-		{
-			GetAnimator()->Play(L"PlayerJumpleft");
-		}
-		else
-		{
-			GetAnimator()->Play(L"PlayerJumpright");
-		}
-		pos.y -= 500 * fDT;
-	}
-	else if (Key('D'))
+	//if (Key(VK_SPACE) || Key('W'))
+	//{
+	//	if (MousePos().x <= realpos.x)
+	//	{
+	//		GetAnimator()->Play(L"PlayerJumpleft");
+	//	}
+	//	else
+	//	{
+	//		GetAnimator()->Play(L"PlayerJumpright");
+	//	}
+	//	pos.y -= 500 * fDT;
+	//}
+	if (Key('D'))
 	{
 		pos.x += m_fVelocity * fDT;
+		m_fSpeed = m_fVelocity;
 		if (MousePos().x <= realpos.x)
 		{
-			GetAnimator()->Play(L"PlayerRunleft");
+			Isright = false;
 		}
 		else
 		{
-			GetAnimator()->Play(L"PlayerRunright");
+			Isright = true;
 		}
 	}
 	else if (Key('A'))
 	{
-	pos.x -= m_fVelocity * fDT;
-	if (MousePos().x <= realpos.x)
-	{
-		GetAnimator()->Play(L"PlayerRunleft");
-	}
-	else
-	{
-		GetAnimator()->Play(L"PlayerRunright");
-	}
+		pos.x -= m_fVelocity * fDT;
+		m_fSpeed = m_fVelocity;
+		if (MousePos().x <= realpos.x)
+		{
+			Isright = false;
+		}
+		else
+		{
+			Isright = true;
+		}
 	}
 	else if (Key('S'))
 	{
 		pos.y += m_fVelocity * fDT;
 	}
-	
+
 	else
 	{
 		if (MousePos().x <= realpos.x)
 		{
-			GetAnimator()->Play(L"PlayerIdleleft");
+			Isright = false;
+		}
+		else
+		{
+			Isright = true;
+		}
+		m_fSpeed = 0;
+	}
+
+	SetPos(pos);
+}
+
+void CPlayer::AniUpdate()
+{
+	if (Isright)
+	{
+		if (m_fSpeed > 0)
+		{
+			GetAnimator()->Play(L"PlayerRunright");
 		}
 		else
 		{
 			GetAnimator()->Play(L"PlayerIdleright");
 		}
 	}
-
-	SetPos(pos);
-
-
-	if (KeyDown('B'))
+	else
 	{
-		CreateMissile();
-		GetAnimator()->Play(L"PlayerIdleright");
+		if (m_fSpeed > 0)
+		{
+			GetAnimator()->Play(L"PlayerRunleft");
+		}
+		else
+		{
+			GetAnimator()->Play(L"PlayerIdleleft");
+		}
 	}
 
 	GetAnimator()->update();
