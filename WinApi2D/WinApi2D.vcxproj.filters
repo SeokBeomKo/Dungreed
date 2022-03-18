@@ -100,9 +100,6 @@
     <Filter Include="Engine\Manager\EventMng">
       <UniqueIdentifier>{b902bcf0-b2b3-410b-bc20-c8ada7140a84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\a">
-      <UniqueIdentifier>{aad43e04-57f8-4193-8b0e-59b9e73f3520}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Manager\KeyMng">
       <UniqueIdentifier>{6747b354-c0c0-4fc3-a8b0-0b9850579882}</UniqueIdentifier>
     </Filter>

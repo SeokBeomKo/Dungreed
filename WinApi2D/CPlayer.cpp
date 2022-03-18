@@ -8,6 +8,8 @@
 #include "CTile.h"
 #include "CD2DImage.h"
 
+#define GR_POWER 1600
+#define GR_TIME 1000
 
 CPlayer::CPlayer()
 {
@@ -61,24 +63,27 @@ void CPlayer::MoveUpdate()
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
 
-	if (GR == true)
+	if (KeyDown(VK_SPACE) || KeyDown('W'))
 	{
-		pos.y = (0.9f * 0.5f * m_fTime * m_fTime) + (-20.f * m_fTime) + WINSIZEY / 2;
-		m_fTime += fDT * 20;
+		IsJump = true;
+		m_fTime = GR_TIME;
+		m_fGravity = GR_POWER;
 	}
-
-	//if (Key(VK_SPACE) || Key('W'))
-	//{
-	//	if (MousePos().x <= realpos.x)
-	//	{
-	//		GetAnimator()->Play(L"PlayerJumpleft");
-	//	}
-	//	else
-	//	{
-	//		GetAnimator()->Play(L"PlayerJumpright");
-	//	}
-	//	pos.y -= 500 * fDT;
-	//}
+	if (IsJump)
+	{
+		m_fTime -= m_fGravity * fDT;
+		pos.y -= m_fTime * fDT;
+		if (m_fTime <= 0.f)
+		{
+			IsJump = false;
+		}
+	}
+	else if (GR)
+	{
+		m_fGravity = GR_POWER;
+		m_fTime += m_fGravity * fDT;
+		pos.y += m_fTime * fDT;
+	}
 	if (Key('D'))
 	{
 		pos.x += m_fVelocity * fDT;
@@ -109,7 +114,6 @@ void CPlayer::MoveUpdate()
 	{
 		pos.y += m_fVelocity * fDT;
 	}
-
 	else
 	{
 		if (MousePos().x <= realpos.x)
@@ -128,9 +132,14 @@ void CPlayer::MoveUpdate()
 
 void CPlayer::AniUpdate()
 {
+
 	if (Isright)
 	{
-		if (m_fSpeed > 0)
+		if (GR)
+		{
+			GetAnimator()->Play(L"PlayerJumpright");
+		}
+		else if (m_fSpeed > 0)
 		{
 			GetAnimator()->Play(L"PlayerRunright");
 		}
@@ -141,7 +150,11 @@ void CPlayer::AniUpdate()
 	}
 	else
 	{
-		if (m_fSpeed > 0)
+		if (GR)
+		{
+			GetAnimator()->Play(L"PlayerJumpleft");
+		}
+		else if (m_fSpeed > 0)
 		{
 			GetAnimator()->Play(L"PlayerRunleft");
 		}
@@ -160,12 +173,30 @@ void CPlayer::render()
 	component_render();
 }
 
+void CPlayer::OnCollisionEnter(CCollider* pOther)
+{
+}
+
 void CPlayer::OnCollision(CCollider* pOther)
 {
-	CGameObject* pOtherObj = pOther->GetObj();
-	if (pOtherObj->GetName() == L"GROUND")
+	if (pOther->GetObj()->GetName() == L"GROUND")
 	{
+		fPoint pos = GetPos();
+		int a = abs((int)(GetCollider()->GetFinalPos().y - pOther->GetFinalPos().y));
+		int b = (int)(GetCollider()->GetScale().y / 2.f + pOther->GetScale().y / 2.f);
+		int sum = abs(a - b);
+		if (1 < sum)
+			--pos.y;
 		GR = false;
+		SetPos(pos);
+	}
+}
+
+void CPlayer::OnCollisionExit(CCollider* pOther)
+{
+	if (pOther->GetObj()->GetName() == L"GROUND")
+	{
+		GR = true;
 	}
 }
 

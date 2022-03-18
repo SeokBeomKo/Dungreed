@@ -12,11 +12,15 @@ private:
 	CD2DImage* m_pImg3;
 	CD2DImage* m_pImg4;
 
-	float m_fTime = 0.f;
+	float m_fTime;
+	float m_fGravity;
 
 	float m_fVelocity = 300;
 
 	float m_fSpeed = 0;
+
+	float jump = 100.f;
+
 	bool IsJump = false;
 	bool Isright = true;
 
@@ -35,7 +39,9 @@ public:
 	void AniUpdate();
 	
 	virtual void render();
+	virtual void OnCollisionEnter(CCollider* pOther);
 	virtual void OnCollision(CCollider* pOther);
+	virtual void OnCollisionExit(CCollider* pOther);
 	
 
 	void Load(wstring strKey, wstring strPath);
