@@ -20,7 +20,7 @@ private:
 
 	// 플레이어 대쉬
 	bool IsDash = false;
-	bool IsDashOff = true;
+	bool IsDashLow = false;
 	float m_dashDis = 0.f;
 	fVec2 mousePos;
 	fPoint playerPos;

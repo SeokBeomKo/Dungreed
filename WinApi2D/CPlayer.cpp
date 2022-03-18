@@ -66,7 +66,6 @@ void CPlayer::MoveUpdate()
 	if (KeyDown(VK_RBUTTON))
 	{
 		IsDash = true;
-		IsDashOff = false;
 		IsJump = false;
 
 		mousePos = MousePos();
@@ -74,8 +73,13 @@ void CPlayer::MoveUpdate()
 		dashdir.x = mousePos.x - playerPos.x;
 		dashdir.y = mousePos.y - playerPos.y;
 
-		m_fTime = GR_TIME;
-		m_fTimex = GR_TIME;
+		if (mousePos.y > playerPos.y)
+		{
+			IsDashLow = true;
+		}
+
+		m_fTime = GR_TIME * 3;
+		m_fTimex = GR_TIME * 2;
 	}
 	
 	if (KeyDown(VK_SPACE) || KeyDown('W'))
@@ -90,17 +94,52 @@ void CPlayer::MoveUpdate()
 	if (IsDash)
 	{
 		m_dashDis += fDT;
-		if (IsDashOff)
+		if (IsDashLow)
 		{
-			IsDash = false;
-			m_dashDis = 0.f;
-			m_fTime = 0.f;
+			if (m_fTimex < 50.f)
+			{
+				IsDash = false;
+				IsDashLow = false;
+				m_dashDis = 0.f;
+				m_fTimex = 0.f;
+				m_fTime = 500.f;
+			}
 		}
-		m_fTime -= m_fGravity * fDT;
+		else
+		{
+			if (m_fTimex < 50.f && m_fTime < 50.f)
+			{
+				IsDash = false;
+				IsDashLow = false;
+				m_dashDis = 0.f;
+				m_fTimex = 0.f;
+				m_fTime = 100.f;
+			}
+		}
+
+
+		if (!IsDashLow)
+		{
+			if (m_fTime > 0)
+			{
+				m_fTime -= 9000 * fDT;
+			}
+		}
+		else
+		{
+			if (m_fTime > 0)
+			{
+				m_fTime -= 3000 * fDT;
+			}
+		}
+		if (m_fTimex > 0)
+		{
+			m_fTimex -= 6000 * fDT;
+		}
 		
+
 		pos.x += m_fTimex * dashdir.normalize().x * fDT;
 		pos.y += m_fTime * dashdir.normalize().y * fDT;
-		
 	}
 	else if (IsJump)
 	{
@@ -215,7 +254,6 @@ void CPlayer::render()
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
 	m_jumpCount = 2;
-	IsDashOff = true;
 }
 
 void CPlayer::OnCollision(CCollider* pOther)
