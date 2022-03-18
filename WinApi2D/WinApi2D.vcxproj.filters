@@ -91,6 +91,42 @@
     <Filter Include="Scene\CScene">
       <UniqueIdentifier>{18a78f49-3c56-4337-94b0-7ac14790f1cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\CamMng">
+      <UniqueIdentifier>{ad9b321e-4426-4148-8ff2-153e95c260e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\ColliMng">
+      <UniqueIdentifier>{55b66b75-38c0-42ac-8c0d-bc8cb4641c9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\EventMng">
+      <UniqueIdentifier>{b902bcf0-b2b3-410b-bc20-c8ada7140a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\a">
+      <UniqueIdentifier>{aad43e04-57f8-4193-8b0e-59b9e73f3520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\KeyMng">
+      <UniqueIdentifier>{6747b354-c0c0-4fc3-a8b0-0b9850579882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\PathMng">
+      <UniqueIdentifier>{bb7b7f83-447c-4bb9-bcce-0348c6f00a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\RenderMng">
+      <UniqueIdentifier>{f83db78e-b33a-4c92-95c3-14260b1b7e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\ResourMng">
+      <UniqueIdentifier>{50c3056e-1104-4f55-be27-ac4809fb7d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\SceneMng">
+      <UniqueIdentifier>{2e4c7ac7-84d5-438d-aaf1-39b4b8a7e24e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\SoundMng">
+      <UniqueIdentifier>{ce468e21-193b-4eee-88d4-f561029a2e2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\TimeMng">
+      <UniqueIdentifier>{d774b28e-ecde-483e-8b65-dc7f11fb9f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\UIMng">
+      <UniqueIdentifier>{d0c195a4-574a-41da-a625-032fa8cad334}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,15 +153,6 @@
     <ClInclude Include="struct.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="CTimeManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CKeyManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CResource.h">
       <Filter>Resouce</Filter>
     </ClInclude>
@@ -135,32 +162,17 @@
     <ClInclude Include="CSound.h">
       <Filter>Resouce\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="CPathManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="CResourceManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CCollider.h">
       <Filter>Engine\Component\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="CCollisionManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CEventManager.h">
-      <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CAnimator.h">
       <Filter>Engine\Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="CAnimation.h">
       <Filter>Engine\Component\Animator\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="CCameraManager.h">
-      <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>Object\Tile</Filter>
@@ -177,23 +189,14 @@
     <ClInclude Include="CPlayer.h">
       <Filter>Object\Character</Filter>
     </ClInclude>
-    <ClInclude Include="CUIManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CPanelUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="CButtonUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CSoundManager.h">
-      <Filter>Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CD2DImage.h">
       <Filter>Resouce\CD2DImage</Filter>
-    </ClInclude>
-    <ClInclude Include="CRenderManager.h">
-      <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Back_Cloud00.h">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
@@ -240,6 +243,39 @@
     <ClInclude Include="CTileButton.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CCameraManager.h">
+      <Filter>Engine\Manager\CamMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>Engine\Manager\ColliMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventManager.h">
+      <Filter>Engine\Manager\EventMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyManager.h">
+      <Filter>Engine\Manager\KeyMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathManager.h">
+      <Filter>Engine\Manager\PathMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderManager.h">
+      <Filter>Engine\Manager\RenderMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceManager.h">
+      <Filter>Engine\Manager\ResourMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>Engine\Manager\SceneMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundManager.h">
+      <Filter>Engine\Manager\SoundMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeManager.h">
+      <Filter>Engine\Manager\TimeMng</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIManager.h">
+      <Filter>Engine\Manager\UIMng</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -251,15 +287,6 @@
     <ClCompile Include="CGameObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="CTimeManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CKeyManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CResource.cpp">
       <Filter>Resouce</Filter>
     </ClCompile>
@@ -269,29 +296,14 @@
     <ClCompile Include="CSound.cpp">
       <Filter>Resouce\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="CPathManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CResourceManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\Component\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="CCollisionManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CEventManager.cpp">
-      <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Engine\Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>Engine\Component\Animator\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="CCameraManager.cpp">
-      <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>Object\Tile</Filter>
@@ -308,23 +320,14 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>Object\Character</Filter>
     </ClCompile>
-    <ClCompile Include="CUIManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CPanelUI.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="CButtonUI.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CSoundManager.cpp">
-      <Filter>Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CD2DImage.cpp">
       <Filter>Resouce\CD2DImage</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderManager.cpp">
-      <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Back_Cloud00.cpp">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
@@ -370,6 +373,39 @@
     </ClCompile>
     <ClCompile Include="CTileButton.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraManager.cpp">
+      <Filter>Engine\Manager\CamMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>Engine\Manager\ColliMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventManager.cpp">
+      <Filter>Engine\Manager\EventMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyManager.cpp">
+      <Filter>Engine\Manager\KeyMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathManager.cpp">
+      <Filter>Engine\Manager\PathMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderManager.cpp">
+      <Filter>Engine\Manager\RenderMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
+      <Filter>Engine\Manager\ResourMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>Engine\Manager\SceneMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundManager.cpp">
+      <Filter>Engine\Manager\SoundMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>Engine\Manager\TimeMng</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIManager.cpp">
+      <Filter>Engine\Manager\UIMng</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -36,6 +36,10 @@ void CScene_Town::Enter()
 	// TODO : 브금 해결
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
 
+	wstring path = CPathManager::getInst()->GetContentPath();
+	path += L"tile\\test.tile";
+	LoadTile(path);
+
 	// Player 추가
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
@@ -53,6 +57,7 @@ void CScene_Town::Enter()
 	townLayer_day->Load(L"TownLayer_Day", L"texture\\background\\TownLayer_Day.png");
 	AddObject(townLayer_day, GROUP_GAMEOBJ::BACKGROUND);
 	
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 
 	// Camera Look 지정
 	//CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());

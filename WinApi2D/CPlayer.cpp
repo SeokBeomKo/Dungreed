@@ -35,6 +35,8 @@ CPlayer::CPlayer()
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 	//pAni = GetAnimator()->FindAnimation(L"RightMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
+
+	
 }
 
 CPlayer::~CPlayer()
@@ -52,6 +54,10 @@ void CPlayer::update()
 	fPoint pos = GetPos();
 	fPoint realpos = pos;
 	realpos = CCameraManager::getInst()->GetRenderPos(realpos);
+
+	pos.y = (0.98f * 0.5f * m_fTime * m_fTime) + (-20.f * m_fTime) + WINSIZEY/2;
+	m_fTime += fDT * 20;
+	
 
 	if (Key(VK_SPACE) || Key('W'))
 	{
@@ -87,6 +93,10 @@ void CPlayer::update()
 	{
 		GetAnimator()->Play(L"PlayerRunright");
 	}
+	}
+	else if (Key('S'))
+	{
+		pos.y += m_fVelocity * fDT;
 	}
 	
 	else

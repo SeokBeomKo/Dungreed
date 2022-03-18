@@ -12,6 +12,8 @@ private:
 	CD2DImage* m_pImg3;
 	CD2DImage* m_pImg4;
 
+	float m_fTime = 0.f;
+
 	float m_fVelocity = 300;
 
 	void CreateMissile();
