@@ -19,7 +19,7 @@ CPlayer::CPlayer()
 
 
 	CreateCollider();
-	GetCollider()->SetScale(fPoint(32.f, 32.f));
+	GetCollider()->SetScale(fPoint(32.f, 64.f));
 	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
 
 	CreateAnimator();
@@ -35,8 +35,6 @@ CPlayer::CPlayer()
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 	//pAni = GetAnimator()->FindAnimation(L"RightMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
-
-	
 }
 
 CPlayer::~CPlayer()
@@ -52,12 +50,14 @@ CPlayer* CPlayer::Clone()
 void CPlayer::update()
 {
 	fPoint pos = GetPos();
-	fPoint realpos = pos;
-	realpos = CCameraManager::getInst()->GetRenderPos(realpos);
+	fPoint realpos;
+	realpos = CCameraManager::getInst()->GetRenderPos(pos);
 
-	pos.y = (0.98f * 0.5f * m_fTime * m_fTime) + (-20.f * m_fTime) + WINSIZEY/2;
-	m_fTime += fDT * 20;
-	
+	if (GR == true)
+	{
+		pos.y = (0.9f * 0.5f * m_fTime * m_fTime) + (-20.f * m_fTime) + WINSIZEY / 2;
+		m_fTime += fDT * 20;
+	}
 
 	if (Key(VK_SPACE) || Key('W'))
 	{
@@ -69,6 +69,7 @@ void CPlayer::update()
 		{
 			GetAnimator()->Play(L"PlayerJumpright");
 		}
+		pos.y -= 500 * fDT;
 	}
 	else if (Key('D'))
 	{
@@ -111,8 +112,6 @@ void CPlayer::update()
 		}
 	}
 
-	
-
 	SetPos(pos);
 
 
@@ -129,6 +128,15 @@ void CPlayer::render()
 {
 
 	component_render();
+}
+
+void CPlayer::OnCollision(CCollider* pOther)
+{
+	CGameObject* pOtherObj = pOther->GetObj();
+	if (pOtherObj->GetName() == L"")
+	{
+		GR = false;
+	}
 }
 
 void CPlayer::CreateMissile()

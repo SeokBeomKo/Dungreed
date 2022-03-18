@@ -16,6 +16,8 @@ private:
 
 	float m_fVelocity = 300;
 
+	bool GR = true;
+
 	void CreateMissile();
 
 public:
@@ -25,6 +27,8 @@ public:
 
 	virtual void update();
 	virtual void render();
+	virtual void OnCollision(CCollider* pOther);
+	
 
 	void Load(wstring strKey, wstring strPath);
 };
