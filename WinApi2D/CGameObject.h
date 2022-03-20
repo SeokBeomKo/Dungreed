@@ -12,6 +12,9 @@ private:
 	fPoint m_fptPos;
 	fPoint m_fptScale;
 
+	GROUP_GAMEOBJ m_Group;
+	GROUP_TILE m_TileGroup;
+
 	// Component
 	CCollider* m_pCollider;
 	CAnimator* m_pAnimator;
@@ -23,15 +26,19 @@ public:
 	CGameObject();
 	CGameObject(const CGameObject& other);
 	virtual ~CGameObject();
-	virtual CGameObject* Clone() = 0;
+	virtual CGameObject* Clone() { return nullptr; };
 
 	void SetPos(fPoint pos);
 	void SetScale(fPoint scale);
 	void SetName(wstring name);
+	void SetObjGroup(GROUP_GAMEOBJ group);
+	void SetTileGroup(GROUP_TILE group);
 
 	fPoint GetPos();
 	fPoint GetScale();
 	wstring GetName();
+	GROUP_GAMEOBJ GetObjGroup();
+	GROUP_TILE GetTileGroup();
 
 	bool isDead();
 

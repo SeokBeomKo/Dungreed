@@ -6,7 +6,7 @@
 class CD2DImage : public CResource
 {
 	ID2D1Bitmap* m_pBitmap;
-
+	
 public:
 	CD2DImage();
 	~CD2DImage();

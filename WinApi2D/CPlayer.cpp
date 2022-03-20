@@ -7,6 +7,7 @@
 #include "CAnimator.h"
 #include "CTile.h"
 #include "CD2DImage.h"
+#include "CEquip.h"
 
 #define GR_POWER 2000
 #define GR_TIME 1000
@@ -21,7 +22,7 @@ CPlayer::CPlayer()
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f *4, 32.f*4));
-
+	SetObjGroup(GROUP_GAMEOBJ::PLAYER);
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 64.f));
@@ -34,7 +35,7 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PlayerRunleft",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
 	GetAnimator()->CreateAnimation(L"PlayerJumpright",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
 	GetAnimator()->CreateAnimation(L"PlayerJumpleft",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
-
+	
 	//CAnimation* pAni;
 	//pAni = GetAnimator()->FindAnimation(L"LeftMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
@@ -63,6 +64,21 @@ void CPlayer::MoveUpdate()
 	fPoint pos = GetPos();
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
+
+	if (MousePos().x <= realpos.x)
+	{
+		Isright = false;
+	}
+	else
+	{
+		Isright = true;
+	}
+
+	if (KeyDown(VK_LBUTTON))
+	{
+		// АјАн
+	}
+
 	if (KeyDown(VK_RBUTTON))
 	{
 		IsDash = true;
@@ -77,6 +93,7 @@ void CPlayer::MoveUpdate()
 		{
 			IsDashLow = true;
 		}
+
 
 		m_fTime = GR_TIME * 3;
 		m_fTimex = GR_TIME * 2;
@@ -94,18 +111,8 @@ void CPlayer::MoveUpdate()
 	if (IsDash)
 	{
 		m_dashDis += fDT;
-		if (IsDashLow)
-		{
-			if (m_fTimex < 50.f)
-			{
-				IsDash = false;
-				IsDashLow = false;
-				m_dashDis = 0.f;
-				m_fTimex = 0.f;
-				m_fTime = 500.f;
-			}
-		}
-		else
+	
+		if (!IsDashLow)
 		{
 			if (m_fTimex < 50.f && m_fTime < 50.f)
 			{
@@ -115,19 +122,22 @@ void CPlayer::MoveUpdate()
 				m_fTimex = 0.f;
 				m_fTime = 100.f;
 			}
-		}
-
-
-		if (!IsDashLow)
-		{
-			if (m_fTime > 0)
+			else
 			{
 				m_fTime -= 9000 * fDT;
 			}
 		}
 		else
 		{
-			if (m_fTime > 0)
+			if (m_fTimex < 50.f)
+			{
+				IsDash = false;
+				IsDashLow = false;
+				m_dashDis = 0.f;
+				m_fTimex = 0.f;
+				m_fTime = 500.f;
+			}
+			else
 			{
 				m_fTime -= 3000 * fDT;
 			}
@@ -136,7 +146,6 @@ void CPlayer::MoveUpdate()
 		{
 			m_fTimex -= 6000 * fDT;
 		}
-		
 
 		pos.x += m_fTimex * dashdir.normalize().x * fDT;
 		pos.y += m_fTime * dashdir.normalize().y * fDT;
@@ -166,27 +175,11 @@ void CPlayer::MoveUpdate()
 	{
 		pos.x += m_fVelocity * fDT;
 		m_fSpeed = m_fVelocity;
-		if (MousePos().x <= realpos.x)
-		{
-			Isright = false;
-		}
-		else
-		{
-			Isright = true;
-		}
 	}
 	else if (Key('A'))
 	{
 		pos.x -= m_fVelocity * fDT;
 		m_fSpeed = m_fVelocity;
-		if (MousePos().x <= realpos.x)
-		{
-			Isright = false;
-		}
-		else
-		{
-			Isright = true;
-		}
 	}
 	else if (Key('S'))
 	{
@@ -194,14 +187,6 @@ void CPlayer::MoveUpdate()
 	}
 	else
 	{
-		if (MousePos().x <= realpos.x)
-		{
-			Isright = false;
-		}
-		else
-		{
-			Isright = true;
-		}
 		m_fSpeed = 0;
 	}
 
@@ -210,7 +195,6 @@ void CPlayer::MoveUpdate()
 
 void CPlayer::AniUpdate()
 {
-
 	if (Isright)
 	{
 		if (GR)
@@ -247,18 +231,21 @@ void CPlayer::AniUpdate()
 
 void CPlayer::render()
 {
-
 	component_render();
 }
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
 	m_jumpCount = 2;
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)
+	{
+		Equip();
+	}
 }
 
 void CPlayer::OnCollision(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetName() == L"GROUND")
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
 		fPoint pos = GetPos();
 		int a = abs((int)(GetCollider()->GetFinalPos().y - pOther->GetFinalPos().y));
@@ -297,3 +284,14 @@ void CPlayer::Load(wstring strKey, wstring strPath)
 	m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
 	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }
+
+void CPlayer::Equip()
+{
+	CEquip* pEquip = new CEquip;
+	pEquip->SetOwner(this);
+	pEquip->SetPos(this->GetPos()+fPoint(50.f, 0));
+
+	CreateObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+}
+
+

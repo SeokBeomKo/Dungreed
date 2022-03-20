@@ -124,6 +124,21 @@
     <Filter Include="Engine\Manager\UIMng">
       <UniqueIdentifier>{d0c195a4-574a-41da-a625-032fa8cad334}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Monster">
+      <UniqueIdentifier>{1880e04b-49a1-42e5-bbf1-762d6b8fe38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item">
+      <UniqueIdentifier>{0e73cee2-4663-48b1-8ace-dab16b0b42c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Weapon">
+      <UniqueIdentifier>{48bb1ceb-dced-43da-8dc9-91308cb31064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Acc">
+      <UniqueIdentifier>{31d75d0c-d2bc-4525-9785-8d9de0b48376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Coin">
+      <UniqueIdentifier>{265a5eb8-5df5-4027-a42a-c12b9994f930}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -176,12 +191,6 @@
     </ClInclude>
     <ClInclude Include="CUI.h">
       <Filter>Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>Object\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>Object\Character</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>Object\Character</Filter>
@@ -273,6 +282,21 @@
     <ClInclude Include="CUIManager.h">
       <Filter>Engine\Manager\UIMng</Filter>
     </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CWeapon.h">
+      <Filter>Object\Item\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CEquip.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -307,12 +331,6 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>Object\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Object\Character</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>Object\Character</Filter>
@@ -404,6 +422,21 @@
     <ClCompile Include="CUIManager.cpp">
       <Filter>Engine\Manager\UIMng</Filter>
     </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CWeapon.cpp">
+      <Filter>Object\Item\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CEquip.cpp">
+      <Filter>Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>Object\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WinApi2D.rc">
@@ -421,5 +454,6 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

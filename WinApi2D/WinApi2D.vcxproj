@@ -161,9 +161,11 @@
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CD2DImage.h" />
+    <ClInclude Include="CEquip.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CExitUI.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="Back_Cloud00.h" />
     <ClInclude Include="MainLogo.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="CWeapon.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
@@ -212,9 +215,11 @@
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CD2DImage.cpp" />
+    <ClCompile Include="CEquip.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CExitUI.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
@@ -241,6 +246,7 @@
     <ClCompile Include="CUIManager.cpp" />
     <ClCompile Include="Back_Cloud00.cpp" />
     <ClCompile Include="MainLogo.cpp" />
+    <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="Sky_Day.cpp" />
     <ClCompile Include="TownBG_Day.cpp" />
     <ClCompile Include="TownLayer_Day.cpp" />
@@ -255,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

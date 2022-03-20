@@ -12,6 +12,8 @@
 #include "CSound.h"
 #include "CD2DImage.h"
 
+#include "Cweapon.h"
+
 CScene_Town::CScene_Town()
 {
 }
@@ -44,9 +46,11 @@ void CScene_Town::Enter()
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+
+	CWeapon* pWeapon = new CWeapon;
+	AddObject(pWeapon, GROUP_GAMEOBJ::PAYER_WEAPON);
 	
 	Sky_Day* skyday = new Sky_Day;
-	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
 	AddObject(skyday, GROUP_GAMEOBJ::BACKGROUND);
 
 	TownBG_Day* townBG_day = new TownBG_Day;
@@ -58,6 +62,7 @@ void CScene_Town::Enter()
 	AddObject(townLayer_day, GROUP_GAMEOBJ::BACKGROUND);
 	
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::PAYER_WEAPON);
 
 	// Camera Look ÁöÁ¤
 	//CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());

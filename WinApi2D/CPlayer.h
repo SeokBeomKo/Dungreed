@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CGameObject.h"
+#include "CEquip.h"
 
 class CD2DImage;
 
@@ -37,6 +38,9 @@ private:
 	bool IsJump = false;
 	bool Isright = true;
 
+	// ¹«±â
+	CEquip* pEquip;
+	bool IsEquip = false;
 	void CreateMissile();
 
 public:
@@ -48,7 +52,8 @@ public:
 
 	void MoveUpdate();
 	void AniUpdate();
-	
+	void Equip();
+
 	virtual void render();
 	virtual void OnCollisionEnter(CCollider* pOther);
 	virtual void OnCollision(CCollider* pOther);

@@ -60,6 +60,16 @@ void CGameObject::SetName(wstring name)
 	m_strName = name;
 }
 
+void CGameObject::SetObjGroup(GROUP_GAMEOBJ group)
+{
+	m_Group = group;
+}
+
+void CGameObject::SetTileGroup(GROUP_TILE group)
+{
+	m_TileGroup = group;
+}
+
 fPoint CGameObject::GetPos()
 {
 	return m_fptPos;
@@ -73,6 +83,16 @@ fPoint CGameObject::GetScale()
 wstring CGameObject::GetName()
 {
 	return m_strName;
+}
+
+GROUP_GAMEOBJ CGameObject::GetObjGroup()
+{
+	return m_Group;
+}
+
+GROUP_TILE CGameObject::GetTileGroup()
+{
+	return m_TileGroup;
 }
 
 bool CGameObject::isDead()

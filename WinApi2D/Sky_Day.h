@@ -4,7 +4,7 @@ class Sky_Day :
     public CGameObject
 {
 public:
-	CD2DImage* m_pimg;
+	CD2DImage* m_pImg;
 
 	Sky_Day();
 	~Sky_Day();
