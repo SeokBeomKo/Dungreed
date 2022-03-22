@@ -8,7 +8,7 @@
 // BackGround
 #include "Back_Cloud00.h"
 #include "Back_Cloud01.h"
-#include "Back_Sky.h"
+#include "Back_Ground.h"
 
 // UI
 #include "MainLogo.h"
@@ -61,12 +61,7 @@ void CScene_Start::Enter()
 	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", false);
 	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
-	// 타일 로딩
-	//wstring path = CPathManager::getInst()->GetContentPath();
-	//path += L"tile\\Start.tile";
-	//LoadTile(path);
-
-	Back_Sky* backsky = new Back_Sky;
+	Back_Ground* backsky = new Back_Ground;
 	backsky->Load(L"Back_Sky", L"texture\\background\\BackSky.png");
 	AddObject(backsky, GROUP_GAMEOBJ::BACKGROUND);
 
@@ -90,7 +85,13 @@ void CScene_Start::Enter()
 
 	MainLogo* logo = new MainLogo;
 	logo->Load(L"MainLogo", L"texture\\background\\MainLogo.png");
+	logo->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 - 125.f));
 	AddObject(logo, GROUP_GAMEOBJ::BACKGROUND);
+
+	MainLogo* copy = new MainLogo;
+	copy->Load(L"Copyright", L"texture\\background\\Copyright.png");
+	copy->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2 + 310.f));
+	AddObject(copy, GROUP_GAMEOBJ::BACKGROUND);
 
 	CStartUI* pStartUI = new CStartUI();
 	pStartUI->Load(L"PlayOff_Kor", L"texture\\ui\\PlayOff_Kor.png");

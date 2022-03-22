@@ -41,12 +41,6 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PlayerJumpleft",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
 	
 	CreateGravity();
-	GetGravity()->OnOffGravity(true);
-	//CAnimation* pAni;
-	//pAni = GetAnimator()->FindAnimation(L"LeftMove");
-	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
-	//pAni = GetAnimator()->FindAnimation(L"RightMove");
-	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 }
 
 CPlayer::~CPlayer()
@@ -231,30 +225,12 @@ void CPlayer::render()
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)		// GROUND 타일과 충돌 했을 때
 	{
-		m_jumpCount = 2;
 		GR = false;
-
-		fPoint pos = GetPos();
-		if (GetGravity()->CheckGravity())
-		{
-			GetGravity()->OnOffGravity(false);
-		}
-
-		fPoint vObjPos = GetCollider()->GetFinalPos();
-		fPoint vObjScale = GetCollider()->GetScale();
-
-		fPoint vPos = pOther->GetFinalPos();
-		fPoint vScale = pOther->GetScale();
-
-		float fLen = abs(vObjPos.y - vPos.y);
-		float fValue = (vObjScale.y / 2.f + vScale.y / 2.f) - fLen;
-
-		pos.y -= fValue/2;
-
-		SetPos(pos);
+		m_jumpCount = 2;
 	}
+	
 	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)
 	{
 		Equip();
@@ -266,48 +242,16 @@ void CPlayer::OnCollision(CCollider* pOther)
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
 		GR = false;
-		fPoint pos = GetPos();
-
-		if (GetGravity()->CheckGravity())
-		{
-			GetGravity()->OnOffGravity(false);
-		}
-
-		fPoint vObjPos = GetCollider()->GetFinalPos();
-		fPoint vObjScale = GetCollider()->GetScale();
-
-		fPoint vPos = pOther->GetFinalPos();
-		fPoint vScale = pOther->GetScale();
-
-		float fLen = abs(vObjPos.y - vPos.y);
-		float fValue = (vObjScale.y / 2.f + vScale.y / 2.f) - fLen;
-		
-		pos.y -= fValue/2;
-
-		SetPos(pos);
 	}
 }
 
 void CPlayer::OnCollisionExit(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetName() == L"GROUND")
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
 		GR = false;
 		GetGravity()->OnOffGravity(true);
 	}
-}
-
-void CPlayer::CreateMissile()
-{
- 	fPoint fpMissilePos = GetPos();
-	fpMissilePos.x += GetScale().x / 2.f;
-
-	// Misiile Object
-	CMissile* pMissile = new CMissile;
-	pMissile->SetPos(fpMissilePos);
-	pMissile->SetDir(fVec2(1, 0));
-
-	CreateObj(pMissile, GROUP_GAMEOBJ::MISSILE_PLAYER);
 }
 
 void CPlayer::Load(wstring strKey, wstring strPath)
@@ -324,5 +268,6 @@ void CPlayer::Equip()
 
 	CreateObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
 }
+
 
 

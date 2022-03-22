@@ -13,8 +13,6 @@ public:
     virtual void render();
     virtual void update();
 
-
-
     virtual void OnCollisionEnter(CCollider* pOther);
 };
 

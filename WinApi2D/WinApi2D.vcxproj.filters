@@ -142,6 +142,9 @@
     <Filter Include="Engine\Component\Gravity">
       <UniqueIdentifier>{87d562c1-fc5b-44b1-ace7-a9de99785074}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\02.Dungeon">
+      <UniqueIdentifier>{e08ae7f6-5534-45ed-b6e1-a6d3d4a8377c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,12 +234,6 @@
     <ClInclude Include="CScene_Town.h">
       <Filter>Scene\01.Town</Filter>
     </ClInclude>
-    <ClInclude Include="Back_Sky.h">
-      <Filter>Object\00.CScene_Start\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="Sky_Day.h">
-      <Filter>Object\01.CScene_Town\BackGround</Filter>
-    </ClInclude>
     <ClInclude Include="CScene_Tool.h">
       <Filter>Scene\CScene</Filter>
     </ClInclude>
@@ -302,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="CGravity.h">
       <Filter>Engine\Component\Gravity</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene_Dungeon.h">
+      <Filter>Scene\02.Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_Ground.h">
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,12 +377,6 @@
     <ClCompile Include="CScene_Town.cpp">
       <Filter>Scene\01.Town</Filter>
     </ClCompile>
-    <ClCompile Include="Back_Sky.cpp">
-      <Filter>Object\00.CScene_Start\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Sky_Day.cpp">
-      <Filter>Object\01.CScene_Town\BackGround</Filter>
-    </ClCompile>
     <ClCompile Include="CScene_Tool.cpp">
       <Filter>Scene\CScene</Filter>
     </ClCompile>
@@ -445,6 +442,12 @@
     </ClCompile>
     <ClCompile Include="CGravity.cpp">
       <Filter>Engine\Component\Gravity</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene_Dungeon.cpp">
+      <Filter>Scene\02.Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_Ground.cpp">
+      <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

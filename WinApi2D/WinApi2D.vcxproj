@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Back_Cloud01.h" />
-    <ClInclude Include="Back_Sky.h" />
+    <ClInclude Include="Back_Ground.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CButtonUI.h" />
@@ -179,6 +179,7 @@
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CScene_Dungeon.h" />
     <ClInclude Include="CScene_Start.h" />
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CScene_Town.h" />
@@ -200,14 +201,13 @@
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Sky_Day.h" />
     <ClInclude Include="TownBG_Day.h" />
     <ClInclude Include="TownLayer_Day.h" />
     <ClInclude Include="WinApi2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Back_Cloud01.cpp" />
-    <ClCompile Include="Back_Sky.cpp" />
+    <ClCompile Include="Back_Ground.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CButtonUI.cpp" />
@@ -234,6 +234,7 @@
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CScene_Dungeon.cpp" />
     <ClCompile Include="CScene_Start.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />
     <ClCompile Include="CScene_Town.cpp" />
@@ -249,7 +250,6 @@
     <ClCompile Include="Back_Cloud00.cpp" />
     <ClCompile Include="MainLogo.cpp" />
     <ClCompile Include="CWeapon.cpp" />
-    <ClCompile Include="Sky_Day.cpp" />
     <ClCompile Include="TownBG_Day.cpp" />
     <ClCompile Include="TownLayer_Day.cpp" />
     <ClCompile Include="WinApi2D.cpp" />

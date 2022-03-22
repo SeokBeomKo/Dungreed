@@ -5,7 +5,7 @@
 #include "CPlayer.h"
 
 // BackGround
-#include "Sky_Day.h"
+#include "Back_Ground.h"
 #include "TownBG_Day.h"
 #include "TownLayer_Day.h"
 
@@ -48,9 +48,12 @@ void CScene_Town::Enter()
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	CWeapon* pWeapon = new CWeapon;
+	//pWeapon->SetPos(fPoint(200.f, 1200.f));
+	//pWeapon->Load(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
 	AddObject(pWeapon, GROUP_GAMEOBJ::PAYER_WEAPON);
 	
-	Sky_Day* skyday = new Sky_Day;
+	Back_Ground* skyday = new Back_Ground;
+	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
 	AddObject(skyday, GROUP_GAMEOBJ::BACKGROUND);
 
 	TownBG_Day* townBG_day = new TownBG_Day;
@@ -63,6 +66,8 @@ void CScene_Town::Enter()
 	
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::PAYER_WEAPON);
+
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::PAYER_WEAPON);
 
 	// Camera Look ÁöÁ¤
 	//CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());

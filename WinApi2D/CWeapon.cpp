@@ -8,7 +8,7 @@ CWeapon::CWeapon()
 {
 	m_Img = CResourceManager::getInst()->LoadD2DImage(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
     SetScale(fPoint(m_Img->GetWidth() * 4.f, m_Img->GetHeight() * 4.f));
-    SetPos(fPoint(200.f, 550.f));
+    SetPos(fPoint(1200.f, 550.f));
     SetName(L"Short_Sword");
     SetObjGroup(GROUP_GAMEOBJ::PAYER_WEAPON);
 
@@ -16,6 +16,7 @@ CWeapon::CWeapon()
     GetCollider()->SetScale(GetScale());
     GetCollider()->SetOffsetPos(fPoint(0.f, 0.f));
 
+    CreateGravity();
 }
 
 CWeapon::~CWeapon()
@@ -24,7 +25,7 @@ CWeapon::~CWeapon()
 
 void CWeapon::render()
 {
-    fPoint pos = fPoint(200.f, 550.f);
+    fPoint pos = GetPos();
     fPoint renderpos = CCameraManager::getInst()->GetRenderPos(pos);
     fPoint scale = GetScale();
 
@@ -50,5 +51,4 @@ void CWeapon::OnCollisionEnter(CCollider* pOther)
         DeleteObj(this);
     }
 }
-
 

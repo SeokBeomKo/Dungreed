@@ -1,7 +1,10 @@
 #include "framework.h"
 #include "CTile.h"
+#include "CGameObject.h"
 #include "CD2DImage.h"
+
 #include "CCollider.h"
+#include "CGravity.h"
 
 CTile::CTile()
 {
@@ -131,13 +134,48 @@ void CTile::Load(FILE* pFile)
 
 void CTile::OnCollisionEnter(CCollider* pOther)
 {
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER)
+	{
+		pOther->GetObj()->GetGravity();
+
+		fPoint pos = pOther->GetObj()->GetPos();
+
+		fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
+		fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
+
+		fPoint vTilePos = GetCollider()->GetFinalPos();
+		fPoint vTileScale = GetCollider()->GetScale();
+
+		float fLen = abs(vPlayerPos.y - vTilePos.y);
+		float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+
+		pos.y -= fValue;
+
+		pOther->GetObj()->SetPos(pos);
+	}
 }
 
 void CTile::OnCollision(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER)
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER || 
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)
 	{
-		pOther->GetObj()->SetScale(fPoint(100.f, 100.f));
+		pOther->GetObj()->GetGravity();
+		
+		fPoint pos = pOther->GetObj()->GetPos();
+
+		fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
+		fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
+
+		fPoint vTilePos = GetCollider()->GetFinalPos();
+		fPoint vTileScale = GetCollider()->GetScale();
+
+		float fLen = abs(vPlayerPos.y - vTilePos.y);
+		float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+
+		pos.y -= fValue;
+
+		pOther->GetObj()->SetPos(pos);
 	}
 }
 

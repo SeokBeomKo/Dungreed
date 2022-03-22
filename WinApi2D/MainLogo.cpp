@@ -4,8 +4,6 @@
 
 MainLogo::MainLogo()
 {
-	pimg = new CD2DImage;
-	pimg = CResourceManager::getInst()->LoadD2DImage(L"MainLogo", L"texture\\background\\MainLogo.png");
 }
 
 MainLogo::~MainLogo()
@@ -23,7 +21,7 @@ void MainLogo::update()
 
 void MainLogo::render()
 {
-    fPoint pos = fPoint(WINSIZEX / 2, WINSIZEY / 2 - 125.f);
+    fPoint pos = GetPos();
     fPoint scale = GetScale();
 
     CRenderManager::getInst()->RenderImage(

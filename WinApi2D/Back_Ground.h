@@ -1,18 +1,20 @@
 #pragma once
 #include "CGameObject.h"
-class Sky_Day :
+
+class Back_Ground :
     public CGameObject
 {
 public:
 	CD2DImage* m_pImg;
 
-	Sky_Day();
-	~Sky_Day();
+	Back_Ground();
+	~Back_Ground();
 
-	virtual Sky_Day* Clone();
+	virtual Back_Ground* Clone();
 	virtual void update();
 	virtual void render();
 
 	void Load(wstring strKey, wstring strPath);
 };
+
 
