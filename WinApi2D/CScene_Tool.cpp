@@ -338,7 +338,7 @@ void CScene_Tool::ClickTileGroup(CButtonUI* button)
 	if (m_gTile == GROUP_TILE::NONE)
 	{
 		m_gTile = GROUP_TILE::GROUND;
-		button->SetText(L"Ground");
+		button->SetText(L"GROUND");
 	}
 	else if (m_gTile == GROUP_TILE::GROUND)
 	{
@@ -346,6 +346,11 @@ void CScene_Tool::ClickTileGroup(CButtonUI* button)
 		button->SetText(L"WALL");
 	}
 	else if (m_gTile == GROUP_TILE::WALL)
+	{
+		m_gTile = GROUP_TILE::DOOR;
+		button->SetText(L"DOOR");
+	}
+	else if (m_gTile == GROUP_TILE::DOOR)
 	{
 		m_gTile = GROUP_TILE::NONE;
 		button->SetText(L"NONE");
@@ -470,6 +475,17 @@ void CScene_Tool::PrintTileGroup()
 				CTile::SIZE_TILE / 2.f,
 				CTile::SIZE_TILE / 2.f,
 				RGB(0, 255, 0),
+				3.f
+			);
+		}
+		else if (GROUP_TILE::DOOR == pTile->GetGroup())
+		{
+			CRenderManager::getInst()->RenderEllipse(
+				pTile->GetPos().x + CTile::SIZE_TILE / 2.f - pos.x,
+				pTile->GetPos().y + CTile::SIZE_TILE / 2.f - pos.y,
+				CTile::SIZE_TILE / 2.f,
+				CTile::SIZE_TILE / 2.f,
+				RGB(0, 0, 255),
 				3.f
 			);
 		}

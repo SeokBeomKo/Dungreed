@@ -4,6 +4,7 @@
 #include "CScene_Start.h"
 #include "CScene_Tool.h"
 #include "CScene_Town.h"
+#include "CScene_Dungeon.h"
 
 CSceneManager::CSceneManager()
 {
@@ -55,6 +56,9 @@ void CSceneManager::init()
 
 	m_arrScene[(size_t)GROUP_SCENE::TOWN] = new CScene_Town;
 	m_arrScene[(size_t)GROUP_SCENE::TOWN]->SetName(L"Town_Scene");
+
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEON] = new CScene_Dungeon;
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEON]->SetName(L"Dungeon_Scene");
 
 	m_pCurScene = m_arrScene[(size_t)GROUP_SCENE::START];
 	m_pCurScene->Enter();

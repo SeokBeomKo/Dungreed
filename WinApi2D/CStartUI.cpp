@@ -43,5 +43,5 @@ void CStartUI::render()
 void CStartUI::Load(wstring strKey, wstring strPath)
 {
 	pimg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
-	SetScale(fPoint(pimg->GetWidth() * 4, pimg->GetHeight() * 4));
+	SetScale(fPoint(pimg->GetWidth() * 4.f, pimg->GetHeight() * 4.f));
 }

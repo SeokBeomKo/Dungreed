@@ -29,8 +29,12 @@ void CScene_Town::update()
 	if (KeyDown(VK_TAB))
 	{
 		ChangeScn(GROUP_SCENE::START);
-		CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 	}
+}
+
+void StartDungeon(DWORD_PTR, DWORD_PTR)
+{
+	ChangeScn(GROUP_SCENE::DUNGEON);
 }
 
 void CScene_Town::Enter()
@@ -45,6 +49,7 @@ void CScene_Town::Enter()
 	// Player 추가
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
+	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	CWeapon* pWeapon = new CWeapon;
@@ -70,12 +75,12 @@ void CScene_Town::Enter()
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::PAYER_WEAPON);
 
 	// Camera Look 지정
-	//CCameraManager::getInst()->SetLookAt(pPlayer->GetPos());
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Town::Exit()
 {
+	CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();

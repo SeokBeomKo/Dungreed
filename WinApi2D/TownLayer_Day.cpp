@@ -4,8 +4,6 @@
 
 TownLayer_Day::TownLayer_Day()
 {
-	m_pImg = new CD2DImage;
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"TownLayer_Day", L"texture\\background\\TownLayer_Day.png");
 }
 
 TownLayer_Day::~TownLayer_Day()

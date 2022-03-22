@@ -4,6 +4,7 @@
 // 1. 헤더파일이 여러번 호출되어 #pragma에 의해 선언부를 확인 불가한 문제 해결
 // 2. 컴파일 속도를 줄임
 class CGameObject;
+class CPlayer;
 
 class CScene
 {

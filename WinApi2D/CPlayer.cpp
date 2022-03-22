@@ -19,10 +19,20 @@
 
 CPlayer::CPlayer()
 {
+	CreateAnimator();
 	m_pImg  = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
-	m_pImg2 = CResourceManager::getInst()->LoadD2DImage(L"PlayerRun", L"texture\\player\\PlayerRun.png");
-	m_pImg3 = CResourceManager::getInst()->LoadD2DImage(L"PlayerJump", L"texture\\player\\PlayerJump.png");
-	m_pImg4 = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
+	GetAnimator()->CreateAnimation(L"PlayerIdleright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
+	GetAnimator()->CreateAnimation(L"PlayerIdleleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
+
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerRun", L"texture\\player\\PlayerRun.png");
+	GetAnimator()->CreateAnimation(L"PlayerRunright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
+	GetAnimator()->CreateAnimation(L"PlayerRunleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
+
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerJump", L"texture\\player\\PlayerJump.png");
+	GetAnimator()->CreateAnimation(L"PlayerJumpright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
+	GetAnimator()->CreateAnimation(L"PlayerJumpleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
+
+	//m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f *4, 32.f*4));
@@ -31,14 +41,6 @@ CPlayer::CPlayer()
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 64.f));
 	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
-
-	CreateAnimator();
-	GetAnimator()->CreateAnimation(L"PlayerIdleright",		m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->CreateAnimation(L"PlayerIdleleft",		m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
-	GetAnimator()->CreateAnimation(L"PlayerRunright",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
-	GetAnimator()->CreateAnimation(L"PlayerRunleft",		m_pImg2, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
-	GetAnimator()->CreateAnimation(L"PlayerJumpright",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
-	GetAnimator()->CreateAnimation(L"PlayerJumpleft",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
 	
 	CreateGravity();
 }
@@ -225,15 +227,22 @@ void CPlayer::render()
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)		// GROUND 타일과 충돌 했을 때
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)				// GROUND 타일과 충돌 했을 때
 	{
 		GR = false;
 		m_jumpCount = 2;
 	}
 	
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)		// 플레이어와 무기
 	{
 		Equip();
+	}
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::DOOR)				// 플레이어와 던전 입구
+	{
+		if (nullptr != m_pFunc)
+		{
+			m_pFunc(m_pParam1, m_pParam2);
+		}
 	}
 }
 
@@ -269,5 +278,11 @@ void CPlayer::Equip()
 	CreateObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
 }
 
+void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2)
+{
+	m_pFunc = pFunc;
+	m_pParam1 = param1;
+	m_pParam2 = param2;
+}
 
 

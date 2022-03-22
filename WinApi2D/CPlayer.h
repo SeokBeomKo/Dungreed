@@ -5,13 +5,17 @@
 
 class CD2DImage;
 
+// 함수포인터를 위한 타입정의
+typedef void(*BTN_FUNC) (DWORD_PTR, DWORD_PTR);
+
 class CPlayer : public CGameObject
 {
 private:
+	BTN_FUNC m_pFunc;
+	DWORD_PTR m_pParam1;
+	DWORD_PTR m_pParam2;
+
 	CD2DImage* m_pImg;
-	CD2DImage* m_pImg2;
-	CD2DImage* m_pImg3;
-	CD2DImage* m_pImg4;
 	
 	// 플레이어 이동속도
 	float m_fVelocity = 300;
@@ -59,5 +63,8 @@ public:
 	virtual void OnCollisionExit(CCollider* pOther);
 
 	void Load(wstring strKey, wstring strPath);
+
+	void SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2);
+
 };
 

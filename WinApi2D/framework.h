@@ -57,8 +57,8 @@ enum class GROUP_SCENE
 	TOOL,
 	START,
 	TOWN,
-	STAGE_01,
-	STAGE_02,
+	DUNGEON,
+
 
 	SIZE,
 };
@@ -70,6 +70,7 @@ enum class GROUP_TILE
 	PLATFORM,
 	WALL,
 	SLOPE,
+	DOOR,
 
 	SIZE,
 };

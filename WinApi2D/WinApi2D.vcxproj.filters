@@ -145,6 +145,12 @@
     <Filter Include="Scene\02.Dungeon">
       <UniqueIdentifier>{e08ae7f6-5534-45ed-b6e1-a6d3d4a8377c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\State">
+      <UniqueIdentifier>{acc4cf0c-2b86-4217-8a11-5f384ae4e36d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\State\Monster">
+      <UniqueIdentifier>{7e6d57a3-2c7b-48af-af82-1b31d19cb885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -306,6 +312,9 @@
     <ClInclude Include="Back_Ground.h">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="CMState.h">
+      <Filter>Engine\Component\State\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -448,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="Back_Ground.cpp">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CMState.cpp">
+      <Filter>Engine\Component\State\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

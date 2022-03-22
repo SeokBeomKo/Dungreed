@@ -2,8 +2,6 @@
 #include "CScene_Start.h"
 
 #include "CGameObject.h"
-#include "CPlayer.h"
-#include "CMonster.h"
 
 // BackGround
 #include "Back_Cloud00.h"
@@ -34,14 +32,12 @@ void CScene_Start::update()
 	if (KeyDown(VK_F3))
 	{
 		ChangeScn(GROUP_SCENE::TOOL);
-		CSoundManager::getInst()->Stop(L"CScene_Start_bgm");
 	}
 } 
 
 void StartCheck(DWORD_PTR, DWORD_PTR)
 {
 	ChangeScn(GROUP_SCENE::TOWN);
-	CSoundManager::getInst()->Stop(L"CScene_Start_bgm");
 }
 
 void OptionCheck(DWORD_PTR, DWORD_PTR)
@@ -57,8 +53,9 @@ void ExitCheck(DWORD_PTR, DWORD_PTR)
 
 void CScene_Start::Enter()
 {
-	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\Skies Are Blue.mp3", false);
-	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\Towngreed.mp3", false);
+	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\title.wav", false);
+	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
+	CSoundManager::getInst()->AddSound(L"CScene_Duneon_bgm", L"sound\\1.JailField.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
 	Back_Ground* backsky = new Back_Ground;
@@ -128,6 +125,7 @@ void CScene_Start::Enter()
 
 void CScene_Start::Exit()
 {
+	CSoundManager::getInst()->Stop(L"CScene_Start_bgm");
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();

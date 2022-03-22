@@ -4,6 +4,7 @@
 
 MainLogo::MainLogo()
 {
+    pimg = nullptr;
 }
 
 MainLogo::~MainLogo()

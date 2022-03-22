@@ -3,6 +3,7 @@
 #include "CGameObject.h"
 #include "CTile.h"
 #include "CCollider.h"
+#include "CPlayer.h"
 
 CScene::CScene()
 {
@@ -167,6 +168,15 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
             newTile->SetName(L"WALL");
+            newTile->SetTileGroup(GROUP_TILE::WALL);
+        }
+        else if (GROUP_TILE::DOOR == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"DOOR");
+            newTile->SetTileGroup(GROUP_TILE::DOOR);
         }
 
         AddObject(newTile, GROUP_GAMEOBJ::TILE);
@@ -174,3 +184,5 @@ void CScene::LoadTile(const wstring& strPath)
 
     fclose(pFile);
 }
+
+
