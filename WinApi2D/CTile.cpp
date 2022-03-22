@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CTile.h"
 #include "CD2DImage.h"
+#include "CCollider.h"
 
 CTile::CTile()
 {
@@ -126,4 +127,20 @@ void CTile::Load(FILE* pFile)
 	int group;
 	fread(&group, sizeof(int), 1, pFile);
 	m_group = (GROUP_TILE)group;
+}
+
+void CTile::OnCollisionEnter(CCollider* pOther)
+{
+}
+
+void CTile::OnCollision(CCollider* pOther)
+{
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER)
+	{
+		pOther->GetObj()->SetScale(fPoint(100.f, 100.f));
+	}
+}
+
+void CTile::OnCollisionExit(CCollider* pOther)
+{
 }

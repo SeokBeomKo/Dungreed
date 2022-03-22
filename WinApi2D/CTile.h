@@ -38,4 +38,8 @@ public:
 
 	virtual void Save(FILE* pFile);
 	virtual void Load(FILE* pFile);
+
+	virtual void OnCollisionEnter(CCollider* pOther);
+	virtual void OnCollision(CCollider* pOther);
+	virtual void OnCollisionExit(CCollider* pOther);
 };

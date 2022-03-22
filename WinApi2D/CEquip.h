@@ -16,5 +16,7 @@ public:
     void SetOwner(CGameObject* Obj);
 
     CGameObject* GetOwner();
+
+
 };
 

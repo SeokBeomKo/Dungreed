@@ -165,6 +165,7 @@
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CExitUI.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CGravity.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMissile.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CExitUI.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CGravity.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMissile.cpp" />

@@ -3,8 +3,12 @@
 #include "CMissile.h"
 #include "CScene.h"
 #include "CTexture.h"
+
+// ÄÄÆ÷³ÍÆ®
 #include "CCollider.h"
 #include "CAnimator.h"
+#include "CGravity.h"
+
 #include "CTile.h"
 #include "CD2DImage.h"
 #include "CEquip.h"
@@ -36,6 +40,8 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PlayerJumpright",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
 	GetAnimator()->CreateAnimation(L"PlayerJumpleft",		m_pImg3, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
 	
+	CreateGravity();
+	GetGravity()->OnOffGravity(true);
 	//CAnimation* pAni;
 	//pAni = GetAnimator()->FindAnimation(L"LeftMove");
 	//pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
@@ -83,7 +89,6 @@ void CPlayer::MoveUpdate()
 	{
 		IsDash = true;
 		IsJump = false;
-
 		mousePos = MousePos();
 		playerPos = realpos;
 		dashdir.x = mousePos.x - playerPos.x;
@@ -94,8 +99,7 @@ void CPlayer::MoveUpdate()
 			IsDashLow = true;
 		}
 
-
-		m_fTime = GR_TIME * 3;
+		m_fTime = GR_TIME * 2.5;
 		m_fTimex = GR_TIME * 2;
 	}
 	
@@ -110,21 +114,20 @@ void CPlayer::MoveUpdate()
 	}
 	if (IsDash)
 	{
-		m_dashDis += fDT;
-	
+		GR = true;
+		GetGravity()->OnOffGravity(false);
 		if (!IsDashLow)
 		{
-			if (m_fTimex < 50.f && m_fTime < 50.f)
+			if (m_fTimex <= 0.f && m_fTime <= 0.f)
 			{
 				IsDash = false;
 				IsDashLow = false;
-				m_dashDis = 0.f;
-				m_fTimex = 0.f;
-				m_fTime = 100.f;
+				//m_fTime = 0.f;
+				GetGravity()->OnOffGravity(true, m_fTime);
 			}
 			else
 			{
-				m_fTime -= 9000 * fDT;
+				m_fTime -= 7500 * fDT;
 			}
 		}
 		else
@@ -133,13 +136,12 @@ void CPlayer::MoveUpdate()
 			{
 				IsDash = false;
 				IsDashLow = false;
-				m_dashDis = 0.f;
-				m_fTimex = 0.f;
 				m_fTime = 500.f;
+				GetGravity()->OnOffGravity(true, m_fTime);
 			}
 			else
 			{
-				m_fTime -= 3000 * fDT;
+				m_fTime -= 2500 * fDT;
 			}
 		}
 		if (m_fTimex > 0)
@@ -152,23 +154,16 @@ void CPlayer::MoveUpdate()
 	}
 	else if (IsJump)
 	{
-		m_fTime -= m_fGravity * fDT;
+		GR = true;
+		GetGravity()->OnOffGravity(false);
+		m_fTime -= 2000 * fDT;
 		pos.y -= m_fTime * fDT;
 		if (m_fTime <= 0.f)
 		{
 			IsJump = false;
 			m_fTime = 0.f;
+			GetGravity()->OnOffGravity(true, m_fTime);
 		}
-	}
-	else if (GR)
-	{
-		m_fGravity = GR_POWER;
-		m_fTime += m_fGravity * fDT;
-		if (m_fTime > 1600.f)
-		{
-			m_fTime = 1600.f;
-		}
-		pos.y += m_fTime * fDT;
 	}
 
 	if (Key('D'))
@@ -236,7 +231,30 @@ void CPlayer::render()
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
-	m_jumpCount = 2;
+	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
+	{
+		m_jumpCount = 2;
+		GR = false;
+
+		fPoint pos = GetPos();
+		if (GetGravity()->CheckGravity())
+		{
+			GetGravity()->OnOffGravity(false);
+		}
+
+		fPoint vObjPos = GetCollider()->GetFinalPos();
+		fPoint vObjScale = GetCollider()->GetScale();
+
+		fPoint vPos = pOther->GetFinalPos();
+		fPoint vScale = pOther->GetScale();
+
+		float fLen = abs(vObjPos.y - vPos.y);
+		float fValue = (vObjScale.y / 2.f + vScale.y / 2.f) - fLen;
+
+		pos.y -= fValue/2;
+
+		SetPos(pos);
+	}
 	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)
 	{
 		Equip();
@@ -247,13 +265,25 @@ void CPlayer::OnCollision(CCollider* pOther)
 {
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
-		fPoint pos = GetPos();
-		int a = abs((int)(GetCollider()->GetFinalPos().y - pOther->GetFinalPos().y));
-		int b = (int)(GetCollider()->GetScale().y / 2.f + pOther->GetScale().y / 2.f);
-		int sum = abs(a - b);
-		if (1 < sum)
-			--pos.y;
 		GR = false;
+		fPoint pos = GetPos();
+
+		if (GetGravity()->CheckGravity())
+		{
+			GetGravity()->OnOffGravity(false);
+		}
+
+		fPoint vObjPos = GetCollider()->GetFinalPos();
+		fPoint vObjScale = GetCollider()->GetScale();
+
+		fPoint vPos = pOther->GetFinalPos();
+		fPoint vScale = pOther->GetScale();
+
+		float fLen = abs(vObjPos.y - vPos.y);
+		float fValue = (vObjScale.y / 2.f + vScale.y / 2.f) - fLen;
+		
+		pos.y -= fValue/2;
+
 		SetPos(pos);
 	}
 }
@@ -262,7 +292,8 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 {
 	if (pOther->GetObj()->GetName() == L"GROUND")
 	{
-		GR = true;
+		GR = false;
+		GetGravity()->OnOffGravity(true);
 	}
 }
 

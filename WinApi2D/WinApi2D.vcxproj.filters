@@ -139,6 +139,9 @@
     <Filter Include="Object\Item\Coin">
       <UniqueIdentifier>{265a5eb8-5df5-4027-a42a-c12b9994f930}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Gravity">
+      <UniqueIdentifier>{87d562c1-fc5b-44b1-ace7-a9de99785074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -297,6 +300,9 @@
     <ClInclude Include="CMissile.h">
       <Filter>Object\Character</Filter>
     </ClInclude>
+    <ClInclude Include="CGravity.h">
+      <Filter>Engine\Component\Gravity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -436,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="CMissile.cpp">
       <Filter>Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CGravity.cpp">
+      <Filter>Engine\Component\Gravity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

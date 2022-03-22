@@ -28,9 +28,11 @@ void CEquip::render()
         renderpos.x - scale.x / 2.f,
         renderpos.y - scale.y / 2.f,
         renderpos.x + scale.x / 2.f,
-        renderpos.y + scale.y / 2.f
+        renderpos.y + scale.y / 2.f, true
     );
-    
+
+    //CRenderManager::getInst()->GetRenderTarget()->SetTransform();
+    // TODO : 마우스 좌표따라 회전
     component_render();
 
 }
@@ -39,7 +41,7 @@ void CEquip::update()
 {
     fPoint pos = m_Owner->GetPos();
     pos.x += 50.f;
-
+    
     // TODO : 마우스 좌표따라 회전
 
     SetPos(pos);

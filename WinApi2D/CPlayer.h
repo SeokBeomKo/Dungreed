@@ -12,7 +12,7 @@ private:
 	CD2DImage* m_pImg2;
 	CD2DImage* m_pImg3;
 	CD2DImage* m_pImg4;
-
+	
 	// 플레이어 이동속도
 	float m_fVelocity = 300;
 
@@ -22,7 +22,6 @@ private:
 	// 플레이어 대쉬
 	bool IsDash = false;
 	bool IsDashLow = false;
-	float m_dashDis = 0.f;
 	fVec2 mousePos;
 	fPoint playerPos;
 	fVec2 dashdir;
