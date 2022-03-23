@@ -18,33 +18,32 @@ private:
 	CD2DImage* m_pImg;
 	
 	// 플레이어 이동속도
-	float m_fVelocity = 300;
+	float m_fVelocity;
 
 	// 플레이어 점프횟수
 	int m_jumpCount;
 
 	// 플레이어 대쉬
-	bool IsDash = false;
-	bool IsDashLow = false;
+	bool IsDash;
+	bool IsDashLow;
 	fVec2 mousePos;
 	fPoint playerPos;
 	fVec2 dashdir;
 	float m_fTimex;
 
 	// 중력 구현
-	bool GR = true;
+	bool GR;
 	float m_fTime;
 	float m_fGravity;
 
 	// MoveUpdate
-	float m_fSpeed = 0.f;
-	bool IsJump = false;
-	bool Isright = true;
+	float m_fSpeed;
+	bool IsJump;
+	bool Isright;
 
 	// 무기
 	CEquip* pEquip;
-	bool IsEquip = false;
-	void CreateMissile();
+	bool IsEquip;
 
 public:
 	CPlayer();

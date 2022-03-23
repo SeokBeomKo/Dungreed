@@ -29,7 +29,12 @@ void CScene_Dungeon::Enter()
 {
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
-	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	LoadData(GROUP_GAMEOBJ::PLAYER);
+	//if (pPlayer->GetObjGroup() != GROUP_GAMEOBJ::PLAYER)
+	//{
+	//	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	//}
+	//AddObject(pPlayer = LoadData(), GROUP_GAMEOBJ::PLAYER);
 
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\test2.tile";

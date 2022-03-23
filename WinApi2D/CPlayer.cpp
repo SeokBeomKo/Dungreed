@@ -33,6 +33,14 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PlayerJumpleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
 
 	//m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
+	m_fVelocity = 300;
+	IsDash = false;
+	IsDashLow = false;
+	GR = true;
+	m_fSpeed = 0.f;
+	IsJump = false;
+	Isright = true;
+	IsEquip = false;
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f * 4, 32.f * 4));

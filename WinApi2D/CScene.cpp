@@ -13,7 +13,7 @@ CScene::CScene()
 CScene::~CScene()
 {
     // 씬이 가진 모든 게임오브젝트 삭제
-    for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
+    for (int i = 0; i < (UINT)GROUP_GAMEOBJ::SIZE; i++)
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)
         {
@@ -188,6 +188,16 @@ void CScene::LoadTile(const wstring& strPath)
     }
 
     fclose(pFile);
+}
+
+void CScene::SaveData(CGameObject* pObj, GROUP_GAMEOBJ group)
+{
+    m_arrObjClone[(UINT)group].push_back(pObj);
+}
+
+void CScene::LoadData(GROUP_GAMEOBJ group)
+{
+    m_arrObj[(UINT)GROUP_GAMEOBJ::PLAYER].push_back(m_arrObjClone[(UINT)GROUP_GAMEOBJ::PLAYER][0]);
 }
 
 
