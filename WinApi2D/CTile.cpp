@@ -134,72 +134,81 @@ void CTile::Load(FILE* pFile)
 
 void CTile::OnCollisionEnter(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어
+	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)&& 
+		this->GetTileGroup() == GROUP_TILE::GROUND)										// 그라운드 와 플레이어 , 무기
 	{
-		pOther->GetObj()->GetGravity();
+		pOther->GetObj()->GetGravity()->OnOffGravity(false);
+		if (pOther->GetFinalPos().y + pOther->GetScale().y / 2.f > GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f)
+		{
+			fPoint pos = pOther->GetObj()->GetPos();
 
-		fPoint pos = pOther->GetObj()->GetPos();
+			fPoint vPlayerPos = pOther->GetFinalPos();
+			fPoint vPlayerScale = pOther->GetScale();
 
-		fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
-		fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
+			fPoint vTilePos = GetCollider()->GetFinalPos();
+			fPoint vTileScale = GetCollider()->GetScale();
 
-		fPoint vTilePos = GetCollider()->GetFinalPos();
-		fPoint vTileScale = GetCollider()->GetScale();
+			float fLen = abs(vPlayerPos.y - vTilePos.y);
+			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
 
-		float fLen = abs(vPlayerPos.y - vTilePos.y);
-		float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+			pos.y -= fValue;
 
-		pos.y -= fValue;
-
-		pOther->GetObj()->SetPos(pos);
+			pOther->GetObj()->SetPos(pos);
+		}
+		//fPoint pos = pOther->GetObj()->GetPos();
+		//
+		//fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
+		//fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
+		//
+		//fPoint vTilePos = GetCollider()->GetFinalPos();
+		//fPoint vTileScale = GetCollider()->GetScale();
+		//
+		//float fLen = abs(vPlayerPos.y - vTilePos.y);
+		//float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+		//
+		//pos.y -= fValue;
+		//CGravity* gravity = ((CGravity*)pOther)->GetCravity();
+		//gravity->OnOffGravity(false);
+		//
+		//pOther->GetObj()->SetPos(pos);
 	}
 }
 
 void CTile::OnCollision(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어
+	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER  || 
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON) &&
+		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
 	{
-		pOther->GetObj()->GetGravity();
-		
-		fPoint pos = pOther->GetObj()->GetPos();
+		pOther->GetObj()->GetGravity()->OnOffGravity(false);
+		if (pOther->GetFinalPos().y + pOther->GetScale().y / 2.f > GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y/2.f)
+		{
+			fPoint pos = pOther->GetObj()->GetPos();
 
-		fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
-		fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
-		
-		fPoint vTilePos = GetCollider()->GetFinalPos();
-		fPoint vTileScale = GetCollider()->GetScale();
+			fPoint vPlayerPos = pOther->GetFinalPos();
+			fPoint vPlayerScale = pOther->GetScale();
 
-		float fLen = abs(vPlayerPos.y - vTilePos.y);
-		float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+			fPoint vTilePos = GetCollider()->GetFinalPos();
+			fPoint vTileScale = GetCollider()->GetScale();
 
-		pos.y -= fValue;
+			float fLen = abs(vPlayerPos.y - vTilePos.y);
+			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
 
-		pOther->GetObj()->SetPos(pos);
-	}
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 ㅇㅏ이템
-	{
-		pOther->GetObj()->GetGravity();
+			pos.y -= fValue;
 
-		fPoint pos = pOther->GetObj()->GetPos();
-
-		fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
-		fPoint vPlayerScale = pOther->GetObj()->GetCollider()->GetScale();
-
-		fPoint vTilePos = GetCollider()->GetFinalPos();
-		fPoint vTileScale = GetCollider()->GetScale();
-
-		float fLen = abs(vPlayerPos.y - vTilePos.y);
-		float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
-
-		pos.y -= fValue;
-
-		pOther->GetObj()->SetPos(pos);
+			pOther->GetObj()->SetPos(pos);
+		}
 	}
 }
 
 void CTile::OnCollisionExit(CCollider* pOther)
 {
+	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON) &&
+		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
+	{
+		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+	}
+	
 }

@@ -27,6 +27,10 @@ void CGravity::finalupdate()
 		pos.y += m_fTimea * fDT;
 		m_pOwner->SetPos(pos);
 	}
+	else
+	{
+
+	}
 }
 
 void CGravity::OnOffGravity(bool set, float time)
@@ -39,7 +43,4 @@ bool CGravity::CheckGravity()
 {
 	return IsGravity;
 }
-
-
-
 

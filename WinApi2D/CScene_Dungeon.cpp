@@ -33,6 +33,9 @@ void CScene_Dungeon::Enter()
 	path += L"tile\\test2.tile";
 	LoadTile(path);
 
+	//CPlayer* pPlayer;
+	//pPlayer->SetPos(fPoint(100.f, 100.f));
+	
 	CPlayer* ppPlayer = new CPlayer;
 	ppPlayer->SetPos(fPoint(100.f, 100.f));
 	AddObject(ppPlayer, GROUP_GAMEOBJ::PLAYER);

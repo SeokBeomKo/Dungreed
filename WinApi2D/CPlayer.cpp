@@ -259,7 +259,6 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
 		GR = false;
-		GetGravity()->OnOffGravity(true);
 	}
 }
 
