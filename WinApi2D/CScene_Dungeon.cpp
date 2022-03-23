@@ -29,6 +29,8 @@ void CScene_Dungeon::Enter()
 {
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
+	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\test2.tile";
 	LoadTile(path);
@@ -36,9 +38,9 @@ void CScene_Dungeon::Enter()
 	//CPlayer* pPlayer;
 	//pPlayer->SetPos(fPoint(100.f, 100.f));
 	
-	CPlayer* ppPlayer = new CPlayer;
-	ppPlayer->SetPos(fPoint(100.f, 100.f));
-	AddObject(ppPlayer, GROUP_GAMEOBJ::PLAYER);
+	//CPlayer* ppPlayer = new CPlayer;
+	//ppPlayer->SetPos(fPoint(100.f, 100.f));
+	//AddObject(ppPlayer, GROUP_GAMEOBJ::PLAYER);
 	
 	TownLayer_Day* dungeonlayer = new TownLayer_Day;
 	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png");
@@ -46,7 +48,7 @@ void CScene_Dungeon::Enter()
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 
-	CCameraManager::getInst()->SetTargetObj(ppPlayer);
+	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Dungeon::Exit()

@@ -2,6 +2,9 @@
 #include "CCore.h"
 #include "CGameObject.h"
 #include "CTexture.h"
+#include "CPlayer.h"
+
+CPlayer* pPlayer = nullptr;
 
 CCore::CCore()
 {

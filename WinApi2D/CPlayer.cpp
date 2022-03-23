@@ -20,7 +20,7 @@
 CPlayer::CPlayer()
 {
 	CreateAnimator();
-	m_pImg  = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
 	GetAnimator()->CreateAnimation(L"PlayerIdleright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
 	GetAnimator()->CreateAnimation(L"PlayerIdleleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
 
@@ -35,19 +35,18 @@ CPlayer::CPlayer()
 	//m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
 
 	SetName(L"Player");
-	SetScale(fPoint(32.f *4, 32.f*4));
+	SetScale(fPoint(32.f * 4, 32.f * 4));
 	SetObjGroup(GROUP_GAMEOBJ::PLAYER);
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 64.f));
 	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
-	
+
 	CreateGravity();
 }
 
 CPlayer::~CPlayer()
 {
-
 }
 
 CPlayer* CPlayer::Clone()
@@ -233,7 +232,7 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 		m_jumpCount = 2;
 	}
 	
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)		// 플레이어와 무기
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)				// 플레이어와 장비
 	{
 		Equip();
 	}

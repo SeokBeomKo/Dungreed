@@ -53,6 +53,8 @@ public:
 
 	virtual void update();
 
+	void SetPlayer();
+
 	void MoveUpdate();
 	void AniUpdate();
 	void Equip();

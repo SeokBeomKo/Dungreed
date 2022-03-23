@@ -47,7 +47,8 @@ void CScene_Town::Enter()
 	LoadTile(path);
 
 	// Player Ãß°¡
-	CPlayer* pPlayer = new CPlayer;
+	pPlayer = new CPlayer;
+
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
@@ -81,7 +82,20 @@ void CScene_Town::Enter()
 void CScene_Town::Exit()
 {
 	CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
+
 	DeleteAll();
 
+	//DeleteGroup(GROUP_GAMEOBJ::DEFAULT);
+	//DeleteGroup(GROUP_GAMEOBJ::BACKGROUND);
+	//DeleteGroup(GROUP_GAMEOBJ::MAP);
+	//DeleteGroup(GROUP_GAMEOBJ::TILE);
+	//DeleteGroup(GROUP_GAMEOBJ::PAYER_WEAPON);
+	//DeleteGroup(GROUP_GAMEOBJ::PLAYER);
+	//DeleteGroup(GROUP_GAMEOBJ::MONSTER);
+	//DeleteGroup(GROUP_GAMEOBJ::ITEM);
+	//DeleteGroup(GROUP_GAMEOBJ::MISSILE_PLAYER);
+	//DeleteGroup(GROUP_GAMEOBJ::MISSILE_MONSTER);
+	//DeleteGroup(GROUP_GAMEOBJ::UI);
+	
 	CCollisionManager::getInst()->Reset();
 }

@@ -9,7 +9,8 @@ CEquip::CEquip()
     //SetPos(m_Owner->GetPos());
     SetPos(fPoint(100.f, 100.f));
     SetName(L"Short_Sword");
-    
+    SetObjGroup(GROUP_GAMEOBJ::PAYER_WEAPON);
+
     // TODO
 }
 

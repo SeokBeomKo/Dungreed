@@ -45,10 +45,11 @@ enum class GROUP_GAMEOBJ
 	PAYER_WEAPON,
 	PLAYER,
 	MONSTER,
+	ITEM,
 	MISSILE_PLAYER,
 	MISSILE_MONSTER,
 
-	UI,		// UI는 모든 게임오브젝트 중 최상단 Layer에 위치
+	UI,		         // UI는 모든 게임오브젝트 중 최상단 Layer에 위치
 	SIZE,
 };
 
@@ -113,6 +114,9 @@ enum class TYPE_EVENT
 #include "CUIManager.h"
 #include "CSoundManager.h"
 #include "CRenderManager.h"
+
+class CPlayer;
+extern CPlayer* pPlayer;
 
 //========================================
 //##			디파인문				##

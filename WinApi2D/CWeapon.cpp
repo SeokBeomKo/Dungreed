@@ -10,7 +10,7 @@ CWeapon::CWeapon()
     SetScale(fPoint(m_Img->GetWidth() * 4.f, m_Img->GetHeight() * 4.f));
     SetPos(fPoint(1200.f, 550.f));
     SetName(L"Short_Sword");
-    SetObjGroup(GROUP_GAMEOBJ::PAYER_WEAPON);
+    SetObjGroup(GROUP_GAMEOBJ::ITEM);
 
     CreateCollider();
     GetCollider()->SetScale(GetScale());

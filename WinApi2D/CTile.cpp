@@ -135,7 +135,7 @@ void CTile::Load(FILE* pFile)
 void CTile::OnCollisionEnter(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON)&& 
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)&& 
 		this->GetTileGroup() == GROUP_TILE::GROUND)										// 그라운드 와 플레이어 , 무기
 	{
 		pOther->GetObj()->GetGravity()->OnOffGravity(false);
@@ -178,7 +178,7 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 void CTile::OnCollision(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER  || 
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON) &&
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
 		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
 	{
 		pOther->GetObj()->GetGravity()->OnOffGravity(false);
@@ -205,7 +205,7 @@ void CTile::OnCollision(CCollider* pOther)
 void CTile::OnCollisionExit(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PAYER_WEAPON) &&
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
 		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
 	{
 		pOther->GetObj()->GetGravity()->OnOffGravity(true);

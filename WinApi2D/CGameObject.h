@@ -4,6 +4,8 @@ class CCollider;
 class CAnimator;
 class CGravity;
 
+
+
 class CGameObject
 {
 	friend class CEventManager;
