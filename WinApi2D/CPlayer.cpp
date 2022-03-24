@@ -44,7 +44,7 @@ CPlayer::CPlayer()
 	IsJump = false;
 	Isright = true;
 	//m_Savedata.IsEquip = false;
-	m_Savedata.pEquip = new CEquip;
+	pEquip = new CEquip;
 
 	m_Savedata.hp = 100;
 
@@ -70,10 +70,8 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::update()
 {
-	m_Savedata.hp = m_Savedata.hp - 0.001f * fDT;
 	MoveUpdate();
 	AniUpdate();
-	m_Savedata.hp;
 }
 
 void CPlayer::MoveUpdate()
@@ -113,16 +111,7 @@ void CPlayer::MoveUpdate()
 		m_fTime = GR_TIME * 2.5;
 		m_fTimex = GR_TIME * 2;
 	}
-	
-	if (KeyDown(VK_SPACE) || KeyDown('W'))
-	{
-		if (!(m_jumpCount == 0))
-		{
-			--m_jumpCount;
-			IsJump = true;
-			m_fTime = GR_TIME;
-		}
-	}
+
 	if (IsDash)
 	{
 		GR = true;
@@ -162,6 +151,15 @@ void CPlayer::MoveUpdate()
 
 		pos.x += m_fTimex * dashdir.normalize().x * fDT;
 		pos.y += m_fTime * dashdir.normalize().y * fDT;
+	}
+	else if(KeyDown(VK_SPACE) || KeyDown('W'))
+	{
+		if (!(m_jumpCount == 0))
+		{
+			--m_jumpCount;
+			IsJump = true;
+			m_fTime = GR_TIME;
+		}
 	}
 	else if (IsJump)
 	{
@@ -247,16 +245,18 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 		GR = false;
 		m_jumpCount = 2;
 	}
-	
+
 	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)				// 플레이어와 장비
 	{
 		switch (pOther->GetObj()->GetItemCode())
 		{
 		case 1:
-			Equip(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
+			Equip(pOther->GetObj()->GetItemCode());
+			m_Savedata.m_EquipCode = 1;
 			break;
 		case 2:
-			Equip(L"Muramasa", L"texture\\weapon\\Muramasa.png");
+			Equip(pOther->GetObj()->GetItemCode());
+			m_Savedata.m_EquipCode = 2;
 			break;
 		default:
 			break;
@@ -289,21 +289,30 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 	}
 }
 
-void CPlayer::Equip(wstring strKey, wstring strPath)
+void CPlayer::Equip(int code)
 {
-	if (m_Savedata.IsEquip)
+	wstring Key, Path;
+	switch (code)
 	{
-		DeleteObj(m_Savedata.pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
-		m_Savedata.IsEquip = false;
-		m_Savedata.pEquip = new CEquip;
+	case 1:
+		Key = L"Short_Sword"; Path = L"texture\\weapon\\ShortSword.png";
+		break;
+	case 2:
+		Key = L"Muramasa"; Path = L"texture\\weapon\\Muramasa.png";
+	}
+	if (IsEquip)
+	{
+		DeleteObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
+		IsEquip = false;
+		pEquip = new CEquip;
 	}
 
-	m_Savedata.pEquip->SetOwner(this);
-	m_Savedata.pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
-	m_Savedata.pEquip->Load(strKey, strPath);
-	CreateObj(m_Savedata.pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+	pEquip->SetOwner(this);
+	//pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
+	pEquip->Load(Key, Path);
+	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
 
-	m_Savedata.IsEquip = true;
+	IsEquip = true;
 }
 
 void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2)
@@ -316,11 +325,11 @@ void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR par
 void CPlayer::SaveData(PlayerSave data)
 {
 	m_Savedata = data;
+	Equip(m_Savedata.m_EquipCode);
 }
 
 PlayerSave CPlayer::LoadData()
 {
 	return m_Savedata;
 }
-
 

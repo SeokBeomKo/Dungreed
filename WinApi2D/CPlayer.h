@@ -8,14 +8,12 @@ class CD2DImage;
 // 함수포인터를 위한 타입정의
 typedef void(*BTN_FUNC) (DWORD_PTR, DWORD_PTR);
 
+
 struct PlayerSave
 {
-	// 무기
-	CEquip* pEquip;
-	bool IsEquip;
-
 	// 상태
 	int hp;
+	int m_EquipCode;
 };
 
 class CPlayer : public CGameObject
@@ -51,7 +49,18 @@ private:
 	bool IsJump;
 	bool Isright;
 
+	// 무기
+	CEquip* pEquip;
+	bool IsEquip;
+	
+
 	PlayerSave m_Savedata;
+
+	// 상태
+	int hp;
+
+	// 저장
+	CPlayer* m_data;
 
 public:
 	CPlayer();
@@ -62,7 +71,7 @@ public:
 
 	void MoveUpdate();
 	void AniUpdate();
-	void Equip(wstring strKey = nullptr, wstring strPath = nullptr);
+	void Equip(int code);
 
 	virtual void render();
 	virtual void OnCollisionEnter(CCollider* pOther);

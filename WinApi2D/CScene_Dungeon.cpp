@@ -7,6 +7,9 @@
 
 #include "TownLayer_Day.h"
 
+#include "CShort_Sword.h"
+#include "CMuramasa.h"
+
 CScene_Dungeon::CScene_Dungeon()
 {
 }
@@ -38,6 +41,11 @@ void CScene_Dungeon::Enter()
 	pPlayer->SaveData(sPlayer->LoadData());
 	//pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	
+	CShort_Sword* pShort_Sword = new CShort_Sword;
+	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
+
+	CMuramasa* pMuramasa = new CMuramasa;
+	AddObject(pMuramasa, GROUP_GAMEOBJ::ITEM);
 
 	
 	TownLayer_Day* dungeonlayer = new TownLayer_Day;
@@ -45,6 +53,9 @@ void CScene_Dungeon::Enter()
 	AddObject(dungeonlayer, GROUP_GAMEOBJ::BACKGROUND);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::ITEM);
+
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::ITEM);
 
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }

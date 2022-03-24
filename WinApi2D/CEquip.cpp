@@ -2,12 +2,13 @@
 #include "CEquip.h"
 #include "CD2DImage.h"
 
+#include "CCollider.h"
+
 CEquip::CEquip()
 {
-    m_pImg = CResourceManager::getInst()->LoadD2DImage(L"Short_Sword1", L"texture\\weapon\\ShortSword.png");
-    SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
-
-    // TODO
+    CreateCollider();
+    GetCollider()->SetScale(fPoint(32.f, 64.f));
+    GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
 }
 
 CEquip::~CEquip()
