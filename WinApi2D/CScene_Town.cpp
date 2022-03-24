@@ -14,6 +14,7 @@
 
 #include "Cweapon.h"
 
+
 CScene_Town::CScene_Town()
 {
 }
@@ -87,9 +88,8 @@ void CScene_Town::Exit()
 {
 	CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 
+	pPlayer->SaveData(pPlayer);
 	DeleteAll();
-
-	SaveData(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	CCollisionManager::getInst()->Reset();
 }

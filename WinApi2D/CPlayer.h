@@ -45,14 +45,15 @@ private:
 	CEquip* pEquip;
 	bool IsEquip;
 
+	// ¿˙¿Â
+	CPlayer* m_data;
+
 public:
 	CPlayer();
 	~CPlayer();
 	virtual CPlayer* Clone();
 
 	virtual void update();
-
-	void SetPlayer();
 
 	void MoveUpdate();
 	void AniUpdate();
@@ -67,5 +68,7 @@ public:
 
 	void SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2);
 
+	void SaveData(CPlayer* data);
+	CPlayer* LoadData();
 };
 

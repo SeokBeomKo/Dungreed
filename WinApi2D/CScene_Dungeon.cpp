@@ -29,7 +29,6 @@ void CScene_Dungeon::Enter()
 {
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
-	LoadData(GROUP_GAMEOBJ::PLAYER);
 	//if (pPlayer->GetObjGroup() != GROUP_GAMEOBJ::PLAYER)
 	//{
 	//	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
@@ -39,6 +38,16 @@ void CScene_Dungeon::Enter()
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\test2.tile";
 	LoadTile(path);
+
+	pPlayer = pPlayer->LoadData();
+	if (!(CheckGroup(GROUP_GAMEOBJ::PLAYER)))
+	{
+		//DeleteGroup(GROUP_GAMEOBJ::PLAYER);
+		AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	}
+	
+	
+	
 
 	//CPlayer* pPlayer;
 	//pPlayer->SetPos(fPoint(100.f, 100.f));

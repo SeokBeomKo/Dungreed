@@ -129,6 +129,19 @@ void CScene::DeleteAll()
     }
 }
 
+bool CScene::CheckGroup(GROUP_GAMEOBJ group)
+{
+    if (m_arrObj[(UINT)group].size() != 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
 void CScene::LoadTile(const wstring& strPath)
 {
     DeleteGroup(GROUP_GAMEOBJ::TILE);
@@ -188,16 +201,6 @@ void CScene::LoadTile(const wstring& strPath)
     }
 
     fclose(pFile);
-}
-
-void CScene::SaveData(CGameObject* pObj, GROUP_GAMEOBJ group)
-{
-    m_arrObjClone[(UINT)group].push_back(pObj);
-}
-
-void CScene::LoadData(GROUP_GAMEOBJ group)
-{
-    m_arrObj[(UINT)GROUP_GAMEOBJ::PLAYER].push_back(m_arrObjClone[(UINT)GROUP_GAMEOBJ::PLAYER][0]);
 }
 
 

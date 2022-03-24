@@ -117,7 +117,6 @@ enum class TYPE_EVENT
 
 class CPlayer;
 extern CPlayer* pPlayer;
-
 //========================================
 //##			디파인문				##
 //========================================

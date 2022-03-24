@@ -12,7 +12,6 @@ private:
 	vector<CGameObject*> m_arrObj[(int)GROUP_GAMEOBJ::SIZE];
 	wstring m_strName;
 
-	vector<CGameObject*> m_arrObjClone[(int)GROUP_GAMEOBJ::SIZE];
 	CPlayer* m_data;
 public:
 	CScene();
@@ -36,8 +35,7 @@ public:
 	void DeleteGroup(GROUP_GAMEOBJ group);
 	void DeleteAll();
 
-	void LoadTile(const wstring& strPath);
+	bool CheckGroup(GROUP_GAMEOBJ group);
 
-	void SaveData(CGameObject* pObj, GROUP_GAMEOBJ group);
-	void LoadData(GROUP_GAMEOBJ group);
+	void LoadTile(const wstring& strPath);
 };

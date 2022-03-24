@@ -291,4 +291,14 @@ void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR par
 	m_pParam2 = param2;
 }
 
+void CPlayer::SaveData(CPlayer* data)
+{
+	m_data = data;
+}
+
+CPlayer* CPlayer::LoadData()
+{
+	return m_data;
+}
+
 
