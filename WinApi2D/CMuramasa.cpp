@@ -1,29 +1,28 @@
 #include "framework.h"
-#include "CWeapon.h"
+#include "CMuramasa.h"
 #include "CD2DImage.h"
 
 #include "CCollider.h"
 
-CWeapon::CWeapon()
+CMuramasa::CMuramasa()
 {
-	m_Img = CResourceManager::getInst()->LoadD2DImage(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
+    m_Img = CResourceManager::getInst()->LoadD2DImage(L"Muramasa", L"texture\\weapon\\Muramasa.png");
     SetScale(fPoint(m_Img->GetWidth() * 4.f, m_Img->GetHeight() * 4.f));
-    SetPos(fPoint(1200.f, 550.f));
-    SetName(L"Short_Sword");
+    SetPos(fPoint(800.f, 550.f));
+    SetName(L"Muramasa");
+    SetItemCode(2);
     SetObjGroup(GROUP_GAMEOBJ::ITEM);
 
     CreateCollider();
     GetCollider()->SetScale(GetScale());
     GetCollider()->SetOffsetPos(fPoint(0.f, 0.f));
-
-    CreateGravity();
 }
 
-CWeapon::~CWeapon()
+CMuramasa::~CMuramasa()
 {
 }
 
-void CWeapon::render()
+void CMuramasa::render()
 {
     fPoint pos = GetPos();
     fPoint renderpos = CCameraManager::getInst()->GetRenderPos(pos);
@@ -40,15 +39,6 @@ void CWeapon::render()
     component_render();
 }
 
-void CWeapon::update()
+void CMuramasa::update()
 {
 }
-
-void CWeapon::OnCollisionEnter(CCollider* pOther)
-{
-    if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER)
-    {
-        DeleteObj(this);
-    }
-}
-

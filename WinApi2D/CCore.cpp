@@ -4,7 +4,7 @@
 #include "CTexture.h"
 #include "CPlayer.h"
 
-CPlayer* pPlayer = nullptr;
+CPlayer* sPlayer = nullptr;
 
 CCore::CCore()
 {

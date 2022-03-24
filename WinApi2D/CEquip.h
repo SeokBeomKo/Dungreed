@@ -5,7 +5,7 @@ class CEquip :
 {
 public:
     CGameObject* m_Owner;
-    CD2DImage* m_Img;
+    CD2DImage* m_pImg;
 
     CEquip();
     ~CEquip();
@@ -17,6 +17,6 @@ public:
 
     CGameObject* GetOwner();
 
-
+    void Load(wstring strKey, wstring strPath);
 };
 

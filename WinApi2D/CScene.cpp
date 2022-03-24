@@ -120,10 +120,10 @@ void CScene::DeleteAll()
 {
     for (int i = 0; i < (UINT)GROUP_GAMEOBJ::SIZE; i++)
     {
-        if (i == (UINT)GROUP_GAMEOBJ::PLAYER)
-        {
-            continue;
-        }
+        // if (i == (UINT)GROUP_GAMEOBJ::PLAYER)
+        // {
+        //     continue;
+        // }
 
         DeleteGroup((GROUP_GAMEOBJ)i);
     }

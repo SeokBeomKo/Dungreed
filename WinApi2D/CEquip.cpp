@@ -4,12 +4,8 @@
 
 CEquip::CEquip()
 {
-    m_Img = CResourceManager::getInst()->LoadD2DImage(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
-    SetScale(fPoint(m_Img->GetWidth() * 4.f, m_Img->GetHeight() * 4.f));
-    //SetPos(m_Owner->GetPos());
-    SetPos(fPoint(100.f, 100.f));
-    SetName(L"Short_Sword");
-    SetObjGroup(GROUP_GAMEOBJ::PAYER_WEAPON);
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(L"Short_Sword1", L"texture\\weapon\\ShortSword.png");
+    SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 
     // TODO
 }
@@ -25,7 +21,7 @@ void CEquip::render()
     fPoint scale = GetScale();
     
     CRenderManager::getInst()->RenderImage(
-        m_Img,
+        m_pImg,
         renderpos.x - scale.x / 2.f,
         renderpos.y - scale.y / 2.f,
         renderpos.x + scale.x / 2.f,
@@ -56,4 +52,10 @@ void CEquip::SetOwner(CGameObject* Obj)
 CGameObject* CEquip::GetOwner()
 {
     return m_Owner;
+}
+
+void CEquip::Load(wstring strKey, wstring strPath)
+{
+    m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
+	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }

@@ -35,6 +35,12 @@ void CTimeManager::update()
 		updateOneSecond = 0;
 		updateCount = 0;
 	}
+
+	// 프레임 시간 제한
+	if (m_dDT > 1.f / 60.f)
+	{
+		m_dDT = 1.f / 60.f;
+	}
 }
 
 void CTimeManager::init()

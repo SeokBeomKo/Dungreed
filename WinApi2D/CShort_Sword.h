@@ -1,18 +1,15 @@
 #pragma once
 #include "CItem.h"
-class CWeapon :
+class CShort_Sword :
     public CItem
 {
 public:
-
     CD2DImage* m_Img;
 
-    CWeapon();
-    ~CWeapon();
+    CShort_Sword();
+    ~CShort_Sword();
 
     virtual void render();
     virtual void update();
-
-    virtual void OnCollisionEnter(CCollider* pOther);
 };
 

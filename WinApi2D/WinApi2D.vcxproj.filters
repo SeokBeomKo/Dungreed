@@ -133,9 +133,6 @@
     <Filter Include="Object\Item\Weapon">
       <UniqueIdentifier>{48bb1ceb-dced-43da-8dc9-91308cb31064}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Item\Acc">
-      <UniqueIdentifier>{31d75d0c-d2bc-4525-9785-8d9de0b48376}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Item\Coin">
       <UniqueIdentifier>{265a5eb8-5df5-4027-a42a-c12b9994f930}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,12 @@
     </Filter>
     <Filter Include="Engine\Component\State\Monster">
       <UniqueIdentifier>{7e6d57a3-2c7b-48af-af82-1b31d19cb885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Weapon\01.Short_Sword">
+      <UniqueIdentifier>{9a857ae3-a41d-4b32-ad6d-1429dd2b68c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Weapon\02.Muramasa">
+      <UniqueIdentifier>{f7aee196-db02-4741-bc8e-55c61070dd52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +294,6 @@
     <ClInclude Include="CMonster.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="CWeapon.h">
-      <Filter>Object\Item\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="CItem.h">
       <Filter>Object\Item</Filter>
     </ClInclude>
@@ -314,6 +314,12 @@
     </ClInclude>
     <ClInclude Include="CMState.h">
       <Filter>Engine\Component\State\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CMuramasa.h">
+      <Filter>Object\Item\Weapon\02.Muramasa</Filter>
+    </ClInclude>
+    <ClInclude Include="CShort_Sword.h">
+      <Filter>Object\Item\Weapon\01.Short_Sword</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -437,9 +443,6 @@
     <ClCompile Include="CMonster.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="CWeapon.cpp">
-      <Filter>Object\Item\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="CItem.cpp">
       <Filter>Object\Item</Filter>
     </ClCompile>
@@ -460,6 +463,12 @@
     </ClCompile>
     <ClCompile Include="CMState.cpp">
       <Filter>Engine\Component\State\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CMuramasa.cpp">
+      <Filter>Object\Item\Weapon\02.Muramasa</Filter>
+    </ClCompile>
+    <ClCompile Include="CShort_Sword.cpp">
+      <Filter>Object\Item\Weapon\01.Short_Sword</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

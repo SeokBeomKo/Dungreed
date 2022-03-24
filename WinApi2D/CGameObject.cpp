@@ -82,6 +82,11 @@ void CGameObject::SetTileGroup(GROUP_TILE group)
 	m_TileGroup = group;
 }
 
+void CGameObject::SetItemCode(int code)
+{
+	m_ItemCode = code;
+}
+
 fPoint CGameObject::GetPos()
 {
 	return m_fptPos;
@@ -105,6 +110,11 @@ GROUP_GAMEOBJ CGameObject::GetObjGroup()
 GROUP_TILE CGameObject::GetTileGroup()
 {
 	return m_TileGroup;
+}
+
+int CGameObject::GetItemCode()
+{
+	return m_ItemCode;
 }
 
 bool CGameObject::isDead()

@@ -45,6 +45,9 @@ private:
 	CEquip* pEquip;
 	bool IsEquip;
 
+	// 상태
+	int hp;
+
 	// 저장
 	CPlayer* m_data;
 
@@ -57,14 +60,12 @@ public:
 
 	void MoveUpdate();
 	void AniUpdate();
-	void Equip();
+	void Equip(wstring strKey = nullptr, wstring strPath = nullptr);
 
 	virtual void render();
 	virtual void OnCollisionEnter(CCollider* pOther);
 	virtual void OnCollision(CCollider* pOther);
 	virtual void OnCollisionExit(CCollider* pOther);
-
-	void Load(wstring strKey, wstring strPath);
 
 	void SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2);
 

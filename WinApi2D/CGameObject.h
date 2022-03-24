@@ -26,6 +26,9 @@ private:
 	bool m_bAlive;
 	void SetDead();
 
+	// 무기 코드
+	int m_ItemCode = 0;
+
 public:
 	CGameObject();
 	CGameObject(const CGameObject& other);
@@ -37,12 +40,14 @@ public:
 	void SetName(wstring name);
 	void SetObjGroup(GROUP_GAMEOBJ group);
 	void SetTileGroup(GROUP_TILE group);
+	void SetItemCode(int code);
 
 	fPoint GetPos();
 	fPoint GetScale();
 	wstring GetName();
 	GROUP_GAMEOBJ GetObjGroup();
 	GROUP_TILE GetTileGroup();
+	int GetItemCode();
 
 	bool isDead();
 

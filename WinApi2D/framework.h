@@ -116,7 +116,8 @@ enum class TYPE_EVENT
 #include "CRenderManager.h"
 
 class CPlayer;
-extern CPlayer* pPlayer;
+extern CPlayer* sPlayer;
+
 //========================================
 //##			디파인문				##
 //========================================

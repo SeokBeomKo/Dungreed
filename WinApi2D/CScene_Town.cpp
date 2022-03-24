@@ -12,8 +12,10 @@
 #include "CSound.h"
 #include "CD2DImage.h"
 
-#include "Cweapon.h"
+#include "CShort_Sword.h"
+#include "CMuramasa.h"
 
+class CPlayer* pPlayer;
 
 CScene_Town::CScene_Town()
 {
@@ -58,10 +60,18 @@ void CScene_Town::Enter()
 	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
 	
 
-	CWeapon* pWeapon = new CWeapon;
+	CShort_Sword* pShort_Sword = new CShort_Sword;
 	//pWeapon->SetPos(fPoint(200.f, 1200.f));
 	//pWeapon->Load(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
-	AddObject(pWeapon, GROUP_GAMEOBJ::PAYER_WEAPON);
+	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
+
+	CMuramasa* pMuramasa = new CMuramasa;
+	AddObject(pMuramasa, GROUP_GAMEOBJ::ITEM);
+
+	CItem* pMuramasa2 = new CMuramasa;
+	pMuramasa2->SetPos(fPoint(20.f, 600.f));
+	AddObject(pMuramasa2, GROUP_GAMEOBJ::ITEM);
+
 	
 	Back_Ground* skyday = new Back_Ground;
 	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
@@ -76,9 +86,9 @@ void CScene_Town::Enter()
 	AddObject(townLayer_day, GROUP_GAMEOBJ::BACKGROUND);
 	
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::PAYER_WEAPON);
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::ITEM);
 
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::PAYER_WEAPON);
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::ITEM);
 
 	// Camera Look ÁöÁ¤
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
@@ -88,7 +98,9 @@ void CScene_Town::Exit()
 {
 	CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 
-	pPlayer->SaveData(pPlayer);
+	sPlayer = new CPlayer;
+	sPlayer->SaveData(pPlayer);
+
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();

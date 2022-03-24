@@ -1,8 +1,6 @@
 #include "framework.h"
 #include "CPlayer.h"
-#include "CMissile.h"
 #include "CScene.h"
-#include "CTexture.h"
 
 // 컴포넌트
 #include "CCollider.h"
@@ -11,11 +9,16 @@
 
 #include "CTile.h"
 #include "CD2DImage.h"
+#include "CTexture.h"
+
 #include "CEquip.h"
+#include "CMissile.h"
 
 #define GR_POWER 2000
 #define GR_TIME 1000
 #define DS_SEC	0.15
+
+class CEquip* pEquip;
 
 CPlayer::CPlayer()
 {
@@ -41,6 +44,7 @@ CPlayer::CPlayer()
 	IsJump = false;
 	Isright = true;
 	IsEquip = false;
+	pEquip = new CEquip;
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f * 4, 32.f * 4));
@@ -242,7 +246,17 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 	
 	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)				// 플레이어와 장비
 	{
-		Equip();
+		switch (pOther->GetObj()->GetItemCode())
+		{
+		case 1:
+			Equip(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
+			break;
+		case 2:
+			Equip(L"Muramasa", L"texture\\weapon\\Muramasa.png");
+			break;
+		default:
+			break;
+		}
 	}
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::DOOR)				// 플레이어와 던전 입구
 	{
@@ -269,19 +283,21 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 	}
 }
 
-void CPlayer::Load(wstring strKey, wstring strPath)
+void CPlayer::Equip(wstring strKey, wstring strPath)
 {
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
-	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
-}
+	if (IsEquip)
+	{
+		DeleteObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+		IsEquip = false;
+		pEquip = new CEquip;
+	}
 
-void CPlayer::Equip()
-{
-	CEquip* pEquip = new CEquip;
 	pEquip->SetOwner(this);
-	pEquip->SetPos(this->GetPos()+fPoint(50.f, 0));
-
+	pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
+	pEquip->Load(strKey, strPath);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+
+	IsEquip = true;
 }
 
 void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2)

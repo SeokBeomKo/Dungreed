@@ -29,32 +29,17 @@ void CScene_Dungeon::Enter()
 {
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
-	//if (pPlayer->GetObjGroup() != GROUP_GAMEOBJ::PLAYER)
-	//{
-	//	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
-	//}
-	//AddObject(pPlayer = LoadData(), GROUP_GAMEOBJ::PLAYER);
-
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\test2.tile";
 	LoadTile(path);
 
-	pPlayer = pPlayer->LoadData();
+	CPlayer* pPlayer = nullptr;
+	pPlayer = sPlayer->LoadData();
+
 	if (!(CheckGroup(GROUP_GAMEOBJ::PLAYER)))
 	{
-		//DeleteGroup(GROUP_GAMEOBJ::PLAYER);
 		AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 	}
-	
-	
-	
-
-	//CPlayer* pPlayer;
-	//pPlayer->SetPos(fPoint(100.f, 100.f));
-	
-	//CPlayer* ppPlayer = new CPlayer;
-	//ppPlayer->SetPos(fPoint(100.f, 100.f));
-	//AddObject(ppPlayer, GROUP_GAMEOBJ::PLAYER);
 	
 	TownLayer_Day* dungeonlayer = new TownLayer_Day;
 	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png");
@@ -62,7 +47,7 @@ void CScene_Dungeon::Enter()
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 
-	CCameraManager::getInst()->SetTargetObj(pPlayer);
+	// CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Dungeon::Exit()
