@@ -33,13 +33,12 @@ void CScene_Dungeon::Enter()
 	path += L"tile\\test2.tile";
 	LoadTile(path);
 
-	CPlayer* pPlayer = nullptr;
-	pPlayer = sPlayer->LoadData();
+	CPlayer* pPlayer = new CPlayer;
+	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	pPlayer->SaveData(sPlayer->LoadData());
+	//pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
+	
 
-	if (!(CheckGroup(GROUP_GAMEOBJ::PLAYER)))
-	{
-		AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
-	}
 	
 	TownLayer_Day* dungeonlayer = new TownLayer_Day;
 	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png");
@@ -47,7 +46,7 @@ void CScene_Dungeon::Enter()
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 
-	// CCameraManager::getInst()->SetTargetObj(pPlayer);
+	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Dungeon::Exit()

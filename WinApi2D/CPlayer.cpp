@@ -43,8 +43,10 @@ CPlayer::CPlayer()
 	m_fSpeed = 0.f;
 	IsJump = false;
 	Isright = true;
-	IsEquip = false;
-	pEquip = new CEquip;
+	//m_Savedata.IsEquip = false;
+	m_Savedata.pEquip = new CEquip;
+
+	m_Savedata.hp = 100;
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f * 4, 32.f * 4));
@@ -68,8 +70,10 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::update()
 {
+	m_Savedata.hp = m_Savedata.hp - 0.001f * fDT;
 	MoveUpdate();
 	AniUpdate();
+	m_Savedata.hp;
 }
 
 void CPlayer::MoveUpdate()
@@ -263,6 +267,8 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 		if (nullptr != m_pFunc)
 		{
 			m_pFunc(m_pParam1, m_pParam2);
+			sPlayer = new CPlayer;
+			sPlayer->SaveData(this->LoadData());
 		}
 	}
 }
@@ -285,19 +291,19 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 
 void CPlayer::Equip(wstring strKey, wstring strPath)
 {
-	if (IsEquip)
+	if (m_Savedata.IsEquip)
 	{
-		DeleteObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
-		IsEquip = false;
-		pEquip = new CEquip;
+		DeleteObj(m_Savedata.pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+		m_Savedata.IsEquip = false;
+		m_Savedata.pEquip = new CEquip;
 	}
 
-	pEquip->SetOwner(this);
-	pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
-	pEquip->Load(strKey, strPath);
-	CreateObj(pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
+	m_Savedata.pEquip->SetOwner(this);
+	m_Savedata.pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
+	m_Savedata.pEquip->Load(strKey, strPath);
+	CreateObj(m_Savedata.pEquip, GROUP_GAMEOBJ::PAYER_WEAPON);
 
-	IsEquip = true;
+	m_Savedata.IsEquip = true;
 }
 
 void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2)
@@ -307,14 +313,14 @@ void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR par
 	m_pParam2 = param2;
 }
 
-void CPlayer::SaveData(CPlayer* data)
+void CPlayer::SaveData(PlayerSave data)
 {
-	m_data = data;
+	m_Savedata = data;
 }
 
-CPlayer* CPlayer::LoadData()
+PlayerSave CPlayer::LoadData()
 {
-	return m_data;
+	return m_Savedata;
 }
 
 

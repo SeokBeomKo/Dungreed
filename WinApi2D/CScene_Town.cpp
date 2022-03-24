@@ -15,7 +15,6 @@
 #include "CShort_Sword.h"
 #include "CMuramasa.h"
 
-class CPlayer* pPlayer;
 
 CScene_Town::CScene_Town()
 {
@@ -38,6 +37,7 @@ void CScene_Town::update()
 void StartDungeon(DWORD_PTR, DWORD_PTR)
 {
 	ChangeScn(GROUP_SCENE::DUNGEON);
+	
 }
 
 void CScene_Town::Enter()
@@ -50,14 +50,10 @@ void CScene_Town::Enter()
 	LoadTile(path);
 
 	// Player 추가
-	if (pPlayer == nullptr)
-	{
-		pPlayer = new CPlayer;
-		AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
-	}
-
+	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
+	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 	
 
 	CShort_Sword* pShort_Sword = new CShort_Sword;
@@ -92,15 +88,14 @@ void CScene_Town::Enter()
 
 	// Camera Look 지정
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
+
 }
 
 void CScene_Town::Exit()
 {
 	CSoundManager::getInst()->Stop(L"CScene_Town_bgm");
 
-	sPlayer = new CPlayer;
-	sPlayer->SaveData(pPlayer);
-
+	
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();
