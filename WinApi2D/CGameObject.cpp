@@ -166,6 +166,14 @@ void CGameObject::component_render()
 	}
 }
 
+void CGameObject::SetJump(bool set)
+{
+}
+
+void CGameObject::SetDash(bool set)
+{
+}
+
 CCollider* CGameObject::GetCollider()
 {
 	return m_pCollider;

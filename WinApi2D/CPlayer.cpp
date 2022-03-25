@@ -68,6 +68,16 @@ CPlayer* CPlayer::Clone()
 	return new CPlayer(*this);
 }
 
+void CPlayer::SetJump(bool set)
+{
+	IsJump = set;
+}
+
+void CPlayer::SetDash(bool set)
+{
+	IsDash = set;
+}
+
 void CPlayer::update()
 {
 	MoveUpdate();
@@ -201,7 +211,7 @@ void CPlayer::AniUpdate()
 {
 	if (Isright)
 	{
-		if (GR)
+		if (GetGravity()->CheckGravity() || GR)
 		{
 			GetAnimator()->Play(L"PlayerJumpright");
 		}
@@ -216,7 +226,7 @@ void CPlayer::AniUpdate()
 	}
 	else
 	{
-		if (GR)
+		if (GetGravity()->CheckGravity() || GR)
 		{
 			GetAnimator()->Play(L"PlayerJumpleft");
 		}
@@ -277,7 +287,6 @@ void CPlayer::OnCollision(CCollider* pOther)
 {
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
-		GR = false;
 	}
 }
 
@@ -285,7 +294,6 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 {
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
-		GR = false;
 	}
 }
 

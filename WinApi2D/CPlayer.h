@@ -67,6 +67,9 @@ public:
 	~CPlayer();
 	virtual CPlayer* Clone();
 
+	virtual void SetJump(bool set);
+	virtual void SetDash(bool set);
+
 	virtual void update();
 
 	void MoveUpdate();
