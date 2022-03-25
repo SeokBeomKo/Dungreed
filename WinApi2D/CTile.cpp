@@ -134,28 +134,6 @@ void CTile::Load(FILE* pFile)
 
 void CTile::OnCollisionEnter(CCollider* pOther)
 {
-	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)&& 
-		this->GetTileGroup() == GROUP_TILE::GROUND)										// 그라운드 와 플레이어 , 무기
-	{
-		pOther->GetObj()->GetGravity()->OnOffGravity(false);
-		if (pOther->GetFinalPos().y + pOther->GetScale().y / 2.f > GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f)
-		{
-			fPoint pos = pOther->GetObj()->GetPos();
-
-			fPoint vPlayerPos = pOther->GetFinalPos();
-			fPoint vPlayerScale = pOther->GetScale();
-
-			fPoint vTilePos = GetCollider()->GetFinalPos();
-			fPoint vTileScale = GetCollider()->GetScale();
-
-			float fLen = abs(vPlayerPos.y - vTilePos.y);
-			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
-
-			pos.y -= fValue;
-
-			pOther->GetObj()->SetPos(pos);
-		}
 		//fPoint pos = pOther->GetObj()->GetPos();
 		//
 		//fPoint vPlayerPos = pOther->GetObj()->GetCollider()->GetFinalPos();
@@ -172,7 +150,6 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 		//gravity->OnOffGravity(false);
 		//
 		//pOther->GetObj()->SetPos(pos);
-	}
 }
 
 void CTile::OnCollision(CCollider* pOther)
@@ -194,8 +171,17 @@ void CTile::OnCollision(CCollider* pOther)
 
 			float fLen = abs(vPlayerPos.y - vTilePos.y);
 			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
-
-			pos.y -= fValue;
+			if (pos.y > vTilePos.y)
+			{
+				if (fValue > 1.f)
+				pos.y += fValue;
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			}
+			else
+			{
+			if (fValue > 1.f)
+				pos.y-= fValue;
+			}
 
 			pOther->GetObj()->SetPos(pos);
 		}
