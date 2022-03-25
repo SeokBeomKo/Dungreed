@@ -287,6 +287,7 @@ void CPlayer::OnCollision(CCollider* pOther)
 {
 	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
 	{
+		GR = false;
 	}
 }
 
