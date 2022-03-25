@@ -250,15 +250,47 @@ void CTile::OnCollision(CCollider* pOther)
 		float tiletop, tilebottom, tileright, tileleft;
 		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
 		tilebottom = GetCollider()->GetFinalPos().y + GetCollider()->GetScale().y / 2.f;
-		tileright = GetCollider()->GetFinalPos().x - GetCollider()->GetScale().x / 2.f;
-		tileleft = GetCollider()->GetFinalPos().x + GetCollider()->GetScale().x / 2.f;
+		tileleft = GetCollider()->GetFinalPos().x - GetCollider()->GetScale().x / 2.f;
+		tileright = GetCollider()->GetFinalPos().x + GetCollider()->GetScale().x / 2.f;
 
 		// 플레이어
 		float playertop, playerbottom, playerright, playerleft;
 		playertop = pOther->GetFinalPos().y - pOther->GetScale().y / 2.f;
 		playerbottom = pOther->GetFinalPos().y + pOther->GetScale().y / 2.f;
-		playerright = pOther->GetFinalPos().x - pOther->GetScale().x / 2.f;
-		playerleft = pOther->GetFinalPos().x + pOther->GetScale().x / 2.f;
+		playerleft = pOther->GetFinalPos().x - pOther->GetScale().x / 2.f;
+		playerright = pOther->GetFinalPos().x + pOther->GetScale().x / 2.f;
+
+		float fInterH = 0.f;
+		float fInterW = 0.f;
+		float fInterRight, fInterLeft, fInterTop, fInterBottom;
+
+		if (playerbottom > tilebottom && playertop < tiletop)
+		{
+			fInterH = tilebottom - tiletop;
+			//fInterBottom = tilebottom;
+			//fInterTop = tiletop;
+		}
+		else if (playerbottom < tilebottom)
+		{
+			fInterH = playerbottom - tiletop;
+		}
+		else if (playertop > tiletop)
+		{
+			fInterH = tilebottom - playertop;
+		}
+
+		if (playerright > tileright && playerleft < tileleft)
+		{
+			fInterW = tileright - tileleft;
+		}
+		else if (playerright < tileright)
+		{
+			fInterW = playerright - tileleft;
+		}
+		else if (playerleft > tileleft)
+		{
+			fInterW = tileright - playerleft;
+		}
 
 		fPoint pos = pOther->GetObj()->GetPos();
 
@@ -270,10 +302,9 @@ void CTile::OnCollision(CCollider* pOther)
 
 		char test = ' ';
 
-
-		if (playerbottom - tiletop < 8.f || tilebottom - playertop < 8.f) // 위아래 기준
+		if (fInterW > fInterH) // 상하 인지 좌우 인지
 		{
-			
+
 			float fLen = abs(vPlayerPos.y - vTilePos.y);
 			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
 			if (tiletop < playerbottom && playerbottom < tilebottom)		// 위
@@ -299,23 +330,63 @@ void CTile::OnCollision(CCollider* pOther)
 		{
 			float fLen = abs(vPlayerPos.x - vTilePos.x);
 			float fValue = (vPlayerScale.x / 2.f + vTileScale.x / 2.f) - fLen;
-			if (playerright < tileright && playerleft > tileright)		// 타일 기준 왼쪽 충돌
+			if (playerright < tileright && playerleft < tileright)		// 타일 기준 왼쪽 충돌
 			{
 				test = 'left';
-				//if (fValue > 1.f)
-					pos.x -= fValue + 1.f;
+				pos.x -= fValue;
 				pOther->GetObj()->GetGravity()->OnOffGravity(true);
 			}
-			else		// 타일 기준 오른쪽 충돌
+			else if (playerright > tileright && playerleft < tileright)			// 타일 기준 오른쪽 충돌
 			{
 				test = 'righ';
-				//if (fValue > 1.f)
-					pos.x += fValue + 1.f;
+				pos.x += fValue;
 				pOther->GetObj()->GetGravity()->OnOffGravity(true);
 			}
 		}
+		pOther->GetObj()->SetPos(pos);
 
+		/*if (fInterW > fInterH) // 상하 인지 좌우 인지
+		{
 
+			float fLen = abs(vPlayerPos.y - vTilePos.y);
+			float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
+			if (tiletop < playerbottom && playerbottom < tilebottom)		// 위
+			{
+				test = 'up';
+				if (fValue > 1.f)
+					pos.y -= fValue;
+				pOther->GetObj()->GetGravity()->OnOffGravity(false);
+			}
+			else															// 아래
+			{
+				if (fValue > 1.f)
+				{
+					pos.y += fValue;
+				}
+				pOther->GetObj()->SetJump(false);
+				pOther->GetObj()->SetDash(false);
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+				test = 'down';
+			}
+		}
+		else																// 왼쪽오른쪽
+		{
+			float fLen = abs(vPlayerPos.x - vTilePos.x);
+			float fValue = (vPlayerScale.x / 2.f + vTileScale.x / 2.f) - fLen;
+			if (playerright < tileright && playerleft < tileright)		// 타일 기준 왼쪽 충돌
+			{
+				test = 'left';
+				pos.x -= fValue;
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			}
+			else if (playerright > tileright && playerleft < tileright)			// 타일 기준 오른쪽 충돌
+			{
+				test = 'righ';
+				pos.x += fValue;
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			}
+		}
+		pOther->GetObj()->SetPos(pos);*/
 
 		//if (pOther->GetFinalPos().y + pOther->GetScale().y / 2.f > GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y/2.f)
 		//{
@@ -346,9 +417,9 @@ void CTile::OnCollision(CCollider* pOther)
 		//			pos.y -= fValue;
 		//	}
 		//}
+		//
+		//pOther->GetObj()->SetPos(pos);
 
-			pOther->GetObj()->SetPos(pos);
-		
 	}
 }
 
@@ -360,5 +431,5 @@ void CTile::OnCollisionExit(CCollider* pOther)
 	{
 		pOther->GetObj()->GetGravity()->OnOffGravity(true);
 	}
-	
+
 }
