@@ -62,6 +62,16 @@ void CGameObject::SetPos(fPoint pos)
 	m_fptPos = pos;
 }
 
+void CGameObject::SetPosX(float x)
+{
+	m_fptPos.x = x;
+}
+
+void CGameObject::SetPosY(float y)
+{
+	m_fptPos.y = y;
+}
+
 void CGameObject::SetScale(fPoint scale)
 {
 	m_fptScale = scale;

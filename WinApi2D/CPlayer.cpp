@@ -117,43 +117,47 @@ void CPlayer::MoveUpdate()
 		{
 			IsDashLow = true;
 		}
-
 		m_fTime = GR_TIME * 2.5;
 		m_fTimex = GR_TIME * 2;
+		if (IsDashLow)
+		{
+			m_fTime += 500.f;
+		}
 	}
 
 	if (IsDash)
 	{
 		GR = true;
 		GetGravity()->OnOffGravity(false);
-		if (!IsDashLow)
-		{
+		//if (!IsDashLow)
+		//{
+
 			if (m_fTimex <= 0.f && m_fTime <= 0.f)
 			{
 				IsDash = false;
 				IsDashLow = false;
-				//m_fTime = 0.f;
+				m_fTime = 0.f;
 				GetGravity()->OnOffGravity(true, m_fTime);
 			}
 			else
 			{
 				m_fTime -= 7500 * fDT;
 			}
-		}
-		else
-		{
-			if (m_fTimex < 50.f)
-			{
-				IsDash = false;
-				IsDashLow = false;
-				m_fTime = 500.f;
-				GetGravity()->OnOffGravity(true, m_fTime);
-			}
-			else
-			{
-				m_fTime -= 2500 * fDT;
-			}
-		}
+		//}
+		//else
+		//{
+		//	if (m_fTimex < 50.f)
+		//	{
+		//		IsDash = false;
+		//		IsDashLow = false;
+		//		m_fTime = 500.f;
+		//		GetGravity()->OnOffGravity(true, m_fTime);
+		//	}
+		//	else
+		//	{
+		//		m_fTime -= 2500 * fDT;
+		//	}
+		//}
 		if (m_fTimex > 0)
 		{
 			m_fTimex -= 6000 * fDT;

@@ -13,6 +13,9 @@ struct PlayerSave
 {
 	// 상태
 	int hp;
+	int att;
+	float attackspeed;
+	int gold;
 	int m_EquipCode;
 };
 
@@ -53,11 +56,7 @@ private:
 	CEquip* pEquip;
 	bool IsEquip;
 	
-
 	PlayerSave m_Savedata;
-
-	// 상태
-	int hp;
 
 	// 저장
 	CPlayer* m_data;
@@ -69,7 +68,6 @@ public:
 
 	virtual void SetJump(bool set);
 	virtual void SetDash(bool set);
-
 	virtual void update();
 
 	void MoveUpdate();

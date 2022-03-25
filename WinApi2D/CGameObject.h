@@ -36,6 +36,8 @@ public:
 	virtual CGameObject* Clone() { return nullptr; };
 
 	void SetPos(fPoint pos);
+	void SetPosX(float x);
+	void SetPosY(float y);
 	void SetScale(fPoint scale);
 	void SetName(wstring name);
 	void SetObjGroup(GROUP_GAMEOBJ group);
