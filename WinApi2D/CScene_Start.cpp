@@ -54,8 +54,6 @@ void ExitCheck(DWORD_PTR, DWORD_PTR)
 void CScene_Start::Enter()
 {
 	CSoundManager::getInst()->AddSound(L"CScene_Start_bgm", L"sound\\title.wav", false);
-	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
-	CSoundManager::getInst()->AddSound(L"CScene_Duneon_bgm", L"sound\\1.JailField.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Start_bgm");
 
 	Back_Ground* backsky = new Back_Ground;

@@ -35,6 +35,7 @@ void StartDungeon(DWORD_PTR, DWORD_PTR)
 void CScene_Town::Enter()
 {
 	// TODO : ºê±Ý
+	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\test.tile";

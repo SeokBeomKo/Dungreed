@@ -308,6 +308,9 @@ void CPlayer::Equip(int code)
 		break;
 	case 2:
 		Key = L"Muramasa"; Path = L"texture\\weapon\\Muramasa.png";
+		break;
+	default:
+		return;
 	}
 	if (IsEquip)
 	{

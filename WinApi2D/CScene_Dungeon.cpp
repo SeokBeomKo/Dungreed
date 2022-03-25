@@ -30,6 +30,7 @@ void CScene_Dungeon::update()
 
 void CScene_Dungeon::Enter()
 {
+	CSoundManager::getInst()->AddSound(L"CScene_Duneon_bgm", L"sound\\1.JailField.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
 	wstring path = CPathManager::getInst()->GetContentPath();
