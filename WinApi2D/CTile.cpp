@@ -249,7 +249,7 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 		}
 		if (this->GetTileGroup() == GROUP_TILE::BOTANGLE)
 		{
-			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 1.f < fInterH)
+			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 0.5f < fInterH)
 			{
 				if (pOther->GetObj()->GetGravity()->CheckGravity() == false) // TODO : 필요한가 ?
 					pOther->GetObj()->GetGravity()->OnOffGravity(true);
@@ -361,17 +361,17 @@ void CTile::OnCollision(CCollider* pOther)
 						if (this->GetTileGroup() == GROUP_TILE::GROUND ||
 							this->GetTileGroup() == GROUP_TILE::TOPANGLE)				// 그라운드 타일 은 뚫을 수 없음
 						{
-							if (fInterH > 1.f)
+							if (fInterH > 0.5f)
 								pos.y -= fInterH;
 							pOther->GetObj()->GetGravity()->OnOffGravity(false);
 						}
 						else if (this->GetTileGroup() == GROUP_TILE::PLATFORM)		// 플랫폼 타일은 뚫을 수 있음
 						{
-							if (fInterH < 1.f)
+							if (fInterH < 0.5f)
 								pOther->GetObj()->GetGravity()->OnOffGravity(false);
 							if (m_bIsPlat)
 							{
-								if (fInterH > 1.f)
+								if (fInterH > 0.5f)
 									pos.y -= fInterH;
 								m_bIsPlat = false;
 							}
@@ -492,7 +492,7 @@ void CTile::OnCollisionExit(CCollider* pOther)
 				}
 				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
 				{
-					if (pOther->GetObj()->GetMoveLeft() != 0)
+					if (pOther->GetObj()->GetMoveRight() != 0)
 						pOther->GetObj()->SetMove(-1, 0);
 				}
 			}
@@ -513,15 +513,17 @@ void CTile::OnCollisionExit(CCollider* pOther)
 		}
 		if (this->GetTileGroup() == GROUP_TILE::BOTANGLE)
 		{
-			if (playerbottom >= tiletop)
+			//if (playerbottom >= tiletop)
 			{
 				if (fInterLeft == tileleft)									// 타일 기준 왼쪽 충돌
 				{
-					pOther->GetObj()->SetAllMove(0, 0);
+					if (pOther->GetObj()->GetMoveLeft() != 0)
+					pOther->GetObj()->SetMove(0, -1);
 				}
 				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
 				{
-					pOther->GetObj()->SetAllMove(0, 0);
+					if (pOther->GetObj()->GetMoveRight() != 0)
+					pOther->GetObj()->SetMove(-1, 0);
 				}
 			}
 		}
