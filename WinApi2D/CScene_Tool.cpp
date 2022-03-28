@@ -9,6 +9,7 @@
 #include "CPanelUI.h"
 #include "CButtonUI.h"
 #include "CTileButton.h"
+#include "CUICursor.h"
 
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -237,7 +238,7 @@ void CScene_Tool::LoadTile(const wstring& strPath)
 	CreateTile(xCount, yCount);
 
 	const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
-	CD2DImage* pImg = CResourceManager::getInst()->LoadD2DImage(L"Tile", L"texture\\tile\\tilemap.bmp");
+	CD2DImage* pImg = CResourceManager::getInst()->LoadD2DImage(L"Tile", L"texture\\tile\\tilemap.png");
 	CTile* pTile = new CTile;
 
 	for (UINT i = 0; i < tileCount; i++)
@@ -341,6 +342,11 @@ void CScene_Tool::ClickTileGroup(CButtonUI* button)
 		button->SetText(L"GROUND");
 	}
 	else if (m_gTile == GROUP_TILE::GROUND)
+	{
+		m_gTile = GROUP_TILE::PLATFORM;
+		button->SetText(L"PLATFORM");
+	}
+	else if (m_gTile == GROUP_TILE::PLATFORM)
 	{
 		m_gTile = GROUP_TILE::WALL;
 		button->SetText(L"WALL");
@@ -464,6 +470,17 @@ void CScene_Tool::PrintTileGroup()
 				CTile::SIZE_TILE / 2.f,
 				CTile::SIZE_TILE / 2.f,
 				RGB(255, 0, 0),
+				3.f
+			);
+		}
+		else if (GROUP_TILE::PLATFORM == pTile->GetGroup())
+		{
+			CRenderManager::getInst()->RenderEllipse(
+				pTile->GetPos().x + CTile::SIZE_TILE / 2.f - pos.x,
+				pTile->GetPos().y + CTile::SIZE_TILE / 2.f - pos.y,
+				CTile::SIZE_TILE / 2.f,
+				CTile::SIZE_TILE / 2.f,
+				RGB(255, 255, 0),
 				3.f
 			);
 		}

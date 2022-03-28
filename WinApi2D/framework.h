@@ -44,12 +44,14 @@ enum class GROUP_GAMEOBJ
 	TILE,
 	PLAYER_WEAPON,
 	PLAYER,
+	PLAYER_FX,
 	MONSTER,
 	ITEM,
 	MISSILE_PLAYER,
 	MISSILE_MONSTER,
 
 	UI,		         // UI는 모든 게임오브젝트 중 최상단 Layer에 위치
+	CURSOR,
 	SIZE,
 };
 

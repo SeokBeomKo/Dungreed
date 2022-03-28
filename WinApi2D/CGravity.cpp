@@ -39,6 +39,11 @@ void CGravity::OnOffGravity(bool set, float time)
 	m_fTimea = time;
 }
 
+float CGravity::GetTime()
+{
+	return m_fTimea;
+}
+
 bool CGravity::CheckGravity()
 {
 	return IsGravity;

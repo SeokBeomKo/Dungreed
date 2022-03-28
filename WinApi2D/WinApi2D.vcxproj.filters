@@ -70,9 +70,6 @@
     <Filter Include="Object\01.CScene_Town">
       <UniqueIdentifier>{736900fb-d2f9-4576-9663-a87b117f2f74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Character">
-      <UniqueIdentifier>{a0374c23-f28b-40d4-a4f4-380a7473d4b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\01.CScene_Town\BackGround">
       <UniqueIdentifier>{a8b47034-517d-46d7-8c19-dfd89cd898bf}</UniqueIdentifier>
     </Filter>
@@ -151,8 +148,26 @@
     <Filter Include="Object\Item\Weapon\01.Short_Sword">
       <UniqueIdentifier>{9a857ae3-a41d-4b32-ad6d-1429dd2b68c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Item\Weapon\02.Muramasa">
+    <Filter Include="Object\Map">
+      <UniqueIdentifier>{2bc05395-28d2-4b42-880b-214a9f0390a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\02.Dungeon\00. Enter">
+      <UniqueIdentifier>{397d9b22-84f0-4570-a383-a8f8e167ffa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\02.Dungeon\01. Stage01">
+      <UniqueIdentifier>{b95b6579-b27d-4ea1-9593-5d8e1102a4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Item\Weapon\02.PowerKatana">
       <UniqueIdentifier>{f7aee196-db02-4741-bc8e-55c61070dd52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{a0374c23-f28b-40d4-a4f4-380a7473d4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\Main">
+      <UniqueIdentifier>{04b46b02-b599-4bf5-bf71-08aeb2ab1fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\Sub">
+      <UniqueIdentifier>{fdfed1a2-80fb-42d2-8579-39f1e45c99a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="CUI.h">
       <Filter>Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>Object\Character</Filter>
     </ClInclude>
     <ClInclude Include="CPanelUI.h">
       <Filter>Object\UI</Filter>
@@ -297,17 +309,8 @@
     <ClInclude Include="CItem.h">
       <Filter>Object\Item</Filter>
     </ClInclude>
-    <ClInclude Include="CEquip.h">
-      <Filter>Object\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>Object\Character</Filter>
-    </ClInclude>
     <ClInclude Include="CGravity.h">
       <Filter>Engine\Component\Gravity</Filter>
-    </ClInclude>
-    <ClInclude Include="CScene_Dungeon.h">
-      <Filter>Scene\02.Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="Back_Ground.h">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
@@ -315,11 +318,32 @@
     <ClInclude Include="CMState.h">
       <Filter>Engine\Component\State\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="CMuramasa.h">
-      <Filter>Object\Item\Weapon\02.Muramasa</Filter>
+    <ClInclude Include="CPowerKatana.h">
+      <Filter>Object\Item\Weapon\02.PowerKatana</Filter>
     </ClInclude>
     <ClInclude Include="CShort_Sword.h">
       <Filter>Object\Item\Weapon\01.Short_Sword</Filter>
+    </ClInclude>
+    <ClInclude Include="CMap.h">
+      <Filter>Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="CUICursor.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene_Dungeon.h">
+      <Filter>Scene\02.Dungeon\00. Enter</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Object\Player\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CEquip.h">
+      <Filter>Object\Player\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerAttack.h">
+      <Filter>Object\Player\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerFX.h">
+      <Filter>Object\Player\Sub</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -355,9 +379,6 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>Object\Character</Filter>
     </ClCompile>
     <ClCompile Include="CPanelUI.cpp">
       <Filter>Object\UI</Filter>
@@ -446,17 +467,8 @@
     <ClCompile Include="CItem.cpp">
       <Filter>Object\Item</Filter>
     </ClCompile>
-    <ClCompile Include="CEquip.cpp">
-      <Filter>Object\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>Object\Character</Filter>
-    </ClCompile>
     <ClCompile Include="CGravity.cpp">
       <Filter>Engine\Component\Gravity</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene_Dungeon.cpp">
-      <Filter>Scene\02.Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="Back_Ground.cpp">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
@@ -464,11 +476,32 @@
     <ClCompile Include="CMState.cpp">
       <Filter>Engine\Component\State\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="CMuramasa.cpp">
-      <Filter>Object\Item\Weapon\02.Muramasa</Filter>
+    <ClCompile Include="CPowerKatana.cpp">
+      <Filter>Object\Item\Weapon\02.PowerKatana</Filter>
     </ClCompile>
     <ClCompile Include="CShort_Sword.cpp">
       <Filter>Object\Item\Weapon\01.Short_Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="CMap.cpp">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="CUICursor.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene_Dungeon.cpp">
+      <Filter>Scene\02.Dungeon\00. Enter</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Object\Player\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CEquip.cpp">
+      <Filter>Object\Player\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerAttack.cpp">
+      <Filter>Object\Player\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerFX.cpp">
+      <Filter>Object\Player\Sub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,5 +521,8 @@
     <None Include="cpp.hint" />
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="cursor2.cur">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

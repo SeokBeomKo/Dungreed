@@ -14,6 +14,7 @@ CTile::CTile()
 	m_iIdx = 0;
 	m_group = GROUP_TILE::NONE;
 	SetScale(fPoint(SIZE_TILE, SIZE_TILE));
+	bool m_bIsPlat = false;
 }
 
 CTile::~CTile()
@@ -136,117 +137,11 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
+		(this->GetTileGroup() == GROUP_TILE::GROUND ||
+		this->GetTileGroup() == GROUP_TILE::PLATFORM||
+		this->GetTileGroup() == GROUP_TILE::WALL))					// 그라운드 와 플레이어 , 무기
+												
 	{
-		//float tiletop, tilebottom, tileright, tileleft;
-		//tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
-		//tilebottom = GetCollider()->GetFinalPos().y + GetCollider()->GetScale().y / 2.f;
-		//tileright = GetCollider()->GetFinalPos().x - GetCollider()->GetScale().x / 2.f;
-		//tileleft = GetCollider()->GetFinalPos().x + GetCollider()->GetScale().x / 2.f;
-		//
-		//// 플레이어
-		//float playertop, playerbottom, playerright, playerleft;
-		//playertop = pOther->GetFinalPos().y - pOther->GetScale().y / 2.f;
-		//playerbottom = pOther->GetFinalPos().y + pOther->GetScale().y / 2.f;
-		//playerright = pOther->GetFinalPos().x - pOther->GetScale().x / 2.f;
-		//playerleft = pOther->GetFinalPos().x + pOther->GetScale().x / 2.f;
-		//
-		//fPoint pos = pOther->GetObj()->GetPos();
-		//
-		//fPoint vPlayerPos = pOther->GetFinalPos();
-		//fPoint vPlayerScale = pOther->GetScale();
-		//
-		//fPoint vTilePos = GetCollider()->GetFinalPos();
-		//fPoint vTileScale = GetCollider()->GetScale();
-		//
-		//char test = ' ';
-		//
-		//
-		//if (playerbottom - tiletop < 8.f || tilebottom - playertop < 8.f) // 위아래 기준
-		//{
-		//	pOther->GetObj()->GetGravity()->OnOffGravity(false);
-		//	float fLen = abs(vPlayerPos.y - vTilePos.y);
-		//	float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
-		//	if (tiletop < playerbottom && playerbottom < tilebottom)		// 위
-		//	{
-		//		test = 'up';
-		//		if (fValue > 1.f)
-		//			pos.y -= fValue;
-		//	}
-		//	else															// 아래
-		//	{
-		//		if (fValue > 1.f)
-		//		{
-		//			pos.y+= fValue;
-		//			pOther->GetObj()->SetJump(false);
-		//			pOther->GetObj()->SetDash(false);
-		//			pOther->GetObj()->GetGravity()->OnOffGravity(true);
-		//		}
-		//		test = 'down';
-		//	}
-		//}
-		//else																// 왼쪽오른쪽
-		//{
-		//	float fLen = abs(vPlayerPos.x - vTilePos.x);
-		//	float fValue = (vPlayerScale.x / 2.f + vTileScale.x / 2.f) - fLen;
-		//	if (playerright < tileright && playerleft > tileright)		// 타일 기준 왼쪽 충돌
-		//	{
-		//		test = 'left';
-		//		if (fValue > 1.f)
-		//			pos.x -= fValue;
-		//	}
-		//	else		// 타일 기준 오른쪽 충돌
-		//	{
-		//		test = 'righ';
-		//		if (fValue > 1.f)
-		//			pos.x += fValue;
-		//	}
-		//	
-		//}
-		//pOther->GetObj()->SetPos(pos);
-
-		//pOther->GetObj()->GetGravity()->OnOffGravity(false);
-		//if (pOther->GetFinalPos().y + pOther->GetScale().y / 2.f > GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f)
-		//{
-		//	fPoint pos = pOther->GetObj()->GetPos();
-		//
-		//	fPoint vPlayerPos = pOther->GetFinalPos();
-		//	fPoint vPlayerScale = pOther->GetScale();
-		//
-		//	fPoint vTilePos = GetCollider()->GetFinalPos();
-		//	fPoint vTileScale = GetCollider()->GetScale();
-		//
-		//	float fLen = abs(vPlayerPos.y - vTilePos.y);
-		//	float fValue = (vPlayerScale.y / 2.f + vTileScale.y / 2.f) - fLen;
-		//	if (vPlayerPos.y > vTilePos.y)
-		//	{
-		//		if (fValue > 1.f)
-		//		{
-		//			pos.y += fValue;
-		//			pOther->GetObj()->SetJump(false);
-		//			pOther->GetObj()->SetDash(false);
-		//			pOther->GetObj()->GetGravity()->OnOffGravity(true);
-		//		}
-		//			
-		//	}
-		//	else
-		//	{
-		//		if (fValue > 1.f)
-		//			pos.y -= fValue;
-		//	}
-		//
-		//	
-		//}
-	}
-}
-
-void CTile::OnCollision(CCollider* pOther)
-{
-	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
-	{
-		// 타일
 		float tiletop, tilebottom, tileright, tileleft;
 		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
 		tilebottom = GetCollider()->GetFinalPos().y + GetCollider()->GetScale().y / 2.f;
@@ -269,12 +164,12 @@ void CTile::OnCollision(CCollider* pOther)
 			fInterBottom = tilebottom;
 			fInterTop = tiletop;
 		}
-		else if (playerbottom < tilebottom)
+		else if (playerbottom > tiletop)
 		{
 			fInterBottom = playerbottom;
 			fInterTop = tiletop;
 		}
-		else if (playertop > tiletop)
+		else if (playertop < tilebottom)
 		{
 			fInterBottom = tilebottom;
 			fInterTop = playertop;
@@ -299,54 +194,159 @@ void CTile::OnCollision(CCollider* pOther)
 		fInterW = fInterRight - fInterLeft;
 
 		fPoint pos = pOther->GetObj()->GetPos();
-
-		fPoint vPlayerPos = pOther->GetFinalPos();
-		fPoint vPlayerScale = pOther->GetScale();
-
-		fPoint vTilePos = GetCollider()->GetFinalPos();
-		fPoint vTileScale = GetCollider()->GetScale();
-
-		char test = ' ';
-
+		fPoint scale = pOther->GetObj()->GetScale();
 		if (fInterW >= fInterH) // 상하 인지 좌우 인지
 		{
-			if (fInterTop == tiletop)						// 위
+			if (fInterTop == tiletop || (playerright == tileright && playerleft == tileleft))						// 위
 			{
-				test = 'up';
 				if (fInterH > 1.f)
-				pos.y -= fInterH;
+					pos.y -= fInterH;
 				pOther->GetObj()->GetGravity()->OnOffGravity(false);
+				pOther->GetObj()->SetJumpCount();
+				m_bIsPlat = true;
 			}
-			else if(fInterBottom == tilebottom)				// 아래
+			else if (fInterBottom == tilebottom)				// 아래
 			{
-				pOther->GetObj()->SetJump(false);
-				pOther->GetObj()->SetDash(false);
-				pOther->GetObj()->GetGravity()->OnOffGravity(true);
-				test = 'down';
-				pos.y += fInterH;
+				if (this->GetTileGroup() == GROUP_TILE::GROUND)
+				{
+					pOther->GetObj()->SetJump(false);
+					pOther->GetObj()->SetDash(false);
+					pOther->GetObj()->GetGravity()->OnOffGravity(true);
+					pos.y += fInterH;
+				}
 			}
 			pOther->GetObj()->SetPos(pos);
 		}
-		else																// 왼쪽오른쪽
+		//else																// 왼쪽오른쪽
+		//{
+		//	pOther->GetObj()->SetJump(false);
+		//	pOther->GetObj()->SetDash(false);
+		//	if (fInterLeft == tileleft)		// 타일 기준 왼쪽 충돌
+		//	{
+		//		pos.x -= fInterW;
+		//		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+		//	}
+		//	else if (fInterRight == tileright)			// 타일 기준 오른쪽 충돌
+		//	{
+		//		pos.x += fInterW;
+		//		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+		//	}
+		//	pOther->GetObj()->SetPosX(pos.x);
+		//}
+	}
+}
+
+void CTile::OnCollision(CCollider* pOther)
+{
+	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
+		(this->GetTileGroup() == GROUP_TILE::GROUND ||
+		this->GetTileGroup() == GROUP_TILE::PLATFORM ||
+		this->GetTileGroup() == GROUP_TILE::WALL))												// 그라운드 와 플레이어 , 무기
+	{
+		pOther->GetObj()->SetGR(false);
+
+		float tiletop, tilebottom, tileright, tileleft;
+		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
+		tilebottom = GetCollider()->GetFinalPos().y + GetCollider()->GetScale().y / 2.f;
+		tileleft = GetCollider()->GetFinalPos().x - GetCollider()->GetScale().x / 2.f;
+		tileright = GetCollider()->GetFinalPos().x + GetCollider()->GetScale().x / 2.f;
+
+		// 플레이어
+		float playertop, playerbottom, playerright, playerleft;
+		playertop = pOther->GetFinalPos().y - pOther->GetScale().y / 2.f;
+		playerbottom = pOther->GetFinalPos().y + pOther->GetScale().y / 2.f;
+		playerleft = pOther->GetFinalPos().x - pOther->GetScale().x / 2.f;
+		playerright = pOther->GetFinalPos().x + pOther->GetScale().x / 2.f;
+
+		float fInterH = 0.f;
+		float fInterW = 0.f;
+		float fInterRight = 0.f, fInterLeft = 0.f, fInterTop = 0.f, fInterBottom = 0.f;
+
+		if (playerbottom > tilebottom && playertop < tiletop)
 		{
-			pOther->GetObj()->SetJump(false);
-			pOther->GetObj()->SetDash(false);
-			pOther->GetObj()->GetGravity()->OnOffGravity(true);
-			if (fInterLeft == tileleft)		// 타일 기준 왼쪽 충돌
-			{
-				test = 'left';
-				pos.x -= fInterW;
-				pOther->GetObj()->GetGravity()->OnOffGravity(true);
-			}
-			else if (fInterRight == tileright)			// 타일 기준 오른쪽 충돌
-			{
-				test = 'righ';
-				pos.x += fInterW;
-				pOther->GetObj()->GetGravity()->OnOffGravity(true);
-			}
-			pOther->GetObj()->SetPosX(pos.x);
+			fInterBottom = tilebottom;
+			fInterTop = tiletop;
 		}
-		
+		else if (playerbottom > tiletop && playerbottom < tilebottom)
+		{
+			fInterBottom = playerbottom;
+			fInterTop = tiletop;
+		}
+		else if (playertop < tilebottom && playertop > tiletop)
+		{
+			fInterBottom = tilebottom;
+			fInterTop = playertop;
+		}
+		fInterH = fInterBottom - fInterTop;
+
+		if (playerright >= tileright && playerleft <= tileleft)
+		{
+			fInterRight = tileright;
+			fInterLeft = tileleft;
+		}
+		else if (playerright < tileright)
+		{
+			fInterRight = playerright;
+			fInterLeft = tileleft;
+		}
+		else if (playerleft > tileleft)
+		{
+			fInterRight = tileright;
+			fInterLeft = playerleft;
+		}
+		fInterW = fInterRight - fInterLeft;
+
+		fPoint pos = pOther->GetObj()->GetPos();
+		fPoint scale = pOther->GetObj()->GetScale();
+		if (fInterW >= fInterH) // 상하 인지 좌우 인지
+		{
+			if (fInterTop == tiletop || (playerright == tileright && playerleft == tileleft))						// 위
+			{
+				if (this->GetTileGroup() == GROUP_TILE::GROUND)
+				{
+					if (fInterH > 1.f)
+						pos.y -= fInterH;
+					pOther->GetObj()->GetGravity()->OnOffGravity(false);
+				 }
+				else if (this->GetTileGroup() == GROUP_TILE::PLATFORM)
+				{
+					if (fInterH < 1.f)
+						pOther->GetObj()->GetGravity()->OnOffGravity(false);
+					if (m_bIsPlat)
+					{
+						if (fInterH > 1.f)
+							pos.y -= fInterH;
+						m_bIsPlat = false;
+					}
+				}
+			}
+			else if (fInterBottom == tilebottom)				// 아래
+			{
+				if (this->GetTileGroup() == GROUP_TILE::GROUND)
+				{
+					pOther->GetObj()->SetJump(false);
+					pOther->GetObj()->SetDash(false);
+					pOther->GetObj()->GetGravity()->OnOffGravity(true);
+					pos.y += fInterH;
+				}
+			}
+			pOther->GetObj()->SetPos(pos);
+		}
+		//else																// 왼쪽오른쪽
+		//{
+		//	if (fInterLeft == tileleft)		// 타일 기준 왼쪽 충돌
+		//	{
+		//		pos.x -= fInterW;
+		//		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+		//	}
+		//	else if (fInterRight == tileright)			// 타일 기준 오른쪽 충돌
+		//	{
+		//		pos.x += fInterW;
+		//		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+		//	}
+		//	pOther->GetObj()->SetPosX(pos.x);
+		//}
 	}
 }
 
@@ -354,9 +354,13 @@ void CTile::OnCollisionExit(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
-		this->GetTileGroup() == GROUP_TILE::GROUND)											// 그라운드 와 플레이어 , 무기
+		(this->GetTileGroup() == GROUP_TILE::GROUND ||
+		this->GetTileGroup() == GROUP_TILE::PLATFORM))											// 그라운드 와 플레이어 , 무기
 	{
-		pOther->GetObj()->GetGravity()->OnOffGravity(true);
+		if (this->GetTileGroup() == GROUP_TILE::PLATFORM)
+			pOther->GetObj()->GetGravity()->OnOffGravity(true, pOther->GetObj()->GetGravity()->GetTime());
+		else
+			pOther->GetObj()->GetGravity()->OnOffGravity(true);
 	}
 
 }

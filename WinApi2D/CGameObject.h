@@ -11,17 +11,17 @@ class CGameObject
 	friend class CEventManager;
 
 private:
-	wstring m_strName;
-	fPoint m_fptPos;
-	fPoint m_fptScale;
+	wstring			m_strName;
+	fPoint			m_fptPos;
+	fPoint			m_fptScale;
 
-	GROUP_GAMEOBJ m_Group;
-	GROUP_TILE m_TileGroup;
+	GROUP_GAMEOBJ	m_Group;
+	GROUP_TILE		m_TileGroup;
 
 	// 컴포넌트
-	CCollider* m_pCollider;		// 충돌체
-	CAnimator* m_pAnimator;		// 애니메이션
-	CGravity*  m_pGravity;		// 중력
+	CCollider*		m_pCollider;		// 충돌체
+	CAnimator*		m_pAnimator;		// 애니메이션
+	CGravity*		m_pGravity;			// 중력
 
 	bool m_bAlive;
 	void SetDead();
@@ -58,8 +58,10 @@ public:
 	virtual void render();
 	virtual void component_render();	// 컴포넌트들의 영역을 표시하기 위해
 
-	virtual void SetJump(bool set);
-	virtual void SetDash(bool set);
+	virtual void SetJump(bool set)	{};
+	virtual void SetJumpCount()		{};
+	virtual void SetDash(bool set)	{};
+	virtual void SetGR(bool set)	{};
 
 	CCollider* GetCollider();				// 충돌체 반환
 	void CreateCollider();					// 충돌체 생성

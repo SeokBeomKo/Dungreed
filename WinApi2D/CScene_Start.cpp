@@ -13,6 +13,7 @@
 #include "CStartUI.h"
 #include "COptionUI.h"
 #include "CExitUI.h"
+#include "CUICursor.h"
 
 #include "CSound.h"
 #include "CD2DImage.h"
@@ -105,13 +106,9 @@ void CScene_Start::Enter()
 	pExitUI->SetClickedCallBack(ExitCheck, 0, 0);
 	AddObject(pExitUI, GROUP_GAMEOBJ::UI);
 
-	// 윈도우 종료 함수 PostQuitMessage(0);
-
-	// Monster 추가
-	//CMonster* pMonster = new CMonster;
-	//pMonster->SetPos(fPoint(1100, 350));
-	//pMonster->SetCenterPos(pMonster->GetPos());
-	//AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
+	CUICursor* pCursor = new CUICursor;
+	pCursor->Load(L"BasicCursor", L"texture\\ui\\BasicCursor.png");
+	AddObject(pCursor, GROUP_GAMEOBJ::CURSOR);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);

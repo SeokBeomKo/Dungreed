@@ -168,9 +168,11 @@
     <ClInclude Include="CGravity.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
-    <ClInclude Include="CMissile.h" />
+    <ClInclude Include="CMap.h" />
+    <ClInclude Include="CPlayerAttack.h" />
     <ClInclude Include="CMonster.h" />
-    <ClInclude Include="CMuramasa.h" />
+    <ClInclude Include="CPlayerFX.h" />
+    <ClInclude Include="CPowerKatana.h" />
     <ClInclude Include="COptionUI.h" />
     <ClInclude Include="CPanelUI.h" />
     <ClInclude Include="CPathManager.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="CTileButton.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CUI.h" />
+    <ClInclude Include="CUICursor.h" />
     <ClInclude Include="CUIManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
@@ -225,9 +228,11 @@
     <ClCompile Include="CGravity.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
-    <ClCompile Include="CMissile.cpp" />
+    <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CPlayerAttack.cpp" />
     <ClCompile Include="CMonster.cpp" />
-    <ClCompile Include="CMuramasa.cpp" />
+    <ClCompile Include="CPlayerFX.cpp" />
+    <ClCompile Include="CPowerKatana.cpp" />
     <ClCompile Include="COptionUI.cpp" />
     <ClCompile Include="CPanelUI.cpp" />
     <ClCompile Include="CPathManager.cpp" />
@@ -250,6 +255,7 @@
     <ClCompile Include="CTileButton.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CUI.cpp" />
+    <ClCompile Include="CUICursor.cpp" />
     <ClCompile Include="CUIManager.cpp" />
     <ClCompile Include="Back_Cloud00.cpp" />
     <ClCompile Include="MainLogo.cpp" />
@@ -269,6 +275,7 @@
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
     <None Include="cpp.hint" />
+    <None Include="cursor2.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

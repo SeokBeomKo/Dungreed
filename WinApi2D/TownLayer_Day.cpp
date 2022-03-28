@@ -21,17 +21,17 @@ void TownLayer_Day::update()
 
 void TownLayer_Day::render()
 {
-    fPoint pos = fPoint(WINSIZEX / 2, WINSIZEY / 2 + 85.f);
+    fPoint pos = fPoint(0.f,550.f);
     fPoint scale = GetScale();
     fPoint renderpos = CCameraManager::getInst()->GetRenderPos(pos);
-    renderpos = pos + (renderpos - pos) / 2;
+    renderpos = pos + (renderpos - pos) / 3;
 
     CRenderManager::getInst()->RenderImage(
         m_pImg,
-        renderpos.x - scale.x / 2.f,
-        renderpos.y - scale.y / 2.f,
-        renderpos.x + scale.x / 2.f,
-        renderpos.y + scale.y / 2.f
+        renderpos.x,
+        renderpos.y,
+        renderpos.x + scale.x,
+        renderpos.y + scale.y
     );
 }
 

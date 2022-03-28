@@ -17,6 +17,8 @@ public:
 	virtual void finalupdate();
 	void OnOffGravity(bool set, float time = 0);
 
+	float GetTime();
+
 	bool CheckGravity();
 };
 

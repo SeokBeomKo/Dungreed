@@ -2,13 +2,10 @@
 #include "CEquip.h"
 #include "CD2DImage.h"
 
-#include "CCollider.h"
+#include "CPlayerAttack.h"
 
 CEquip::CEquip()
 {
-    CreateCollider();
-    GetCollider()->SetScale(fPoint(32.f, 64.f));
-    GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
 }
 
 CEquip::~CEquip()
@@ -50,6 +47,12 @@ void CEquip::SetOwner(CGameObject* Obj)
     m_Owner = Obj;
 }
 
+void CEquip::SetAttackLoad(wstring strKey, wstring strPath)
+{
+    KeyAttack = strKey;
+    PathAttack = strPath;
+}
+
 CGameObject* CEquip::GetOwner()
 {
     return m_Owner;
@@ -59,4 +62,14 @@ void CEquip::Load(wstring strKey, wstring strPath)
 {
     m_pImg = CResourceManager::getInst()->LoadD2DImage(strKey, strPath);
 	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
+}
+
+void CEquip::PlayerAttack(int code)
+{
+    CPlayerAttack* attack = new CPlayerAttack;
+    attack->SetOwner(m_Owner);
+    attack->SetPos(m_Owner->GetPos());
+    attack->SetCode(code);
+    attack->EnterAttack();
+    CreateObj(attack, GROUP_GAMEOBJ::PLAYER_FX);
 }

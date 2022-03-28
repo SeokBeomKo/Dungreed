@@ -9,10 +9,10 @@
 
 #include "CTile.h"
 #include "CD2DImage.h"
-#include "CTexture.h"
 
 #include "CEquip.h"
-#include "CMissile.h"
+#include "CPlayerAttack.h"
+#include "CPlayerFX.h"
 
 #define GR_POWER 2000
 #define GR_TIME 1000
@@ -22,35 +22,42 @@ class CEquip* pEquip;
 
 CPlayer::CPlayer()
 {
-	CreateAnimator();
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
-	GetAnimator()->CreateAnimation(L"PlayerIdleright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->CreateAnimation(L"PlayerIdleleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
-
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerRun", L"texture\\player\\PlayerRun.png");
-	GetAnimator()->CreateAnimation(L"PlayerRunright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
-	GetAnimator()->CreateAnimation(L"PlayerRunleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
-
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerJump", L"texture\\player\\PlayerJump.png");
-	GetAnimator()->CreateAnimation(L"PlayerJumpright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1);
-	GetAnimator()->CreateAnimation(L"PlayerJumpleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 1, true);
-
-	//m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
-	m_fVelocity = 300;
+	m_fVelocity = 350;
 	IsDash = false;
 	IsDashLow = false;
 	GR = true;
 	m_fSpeed = 0.f;
 	IsJump = false;
 	Isright = true;
-	//m_Savedata.IsEquip = false;
 	pEquip = new CEquip;
+	pFX = new CPlayerFX;
+	time = 0.f;
+	timer = true;
+	timer2 = true;
+	m_fRun = 0.3f;
 
 	m_Savedata.hp = 100;
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f * 4, 32.f * 4));
 	SetObjGroup(GROUP_GAMEOBJ::PLAYER);
+
+	// 플레이어 애니메이션
+	CreateAnimator();
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerIdle", L"texture\\player\\PlayerIdle.png");
+	GetAnimator()->CreateAnimation(L"PlayerIdleright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5);
+	GetAnimator()->CreateAnimation(L"PlayerIdleleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.1f, 5, true);
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerRun", L"texture\\player\\PlayerRun.png");
+	GetAnimator()->CreateAnimation(L"PlayerRunright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8);
+	GetAnimator()->CreateAnimation(L"PlayerRunleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 0.06f, 8, true);
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerJump", L"texture\\player\\PlayerJump.png");
+	GetAnimator()->CreateAnimation(L"PlayerJumpright", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 1.f, 1);
+	GetAnimator()->CreateAnimation(L"PlayerJumpleft", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 1.f, 1, true);
+	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"PlayerDead", L"texture\\player\\PlayerDead.png");
+	GetAnimator()->CreateAnimation(L"PlayerDead", m_pImg, fPoint(0.f, 0.f), fPoint(32.f, 32.f), fPoint(32.f, 0.f), 1.f, 1);
+	
+	// 플레이어 사운드
+	CSoundManager::getInst()->AddSound(L"dash", L"sound\\dash.wav", false);
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 64.f));
@@ -78,6 +85,16 @@ void CPlayer::SetDash(bool set)
 	IsDash = set;
 }
 
+void CPlayer::SetJumpCount()
+{
+	m_jumpCount = 2;
+}
+
+void CPlayer::SetGR(bool set)
+{
+	GR = set;
+}
+
 void CPlayer::update()
 {
 	MoveUpdate();
@@ -90,6 +107,11 @@ void CPlayer::MoveUpdate()
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
 
+	if (pos.x <= 16.f)	// 맵 밖으로 못감
+		pos.x = 16.f;
+	if (pos.y <= 32.f)
+		pos.y = 32.f;
+
 	if (MousePos().x <= realpos.x)
 	{
 		Isright = false;
@@ -101,75 +123,79 @@ void CPlayer::MoveUpdate()
 
 	if (KeyDown(VK_LBUTTON))
 	{
-		// 공격
+		if (pEquip->GetOwner() != nullptr)
+			pEquip->PlayerAttack(m_Savedata.m_EquipCode);
 	}
 
 	if (KeyDown(VK_RBUTTON))
 	{
+		time = 0.f, timer = true, timer2 = true;
 		IsDash = true;
 		IsJump = false;
-		mousePos = MousePos();
-		playerPos = realpos;
-		dashdir.x = mousePos.x - playerPos.x;
-		dashdir.y = mousePos.y - playerPos.y;
+		dashdir.x = MousePos().x - realpos.x;
+		dashdir.y = MousePos().y - realpos.y;
 
-		if (mousePos.y > playerPos.y)
+		if (MousePos().y > realpos.y)
 		{
 			IsDashLow = true;
 		}
-		m_fTime = GR_TIME * 2.5;
-		m_fTimex = GR_TIME * 2;
-		if (IsDashLow)
-		{
-			m_fTime += 500.f;
-		}
+		m_fTime = GR_TIME * 2;
+		m_fTimex = GR_TIME * 1.7;
+		CSoundManager::getInst()->Play(L"dash");
 	}
 
 	if (IsDash)
 	{
+		time += fDT;
+		if (time > 0.05f && timer)
+		{
+			pFX->PlayFX(this, L"dash");
+			timer = false;
+		}
+		if (time > 0.08f && timer2)
+		{
+			pFX->PlayFX(this, L"dash");
+			timer2 = false;
+		}
+
 		GR = true;
 		GetGravity()->OnOffGravity(false);
-		//if (!IsDashLow)
-		//{
-
-			if (m_fTimex <= 0.f && m_fTime <= 0.f)
+			;
+		if (m_fTimex <= 0.f && m_fTime <= 0.f)
+		{
+			IsDash = false;
+			if (!IsDashLow)
 			{
-				IsDash = false;
-				IsDashLow = false;
 				m_fTime = 0.f;
 				GetGravity()->OnOffGravity(true, m_fTime);
 			}
 			else
 			{
-				m_fTime -= 7500 * fDT;
+				m_fTime = 200.f;
+				GetGravity()->OnOffGravity(true, m_fTime);
 			}
-		//}
-		//else
-		//{
-		//	if (m_fTimex < 50.f)
-		//	{
-		//		IsDash = false;
-		//		IsDashLow = false;
-		//		m_fTime = 500.f;
-		//		GetGravity()->OnOffGravity(true, m_fTime);
-		//	}
-		//	else
-		//	{
-		//		m_fTime -= 2500 * fDT;
-		//	}
-		//}
-		if (m_fTimex > 0)
-		{
-			m_fTimex -= 6000 * fDT;
+			IsDashLow = false;
 		}
-
+		else
+		{
+			m_fTime -= 7500 * fDT;
+			if (m_fTimex > 0)
+			{
+				m_fTimex -= 6000 * fDT;
+			}
+		}
+		
 		pos.x += m_fTimex * dashdir.normalize().x * fDT;
 		pos.y += m_fTime * dashdir.normalize().y * fDT;
 	}
 	else if(KeyDown(VK_SPACE) || KeyDown('W'))
 	{
-		if (!(m_jumpCount == 0))
+		if (m_jumpCount != 0)
 		{
+			if (m_jumpCount == 2)
+				pFX->PlayFX(this, L"jump");
+			else
+				pFX->PlayFX(this, L"djump");
 			--m_jumpCount;
 			IsJump = true;
 			m_fTime = GR_TIME;
@@ -208,6 +234,15 @@ void CPlayer::MoveUpdate()
 		m_fSpeed = 0;
 	}
 
+	if (m_fSpeed > 0)
+	{
+		m_fRun -= fDT;
+		if (m_fRun < 0 && !GR)
+		{
+			pFX->PlayFX(this, L"run");
+			m_fRun = 0.3f;
+		}
+	}
 	SetPos(pos);
 }
 
@@ -254,11 +289,6 @@ void CPlayer::render()
 
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)				// GROUND 타일과 충돌 했을 때
-	{
-		GR = false;
-		m_jumpCount = 2;
-	}
 
 	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)				// 플레이어와 장비
 	{
@@ -289,17 +319,10 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 
 void CPlayer::OnCollision(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
-	{
-		GR = false;
-	}
 }
 
 void CPlayer::OnCollisionExit(CCollider* pOther)
 {
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::GROUND)
-	{
-	}
 }
 
 void CPlayer::Equip(int code)
@@ -308,23 +331,22 @@ void CPlayer::Equip(int code)
 	switch (code)
 	{
 	case 1:
-		Key = L"Short_Sword"; Path = L"texture\\weapon\\ShortSword.png";
+		Key = L"Short_Sword"; Path = L"texture\\weapon\\ShortSword.png";			// 무기 경로
 		break;
 	case 2:
-		Key = L"Muramasa"; Path = L"texture\\weapon\\Muramasa.png";
+		Key = L"PowerKatana"; Path = L"texture\\weapon\\PowerKatana.png";
 		break;
 	default:
 		return;
 	}
 	if (IsEquip)
 	{
-		DeleteObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
+		DeleteObj(pEquip);
 		IsEquip = false;
 		pEquip = new CEquip;
 	}
 
 	pEquip->SetOwner(this);
-	//pEquip->SetPos(this->GetPos() + fPoint(50.f, 0));
 	pEquip->Load(Key, Path);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
 

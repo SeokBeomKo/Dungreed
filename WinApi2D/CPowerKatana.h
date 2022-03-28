@@ -1,13 +1,13 @@
 #pragma once
 #include "CItem.h"
-class CMuramasa :
+class CPowerKatana :
     public CItem
 {
 public:
     CD2DImage* m_Img;
 
-    CMuramasa();
-    ~CMuramasa();
+    CPowerKatana();
+    ~CPowerKatana();
 
     virtual void render();
     virtual void update();

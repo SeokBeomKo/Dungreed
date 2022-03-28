@@ -6,9 +6,10 @@
 #include "CMonster.h"
 
 #include "TownLayer_Day.h"
+#include "CUICursor.h"
 
 #include "CShort_Sword.h"
-#include "CMuramasa.h"
+#include "CPowerKatana.h"
 
 CScene_Dungeon::CScene_Dungeon()
 {
@@ -30,6 +31,7 @@ void CScene_Dungeon::update()
 
 void CScene_Dungeon::Enter()
 {
+	CCameraManager::getInst()->FadeIn(1.f);
 	CSoundManager::getInst()->AddSound(L"CScene_Duneon_bgm", L"sound\\1.JailField.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
@@ -45,13 +47,17 @@ void CScene_Dungeon::Enter()
 	CShort_Sword* pShort_Sword = new CShort_Sword;
 	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
 
-	CMuramasa* pMuramasa = new CMuramasa;
-	AddObject(pMuramasa, GROUP_GAMEOBJ::ITEM);
+	CPowerKatana* pPowerKatana = new CPowerKatana;
+	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
 	
 	TownLayer_Day* dungeonlayer = new TownLayer_Day;
 	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png");
 	AddObject(dungeonlayer, GROUP_GAMEOBJ::BACKGROUND);
+
+	CUICursor* pCursortown = new CUICursor;
+	pCursortown->Load(L"ShootingCursor", L"texture\\ui\\ShootingCursor.png");
+	AddObject(pCursortown, GROUP_GAMEOBJ::CURSOR);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::ITEM);

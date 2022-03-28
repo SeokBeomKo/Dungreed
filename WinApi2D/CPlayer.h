@@ -2,6 +2,7 @@
 
 #include "CGameObject.h"
 #include "CEquip.h"
+#include "CPlayerFX.h"
 
 class CD2DImage;
 
@@ -37,10 +38,11 @@ private:
 	// 플레이어 대쉬
 	bool IsDash;
 	bool IsDashLow;
-	fVec2 mousePos;
-	fPoint playerPos;
 	fVec2 dashdir;
 	float m_fTimex;
+	float time;
+	bool timer;
+	bool timer2;
 
 	// 중력 구현
 	bool GR;
@@ -49,17 +51,18 @@ private:
 
 	// MoveUpdate
 	float m_fSpeed;
+	float m_fRun;
 	bool IsJump;
 	bool Isright;
 
 	// 무기
 	CEquip* pEquip;
 	bool IsEquip;
-	
-	PlayerSave m_Savedata;
+
+	CPlayerFX* pFX;
 
 	// 저장
-	CPlayer* m_data;
+	PlayerSave m_Savedata;
 
 public:
 	CPlayer();
@@ -68,6 +71,9 @@ public:
 
 	virtual void SetJump(bool set);
 	virtual void SetDash(bool set);
+	virtual void SetJumpCount();
+	virtual void SetGR(bool set);
+
 	virtual void update();
 
 	void MoveUpdate();

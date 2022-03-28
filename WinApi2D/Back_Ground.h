@@ -4,9 +4,10 @@
 class Back_Ground :
     public CGameObject
 {
-public:
+private:
 	CD2DImage* m_pImg;
 
+public:
 	Back_Ground();
 	~Back_Ground();
 

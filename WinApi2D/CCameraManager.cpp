@@ -38,6 +38,9 @@ void CCameraManager::update()
 
 	// 화면 중앙과 카메라 LookAt 좌표 사이의 차이 계산
 	CalDiff();
+
+	// tool씬 사용시 해제
+	CheckRange();
 }
 
 void CCameraManager::render()
@@ -80,6 +83,28 @@ void CCameraManager::render()
 	}
 }
 
+void CCameraManager::CheckRange()
+{
+	if (m_fptCurLookAt.y < 360.f)	// 카메라가 기준보다 위로 가거나
+	{	
+		m_fptCurLookAt.y = 360.f;
+	}
+	if (m_fptCurLookAt.y > m_fptRange.y - 360.f)	// 카메라가 기준보다 아래로 가거나
+	{ 
+		m_fptCurLookAt.y = m_fptRange.y - 360.f;
+	}
+	if (m_fptCurLookAt.x < 640.f)		// 카메라가 기준보다 왼쪽으로 가거나
+	{
+		m_fptCurLookAt.x = 640.f;
+	}
+	if (m_fptCurLookAt.x > m_fptRange.x - 640.f)		// 카메라가 기준보다 오른쪽으로 가거나
+	{
+		m_fptCurLookAt.x = m_fptRange.x - 640.f;
+	}
+
+	m_fptDiff = m_fptCurLookAt - fPoint(WINSIZEX / 2,WINSIZEY /2 );
+}
+
 void CCameraManager::SetLookAt(fPoint lookAt)
 {
 	m_fptLookAt = lookAt;
@@ -92,6 +117,11 @@ void CCameraManager::SetLookAt(fPoint lookAt)
 void CCameraManager::SetTargetObj(CGameObject* target)
 {
 	m_pTargetObj = target;
+}
+
+void CCameraManager::SetRange(fPoint range)
+{
+	m_fptRange = range;
 }
 
 fPoint CCameraManager::GetLookAt()

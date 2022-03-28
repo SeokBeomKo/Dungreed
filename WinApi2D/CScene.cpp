@@ -176,6 +176,14 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->SetName(L"GROUND");
             newTile->SetTileGroup(GROUP_TILE::GROUND);
         }
+        else if (GROUP_TILE::PLATFORM == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"PLATFORM");
+            newTile->SetTileGroup(GROUP_TILE::PLATFORM);
+        }
         else if (GROUP_TILE::WALL == newTile->GetGroup())
         {
             newTile->CreateCollider();

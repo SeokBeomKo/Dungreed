@@ -1,15 +1,15 @@
 #include "framework.h"
-#include "CMuramasa.h"
+#include "CPowerKatana.h"
 #include "CD2DImage.h"
 
 #include "CCollider.h"
 
-CMuramasa::CMuramasa()
+CPowerKatana::CPowerKatana()
 {
-    m_Img = CResourceManager::getInst()->LoadD2DImage(L"Muramasa", L"texture\\weapon\\Muramasa.png");
+    m_Img = CResourceManager::getInst()->LoadD2DImage(L"PowerKatana", L"texture\\weapon\\PowerKatana.png");
     SetScale(fPoint(m_Img->GetWidth() * 4.f, m_Img->GetHeight() * 4.f));
     SetPos(fPoint(800.f, 550.f));
-    SetName(L"Muramasa");
+    SetName(L"PowerKatana");
     SetItemCode(2);
     SetObjGroup(GROUP_GAMEOBJ::ITEM);
 
@@ -18,11 +18,11 @@ CMuramasa::CMuramasa()
     GetCollider()->SetOffsetPos(fPoint(0.f, 0.f));
 }
 
-CMuramasa::~CMuramasa()
+CPowerKatana::~CPowerKatana()
 {
 }
 
-void CMuramasa::render()
+void CPowerKatana::render()
 {
     fPoint pos = GetPos();
     fPoint renderpos = CCameraManager::getInst()->GetRenderPos(pos);
@@ -39,6 +39,6 @@ void CMuramasa::render()
     component_render();
 }
 
-void CMuramasa::update()
+void CPowerKatana::update()
 {
 }

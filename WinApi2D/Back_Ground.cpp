@@ -4,8 +4,6 @@
 
 Back_Ground::Back_Ground()
 {
-    m_pImg = new CD2DImage;
-    m_pImg = CResourceManager::getInst()->LoadD2DImage(L"Back_Sky", L"texture\\background\\BackSky.png");
 }
 
 Back_Ground::~Back_Ground()
