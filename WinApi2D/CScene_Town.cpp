@@ -4,8 +4,7 @@
 #include "CPlayer.h"
 // BackGround
 #include "Back_Ground.h"
-#include "TownBG_Day.h"
-#include "TownLayer_Day.h"
+#include "Back_Ground_Layer.h"
 #include "CMap.h"
 #include "CUICursor.h"
 
@@ -32,8 +31,8 @@ void CScene_Town::update()
 }
 void StartDungeon(DWORD_PTR, DWORD_PTR)
 {
+	// Enter 2 번 호출.... : 타일 2개 밟으면 2번호출
 	ChangeScn(GROUP_SCENE::DUNGEON);
-
 }
 
 void CScene_Town::Enter()
@@ -42,6 +41,7 @@ void CScene_Town::Enter()
 	// TODO : 브금
 	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
+
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\Town.tile";
 	LoadTile(path);
@@ -69,11 +69,11 @@ void CScene_Town::Enter()
 	Back_Ground* skyday = new Back_Ground;
 	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
 	AddObject(skyday, GROUP_GAMEOBJ::BACKGROUND);
-	TownBG_Day* townBG_day = new TownBG_Day;
-	townBG_day->Load(L"TownBG_Day", L"texture\\background\\TownBG_Day.png");
+	Back_Ground_Layer* townBG_day = new Back_Ground_Layer;
+	townBG_day->Load(L"TownBG_Day", L"texture\\background\\TownBG_Day.png", fPoint(0.f,160.f), 7.f);
 	AddObject(townBG_day, GROUP_GAMEOBJ::BACKGROUND);
-	TownLayer_Day* townLayer_day = new TownLayer_Day;
-	townLayer_day->Load(L"TownLayer_Day", L"texture\\background\\TownLayer_Day.png");
+	Back_Ground_Layer* townLayer_day = new Back_Ground_Layer;
+	townLayer_day->Load(L"TownLayer_Day", L"texture\\background\\TownLayer_Day.png", fPoint(0.f,550.f), 3.f);
 	AddObject(townLayer_day, GROUP_GAMEOBJ::BACKGROUND);
 
 	CUICursor* pCursortown = new CUICursor;

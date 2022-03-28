@@ -231,22 +231,13 @@
     <ClInclude Include="CD2DImage.h">
       <Filter>Resouce\CD2DImage</Filter>
     </ClInclude>
-    <ClInclude Include="Back_Cloud00.h">
-      <Filter>Object\00.CScene_Start\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="Back_Cloud01.h">
+    <ClInclude Include="Back_Ground_Object.h">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="MainLogo.h">
       <Filter>Object\00.CScene_Start\Logo</Filter>
     </ClInclude>
-    <ClInclude Include="CStartUI.h">
-      <Filter>Object\00.CScene_Start\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="COptionUI.h">
-      <Filter>Object\00.CScene_Start\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CExitUI.h">
+    <ClInclude Include="CMainButtonUI.h">
       <Filter>Object\00.CScene_Start\UI</Filter>
     </ClInclude>
     <ClInclude Include="CScene_Start.h">
@@ -261,10 +252,7 @@
     <ClInclude Include="CScene.h">
       <Filter>Scene\CScene</Filter>
     </ClInclude>
-    <ClInclude Include="TownBG_Day.h">
-      <Filter>Object\01.CScene_Town\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="TownLayer_Day.h">
+    <ClInclude Include="Back_Ground_Layer.h">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="CTileButton.h">
@@ -389,22 +377,13 @@
     <ClCompile Include="CD2DImage.cpp">
       <Filter>Resouce\CD2DImage</Filter>
     </ClCompile>
-    <ClCompile Include="Back_Cloud00.cpp">
-      <Filter>Object\00.CScene_Start\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Back_Cloud01.cpp">
+    <ClCompile Include="Back_Ground_Object.cpp">
       <Filter>Object\00.CScene_Start\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="MainLogo.cpp">
       <Filter>Object\00.CScene_Start\Logo</Filter>
     </ClCompile>
-    <ClCompile Include="CStartUI.cpp">
-      <Filter>Object\00.CScene_Start\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="COptionUI.cpp">
-      <Filter>Object\00.CScene_Start\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CExitUI.cpp">
+    <ClCompile Include="CMainButtonUI.cpp">
       <Filter>Object\00.CScene_Start\UI</Filter>
     </ClCompile>
     <ClCompile Include="CScene_Start.cpp">
@@ -419,10 +398,7 @@
     <ClCompile Include="CScene.cpp">
       <Filter>Scene\CScene</Filter>
     </ClCompile>
-    <ClCompile Include="TownBG_Day.cpp">
-      <Filter>Object\01.CScene_Town\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="TownLayer_Day.cpp">
+    <ClCompile Include="Back_Ground_Layer.cpp">
       <Filter>Object\01.CScene_Town\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="CTileButton.cpp">

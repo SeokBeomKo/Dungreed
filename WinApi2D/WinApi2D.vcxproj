@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Back_Cloud01.h" />
     <ClInclude Include="Back_Ground.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
@@ -163,7 +162,6 @@
     <ClInclude Include="CD2DImage.h" />
     <ClInclude Include="CEquip.h" />
     <ClInclude Include="CEventManager.h" />
-    <ClInclude Include="CExitUI.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGravity.h" />
     <ClInclude Include="CItem.h" />
@@ -173,7 +171,6 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CPlayerFX.h" />
     <ClInclude Include="CPowerKatana.h" />
-    <ClInclude Include="COptionUI.h" />
     <ClInclude Include="CPanelUI.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayer.h" />
@@ -188,7 +185,7 @@
     <ClInclude Include="CScene_Town.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CSoundManager.h" />
-    <ClInclude Include="CStartUI.h" />
+    <ClInclude Include="CMainButtonUI.h" />
     <ClInclude Include="CMState.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
@@ -199,19 +196,17 @@
     <ClInclude Include="CUIManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Back_Cloud00.h" />
+    <ClInclude Include="Back_Ground_Object.h" />
     <ClInclude Include="MainLogo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="CShort_Sword.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TownBG_Day.h" />
-    <ClInclude Include="TownLayer_Day.h" />
+    <ClInclude Include="Back_Ground_Layer.h" />
     <ClInclude Include="WinApi2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Back_Cloud01.cpp" />
     <ClCompile Include="Back_Ground.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
@@ -223,7 +218,6 @@
     <ClCompile Include="CD2DImage.cpp" />
     <ClCompile Include="CEquip.cpp" />
     <ClCompile Include="CEventManager.cpp" />
-    <ClCompile Include="CExitUI.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGravity.cpp" />
     <ClCompile Include="CItem.cpp" />
@@ -233,7 +227,6 @@
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CPlayerFX.cpp" />
     <ClCompile Include="CPowerKatana.cpp" />
-    <ClCompile Include="COptionUI.cpp" />
     <ClCompile Include="CPanelUI.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayer.cpp" />
@@ -248,7 +241,7 @@
     <ClCompile Include="CScene_Town.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CSoundManager.cpp" />
-    <ClCompile Include="CStartUI.cpp" />
+    <ClCompile Include="CMainButtonUI.cpp" />
     <ClCompile Include="CMState.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTile.cpp" />
@@ -257,11 +250,10 @@
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUICursor.cpp" />
     <ClCompile Include="CUIManager.cpp" />
-    <ClCompile Include="Back_Cloud00.cpp" />
+    <ClCompile Include="Back_Ground_Object.cpp" />
     <ClCompile Include="MainLogo.cpp" />
     <ClCompile Include="CShort_Sword.cpp" />
-    <ClCompile Include="TownBG_Day.cpp" />
-    <ClCompile Include="TownLayer_Day.cpp" />
+    <ClCompile Include="Back_Ground_Layer.cpp" />
     <ClCompile Include="WinApi2D.cpp" />
   </ItemGroup>
   <ItemGroup>

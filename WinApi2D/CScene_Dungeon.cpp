@@ -5,7 +5,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
-#include "TownLayer_Day.h"
+#include "Back_Ground_Layer.h"
 #include "CUICursor.h"
 
 #include "CShort_Sword.h"
@@ -51,8 +51,8 @@ void CScene_Dungeon::Enter()
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
 	
-	TownLayer_Day* dungeonlayer = new TownLayer_Day;
-	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png");
+	Back_Ground_Layer* dungeonlayer = new Back_Ground_Layer;
+	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png", fPoint(0.f,0.f), 3.f);
 	AddObject(dungeonlayer, GROUP_GAMEOBJ::BACKGROUND);
 
 	CUICursor* pCursortown = new CUICursor;
