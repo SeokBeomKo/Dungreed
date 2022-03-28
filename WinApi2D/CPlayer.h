@@ -29,8 +29,14 @@ private:
 
 	CD2DImage* m_pImg;
 	
-	// 플레이어 이동속도
+	// 플레이어 이동
 	float m_fVelocity;
+	float m_fSpeed;
+	float m_fRun;
+	bool IsJump;
+	bool Isright;
+	int m_iMoveRight;
+	int m_iMoveLeft;
 
 	// 플레이어 점프횟수
 	int m_jumpCount;
@@ -49,12 +55,6 @@ private:
 	float m_fTime;
 	float m_fGravity;
 
-	// MoveUpdate
-	float m_fSpeed;
-	float m_fRun;
-	bool IsJump;
-	bool Isright;
-
 	// 무기
 	CEquip* pEquip;
 	bool IsEquip;
@@ -69,6 +69,7 @@ public:
 	~CPlayer();
 	virtual CPlayer* Clone();
 
+	virtual void SetMove(int right, int left);
 	virtual void SetJump(bool set);
 	virtual void SetDash(bool set);
 	virtual void SetJumpCount();

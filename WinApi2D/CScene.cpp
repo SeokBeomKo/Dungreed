@@ -192,6 +192,18 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->SetName(L"WALL");
             newTile->SetTileGroup(GROUP_TILE::WALL);
         }
+        else if (GROUP_TILE::ANGLE == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"ANGLE");
+            newTile->SetTileGroup(GROUP_TILE::WALL);
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetTileGroup(GROUP_TILE::GROUND);
+        }
         else if (GROUP_TILE::DOOR == newTile->GetGroup())
         {
             newTile->CreateCollider();

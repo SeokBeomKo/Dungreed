@@ -35,6 +35,7 @@ CPlayer::CPlayer()
 	timer = true;
 	timer2 = true;
 	m_fRun = 0.3f;
+	m_iMoveRight = 0, m_iMoveLeft = 0;
 
 	m_Savedata.hp = 100;
 
@@ -73,6 +74,12 @@ CPlayer::~CPlayer()
 CPlayer* CPlayer::Clone()
 {
 	return new CPlayer(*this);
+}
+
+void CPlayer::SetMove(int right, int left)
+{
+	m_iMoveRight += right;
+	m_iMoveLeft += left;
 }
 
 void CPlayer::SetJump(bool set)
@@ -129,19 +136,20 @@ void CPlayer::MoveUpdate()
 
 	if (KeyDown(VK_RBUTTON))
 	{
-		time = 0.f, timer = true, timer2 = true;
-		IsDash = true;
-		IsJump = false;
-		dashdir.x = MousePos().x - realpos.x;
-		dashdir.y = MousePos().y - realpos.y;
-
 		if (MousePos().y > realpos.y)
 		{
 			IsDashLow = true;
 		}
+		dashdir.x = MousePos().x - realpos.x;
+		dashdir.y = MousePos().y - realpos.y;
+		time = 0.f, timer = true, timer2 = true;
+		IsDash = true;
+		IsJump = false;
 		m_fTime = GR_TIME * 2;
 		m_fTimex = GR_TIME * 1.7;
 		CSoundManager::getInst()->Play(L"dash");
+
+		
 	}
 
 	if (IsDash)
@@ -160,7 +168,7 @@ void CPlayer::MoveUpdate()
 
 		GR = true;
 		GetGravity()->OnOffGravity(false);
-			;
+		
 		if (m_fTimex <= 0.f && m_fTime <= 0.f)
 		{
 			IsDash = false;
@@ -184,9 +192,32 @@ void CPlayer::MoveUpdate()
 				m_fTimex -= 6000 * fDT;
 			}
 		}
-		
-		pos.x += m_fTimex * dashdir.normalize().x * fDT;
-		pos.y += m_fTime * dashdir.normalize().y * fDT;
+		if (MousePos().x - CCameraManager::getInst()->GetRenderPos(pos).x > 0)
+		{
+			if (m_iMoveLeft == 0)
+			{
+				pos.x += m_fTimex * dashdir.normalize().x * fDT;
+				pos.y += m_fTime * dashdir.normalize().y * fDT;
+			}
+			else
+			{
+				pos.x += 0 * dashdir.normalize().x * fDT;
+				pos.y += m_fTime * dashdir.normalize().y * fDT;
+			}
+		}
+		else
+		{
+			if (m_iMoveRight == 0)
+			{
+				pos.x += m_fTimex * dashdir.normalize().x * fDT;
+				pos.y += m_fTime * dashdir.normalize().y * fDT;
+			}
+			else
+			{
+				pos.x += 0 * dashdir.normalize().x * fDT;
+				pos.y += m_fTime * dashdir.normalize().y * fDT;
+			}
+		}
 	}
 	else if(KeyDown(VK_SPACE) || KeyDown('W'))
 	{
@@ -215,14 +246,16 @@ void CPlayer::MoveUpdate()
 		}
 	}
 
-	if (Key('D'))
+	if (Key('A'))
 	{
-		pos.x += m_fVelocity * fDT;
+		if (m_iMoveRight == 0)
+			pos.x -= m_fVelocity * fDT;
 		m_fSpeed = m_fVelocity;
 	}
-	else if (Key('A'))
+	else if (Key('D'))
 	{
-		pos.x -= m_fVelocity * fDT;
+		if (m_iMoveLeft == 0)
+			pos.x += m_fVelocity * fDT;
 		m_fSpeed = m_fVelocity;
 	}
 	else if (Key('S'))

@@ -58,6 +58,7 @@ public:
 	virtual void render();
 	virtual void component_render();	// 컴포넌트들의 영역을 표시하기 위해
 
+	virtual void SetMove(int right, int left) {};
 	virtual void SetJump(bool set)	{};
 	virtual void SetJumpCount()		{};
 	virtual void SetDash(bool set)	{};
