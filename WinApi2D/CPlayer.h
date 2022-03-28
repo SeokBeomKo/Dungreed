@@ -70,10 +70,14 @@ public:
 	virtual CPlayer* Clone();
 
 	virtual void SetMove(int right, int left);
+	virtual void SetAllMove(int right, int left);
 	virtual void SetJump(bool set);
 	virtual void SetDash(bool set);
 	virtual void SetJumpCount();
 	virtual void SetGR(bool set);
+
+	virtual int GetMoveRight();
+	virtual int GetMoveLeft();
 
 	virtual void update();
 

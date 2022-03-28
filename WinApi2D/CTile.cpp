@@ -231,10 +231,9 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 				pOther->GetObj()->SetPos(pos);
 			}
 		}
-		if (fInterW < fInterH)
+		if (this->GetTileGroup() == GROUP_TILE::TOPANGLE)
 		{
-			if (this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-				this->GetTileGroup() == GROUP_TILE::BOTANGLE)
+			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 0.5f< fInterH || playertop < tilebottom && playertop > tiletop)
 			{
 				if (pOther->GetObj()->GetGravity()->CheckGravity() == false) // TODO : 필요한가 ?
 					pOther->GetObj()->GetGravity()->OnOffGravity(true);
@@ -247,9 +246,12 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 					pOther->GetObj()->SetMove(1, 0);
 				}
 			}
-			if (this->GetTileGroup() == GROUP_TILE::WALL)
+		}
+		if (this->GetTileGroup() == GROUP_TILE::BOTANGLE)
+		{
+			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 1.f < fInterH)
 			{
-				if (pOther->GetObj()->GetGravity()->CheckGravity() == false)
+				if (pOther->GetObj()->GetGravity()->CheckGravity() == false) // TODO : 필요한가 ?
 					pOther->GetObj()->GetGravity()->OnOffGravity(true);
 				if (fInterLeft == tileleft)									// 타일 기준 좌 충돌
 				{
@@ -259,6 +261,19 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 				{
 					pOther->GetObj()->SetMove(1, 0);
 				}
+			}
+		}
+		if (this->GetTileGroup() == GROUP_TILE::WALL)
+		{
+			if (pOther->GetObj()->GetGravity()->CheckGravity() == false)
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			if (fInterLeft == tileleft)									// 타일 기준 좌 충돌
+			{
+				pOther->GetObj()->SetMove(0, 1);
+			}
+			else if (fInterRight == tileright)							// 타일 기준 우 충돌
+			{
+				pOther->GetObj()->SetMove(1, 0);
 			}
 		}
 	}
@@ -377,13 +392,6 @@ void CTile::OnCollision(CCollider* pOther)
 				pOther->GetObj()->SetPos(pos);
 				}
 			}
-			else																// 좌우 충돌
-			{
-				if (this->GetTileGroup() == GROUP_TILE::WALL)
-				{
-
-				}
-			}
 		}
 }
 
@@ -438,15 +446,15 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			fInterRight = tileright;
 			fInterLeft = tileleft;
 		}
-		else if (playerright > tileleft && playerright < tileright)
+		else if (playerright + 1.f > tileleft && playerright < tileright)
 		{
-			fInterRight = playerright;
+			fInterRight = playerright + 1.f;
 			fInterLeft = tileleft;
 		}
-		else if (playerleft > tileleft && playerleft < tileright)
+		else if (playerleft > tileleft && playerleft - 1.f < tileright)
 		{
 			fInterRight = tileright;
-			fInterLeft = playerleft;
+			fInterLeft = playerleft - 1.f;
 		}
 		fInterW = fInterRight - fInterLeft;
 
@@ -458,22 +466,7 @@ void CTile::OnCollisionExit(CCollider* pOther)
 		{
 			pOther->GetObj()->GetGravity()->OnOffGravity(true);
 		}
-		if (this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE)
-		{
-			pOther->GetObj()->GetGravity()->OnOffGravity(true);
-			if (fInterW < fInterH)
-			{
-				if (fInterLeft == tileleft)									// 좌 충돌
-				{
-					pOther->GetObj()->SetMove(0, -1);
-				}
-				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
-				{
-					pOther->GetObj()->SetMove(-1, 0);
-				}
-			}
-		}
+		
 		if (this->GetTileGroup() == GROUP_TILE::WALL)
 		{
 			if (fInterLeft == tileleft)									// 좌 충돌
@@ -483,6 +476,53 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
 			{
 				pOther->GetObj()->SetMove(-1, 0);
+			}
+		}
+		if (this->GetTileGroup() == GROUP_TILE::TOPANGLE)
+		{
+			if (!(pOther->GetObj()->GetGravity()->CheckGravity()))
+				pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			//if (fInterW <= fInterH && !(fInterW < 1.f || fInterH < 1.f))
+			if (fInterH - fInterW >= 1.f)
+			{
+				if (fInterLeft == tileleft)									// 타일 기준 왼쪽 충돌
+				{
+					if (pOther->GetObj()->GetMoveLeft() != 0)
+						pOther->GetObj()->SetMove(0, -1);
+				}
+				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
+				{
+					if (pOther->GetObj()->GetMoveLeft() != 0)
+						pOther->GetObj()->SetMove(-1, 0);
+				}
+			}
+			else
+			{
+				if (fInterLeft == tileleft)									// 타일 기준 왼쪽 충돌
+				{
+					if (pOther->GetObj()->GetMoveLeft() != 0)
+						pOther->GetObj()->SetMove(0, -1);
+				}
+				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
+				{
+					if (pOther->GetObj()->GetMoveRight() != 0)
+						pOther->GetObj()->SetMove(-1, 0);
+				}
+			}
+			
+		}
+		if (this->GetTileGroup() == GROUP_TILE::BOTANGLE)
+		{
+			if (playerbottom >= tiletop)
+			{
+				if (fInterLeft == tileleft)									// 타일 기준 왼쪽 충돌
+				{
+					pOther->GetObj()->SetAllMove(0, 0);
+				}
+				else if (fInterRight == tileright)							// 타일 기준 오른쪽 충돌
+				{
+					pOther->GetObj()->SetAllMove(0, 0);
+				}
 			}
 		}
 	}

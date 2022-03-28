@@ -83,6 +83,12 @@ void CPlayer::SetMove(int right, int left)
 	m_iMoveLeft += left;
 }
 
+void CPlayer::SetAllMove(int right, int left)
+{
+	m_iMoveRight = right;
+	m_iMoveLeft = left;
+}
+
 void CPlayer::SetJump(bool set)
 {
 	IsJump = set;
@@ -101,6 +107,16 @@ void CPlayer::SetJumpCount()
 void CPlayer::SetGR(bool set)
 {
 	GR = set;
+}
+
+int CPlayer::GetMoveRight()
+{
+	return m_iMoveRight;
+}
+
+int CPlayer::GetMoveLeft()
+{
+	return m_iMoveLeft;
 }
 
 void CPlayer::update()
@@ -149,8 +165,6 @@ void CPlayer::MoveUpdate()
 		m_fTime = GR_TIME * 2;
 		m_fTimex = GR_TIME * 1.7;
 		CSoundManager::getInst()->Play(L"dash");
-
-		
 	}
 
 	if (IsDash)

@@ -15,6 +15,13 @@ private:
 
 	GROUP_TILE m_group;
 	bool m_bIsPlat;
+
+	//// 충돌체 변수
+	//float tiletop, tilebottom, tileright, tileleft;
+	//float playertop, playerbottom, playerright, playerleft;
+	//float fInterRight, fInterLeft, fInterTop, fInterBottom;
+	//float fInterH, fInterW;
+
 public:
 	const static int SIZE_TILE = 32;
 
