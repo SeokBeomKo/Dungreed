@@ -192,17 +192,21 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->SetName(L"WALL");
             newTile->SetTileGroup(GROUP_TILE::WALL);
         }
-        else if (GROUP_TILE::ANGLE == newTile->GetGroup())
+        else if (GROUP_TILE::TOPANGLE == newTile->GetGroup())
         {
             newTile->CreateCollider();
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
-            newTile->SetName(L"ANGLE");
-            newTile->SetTileGroup(GROUP_TILE::WALL);
+            newTile->SetName(L"TOPANGLE");
+            newTile->SetTileGroup(GROUP_TILE::TOPANGLE);
+        }
+        else if (GROUP_TILE::BOTANGLE == newTile->GetGroup())
+        {
             newTile->CreateCollider();
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
-            newTile->SetTileGroup(GROUP_TILE::GROUND);
+            newTile->SetName(L"BOTANGLE");
+            newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
         }
         else if (GROUP_TILE::DOOR == newTile->GetGroup())
         {

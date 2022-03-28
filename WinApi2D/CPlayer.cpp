@@ -36,6 +36,7 @@ CPlayer::CPlayer()
 	timer2 = true;
 	m_fRun = 0.3f;
 	m_iMoveRight = 0, m_iMoveLeft = 0;
+	IsEquip = false;
 
 	m_Savedata.hp = 100;
 

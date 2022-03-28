@@ -353,10 +353,15 @@ void CScene_Tool::ClickTileGroup(CButtonUI* button)
 	}
 	else if (m_gTile == GROUP_TILE::WALL)
 	{
-		m_gTile = GROUP_TILE::ANGLE;
-		button->SetText(L"ANGLE");
+		m_gTile = GROUP_TILE::TOPANGLE;
+		button->SetText(L"TOPANGLE");
 	}
-	else if (m_gTile == GROUP_TILE::ANGLE)
+	else if (m_gTile == GROUP_TILE::TOPANGLE)
+	{
+		m_gTile = GROUP_TILE::BOTANGLE;
+		button->SetText(L"BOTANGLE");
+	}
+	else if (m_gTile == GROUP_TILE::BOTANGLE)
 	{
 		m_gTile = GROUP_TILE::DOOR;
 		button->SetText(L"DOOR");
@@ -500,7 +505,7 @@ void CScene_Tool::PrintTileGroup()
 				3.f
 			);
 		}
-		else if (GROUP_TILE::ANGLE == pTile->GetGroup())
+		else if (GROUP_TILE::TOPANGLE == pTile->GetGroup())
 		{
 			CRenderManager::getInst()->RenderEllipse(
 				pTile->GetPos().x + CTile::SIZE_TILE / 2.f - pos.x,
@@ -508,6 +513,17 @@ void CScene_Tool::PrintTileGroup()
 				CTile::SIZE_TILE / 2.f,
 				CTile::SIZE_TILE / 2.f,
 				RGB(255, 255, 0),
+				3.f
+			);
+		}
+		else if (GROUP_TILE::BOTANGLE == pTile->GetGroup())
+		{
+			CRenderManager::getInst()->RenderEllipse(
+				pTile->GetPos().x + CTile::SIZE_TILE / 2.f - pos.x,
+				pTile->GetPos().y + CTile::SIZE_TILE / 2.f - pos.y,
+				CTile::SIZE_TILE / 2.f,
+				CTile::SIZE_TILE / 2.f,
+				RGB(200, 200, 0),
 				3.f
 			);
 		}
