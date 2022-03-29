@@ -1,56 +1,134 @@
 #include "framework.h"
 #include "CMonster.h"
 #include "CCollider.h"
-
-CMonster* CMonster::Clone()
-{
-	return new CMonster(*this);
-}
+#include "CD2DImage.h"
+#include "CAnimator.h"
+#include "AI.h"
+#include "CIdleState.h"
+#include "CTraceState.h"
 
 CMonster::CMonster()
 {
-	m_fptCenterPos = fPoint(0, 0);
-	m_fVelocity = 0;
-	m_fDistance = 300;
-	m_bIsUPDir = true;
+	CD2DImage* m_pImg = CResourceManager::getInst()->LoadD2DImage(L"Bat", L"texture\\monster\\Bat.png");
+
+	m_pAI = nullptr;
 
 	SetName(L"Monster");
-	SetScale(fPoint(100.f, 100.f));
+	SetScale(fPoint(31.f * 4.f, 19.f * 4.f));
 
 	CreateCollider();
-	GetCollider()->SetScale(fPoint(90.f, 90.f));
+	GetCollider()->SetScale(GetScale() - fPoint(20.f,20.f));
+
+	CreateAnimator();
+	GetAnimator()->CreateAnimation(L"Bat", m_pImg, fPoint(0.f, 0.f), fPoint(31.f, 19.f), fPoint(31.f, 0.f), 0.1f, 6);
+	GetAnimator()->Play(L"Bat");
 }
 
 CMonster::~CMonster()
 {
+	if (nullptr != m_pAI)
+	{
+		delete m_pAI;
+	}
+}
+
+CMonster* CMonster::Clone()
+{
+	CMonster* newMonster = new CMonster;
+	if (nullptr != m_pAI)
+	{
+		newMonster->m_pAI = new AI;
+	}
+	return new CMonster(*newMonster);
+}
+
+CMonster* CMonster::Create(MON_TYPE type, fPoint pos)
+{
+	CMonster* pMon = nullptr;
+
+	switch (type)
+	{
+	case MON_TYPE::NORMAL:
+	{
+		pMon = new CMonster;
+		pMon->SetPos(pos);
+
+		tMonInfo info = {};
+		info.fAtt = 10.f;
+		info.fAttRange = 50.f;
+		info.fRecogRange = 300.f;
+		info.fHP = 100.f;
+		info.fSpeed = 150.f;
+
+		AI* pAI = new AI;
+		pAI->AddState(new CIdleState(STATE_MON::IDLE));
+		pAI->AddState(new CTraceState(STATE_MON::TRACE));
+		pAI->SetCurState(STATE_MON::IDLE);
+		pMon->SetMonInfo(info);
+		pMon->SetAI(pAI);
+	}
+	break;
+	case MON_TYPE::RANGE:
+		break;
+	default:
+		break;
+	}
+	assert(pMon);
+	return pMon;
+}
+
+void CMonster::render()
+{
+	fPoint pos = GetPos();
+	fPoint scale = GetScale();
+	pos = CCameraManager::getInst()->GetRenderPos(pos);
+
+	component_render();
 }
 
 void CMonster::update()
 {
-	fPoint pos = GetPos();
+	if (nullptr != GetAnimator())
+		GetAnimator()->update();
+	if (nullptr != m_pAI)
+		m_pAI->update();
 
-	if (m_bIsUPDir)
-	{
-		pos.y -= fDT * m_fVelocity;
-		if (pos.y < m_fptCenterPos.y - m_fDistance)
-			m_bIsUPDir = false;
-	}
-	else
-	{
-		pos.y += fDT * m_fVelocity;
-		if (pos.y > m_fptCenterPos.y + m_fDistance)
-			m_bIsUPDir = true;
-	}
-
-	SetPos(pos);
 }
 
-void CMonster::SetCenterPos(fPoint point)
+float CMonster::GetSpeed()
 {
-	m_fptCenterPos = point;
+	return m_tInfo.fSpeed;
+}
+
+const tMonInfo& CMonster::GetMonInfo()
+{
+	return m_tInfo;
+}
+
+void CMonster::SetSpeed(float speed)
+{
+	m_tInfo.fSpeed = speed;
+}
+
+void CMonster::SetAI(AI* ai)
+{
+	m_pAI = ai;
+	m_pAI->m_pOwner = this;
+}
+
+void CMonster::SetMonInfo(const tMonInfo& info)
+{
+	m_tInfo = info;
 }
 
 void CMonster::OnCollisionEnter(CCollider* pOther)
 {
+	CGameObject* pOtherObj = pOther->GetObj();
 
+	if (pOtherObj->GetObjGroup() == GROUP_GAMEOBJ::PLAYER_ATTACK)
+	{
+		m_tInfo.fHP -= 10.f;
+		if (m_tInfo.fHP <= 0)
+			DeleteObj(this);
+	}
 }

@@ -47,7 +47,7 @@ void CPlayerAttack::EnterAttack()
 	}
 
 	GetAnimator()->Play(L"Attack");
-	SetObjGroup(GROUP_GAMEOBJ::PLAYER_FX);
+	SetObjGroup(GROUP_GAMEOBJ::PLAYER_ATTACK);
 
 	fPoint finalpos = GetPos();
 	fPoint pos = m_Owner->GetPos();
@@ -98,7 +98,8 @@ CGameObject* CPlayerAttack::GetOwner()
 void CPlayerAttack::OnCollisionEnter(CCollider* pOther)
 {
 	CGameObject* pOtherObj = pOther->GetObj();
-	if (pOtherObj->GetName() == L"Monster")
+	if (pOtherObj->GetObjGroup() == GROUP_GAMEOBJ::MONSTER)
 	{
+		// TODO : HP -
 	}
 }

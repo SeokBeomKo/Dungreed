@@ -1,13 +1,14 @@
 #include "framework.h"
 #include "CScene_Dungeon.h"
+#include "Back_Ground_Layer.h"
+#include "CUICursor.h"
 
+// 오브젝트
 #include "CGameObject.h"
 #include "CPlayer.h"
 #include "CMonster.h"
 
-#include "Back_Ground_Layer.h"
-#include "CUICursor.h"
-
+// 아이템
 #include "CShort_Sword.h"
 #include "CPowerKatana.h"
 
@@ -39,21 +40,32 @@ void CScene_Dungeon::Enter()
 	path += L"tile\\test2.tile";
 	LoadTile(path);
 
+	// 플레이어
 	CPlayer* pPlayer = new CPlayer;
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	pPlayer->RegisterPlayer();
 	pPlayer->SaveData(sPlayer->LoadData());
+	
 	//pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	
+	// 아이템
 	CShort_Sword* pShort_Sword = new CShort_Sword;
 	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
-
 	CPowerKatana* pPowerKatana = new CPowerKatana;
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
-	
+	// 배경
 	Back_Ground_Layer* dungeonlayer = new Back_Ground_Layer;
 	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png", fPoint(0.f,0.f), 3.f);
 	AddObject(dungeonlayer, GROUP_GAMEOBJ::BACKGROUND);
+
+	// 몬스터
+	CMonster* pMon = CMonster::Create(MON_TYPE::NORMAL, fPoint(500.f, 500.f));
+	AddObject(pMon, GROUP_GAMEOBJ::MONSTER);
+	CMonster* pMon2 = CMonster::Create(MON_TYPE::NORMAL, fPoint(550.f, 600.f));
+	AddObject(pMon2, GROUP_GAMEOBJ::MONSTER);
+
+
 
 	CUICursor* pCursortown = new CUICursor;
 	pCursortown->Load(L"ShootingCursor", L"texture\\ui\\ShootingCursor.png");
@@ -62,10 +74,18 @@ void CScene_Dungeon::Enter()
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::ITEM);
 
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER_ATTACK, GROUP_GAMEOBJ::MONSTER);
+
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::ITEM);
 
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
+
+void CScene_Dungeon::Init()
+{
+}
+
+
 
 void CScene_Dungeon::Exit()
 {

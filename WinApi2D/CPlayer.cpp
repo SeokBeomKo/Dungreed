@@ -19,6 +19,7 @@
 #define DS_SEC	0.15
 
 class CEquip* pEquip;
+CPlayer* CPlayer::instance = nullptr;
 
 CPlayer::CPlayer()
 {
@@ -124,10 +125,20 @@ int CPlayer::GetMoveLeft()
 	return m_iMoveLeft;
 }
 
+void CPlayer::RegisterPlayer()
+{
+	instance = this;
+}
+
 void CPlayer::update()
 {
 	MoveUpdate();
 	AniUpdate();
+}
+
+CPlayer* CPlayer::GetPlayer()
+{
+	return instance;
 }
 
 void CPlayer::MoveUpdate()

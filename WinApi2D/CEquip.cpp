@@ -71,5 +71,5 @@ void CEquip::PlayerAttack(int code)
     attack->SetPos(m_Owner->GetPos());
     attack->SetCode(code);
     attack->EnterAttack();
-    CreateObj(attack, GROUP_GAMEOBJ::PLAYER_FX);
+    CreateObj(attack, GROUP_GAMEOBJ::PLAYER_ATTACK);
 }

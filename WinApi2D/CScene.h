@@ -24,6 +24,7 @@ public:
 	void render_tile();
 
 	virtual void Enter() = 0;	// 해당 씬에 진입시 호출
+	virtual void Init() {};
 	virtual void Exit() = 0;	// 해당 씬을 탈출시 호출
 
 	void SetName(const wstring& strName);

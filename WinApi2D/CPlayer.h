@@ -27,6 +27,8 @@ private:
 	DWORD_PTR m_pParam1;
 	DWORD_PTR m_pParam2;
 
+	static CPlayer* instance;
+
 	CD2DImage* m_pImg;
 	
 	// 플레이어 이동
@@ -77,6 +79,9 @@ public:
 	virtual void SetDash(bool set);
 	virtual void SetJumpCount();
 	virtual void SetGR(bool set);
+
+	void RegisterPlayer();
+	static CPlayer* GetPlayer();
 
 	virtual int GetMoveRight();
 	virtual int GetMoveLeft();

@@ -45,10 +45,11 @@ enum class GROUP_GAMEOBJ
 	PLAYER_WEAPON,
 	PLAYER,
 	PLAYER_FX,
+	PLAYER_ATTACK,
 	MONSTER,
-	ITEM,
-	MISSILE_PLAYER,
+	MONSTER_ATTACK,
 	MISSILE_MONSTER,
+	ITEM,
 
 	UI,		         // UI는 모든 게임오브젝트 중 최상단 Layer에 위치
 	CURSOR,
@@ -80,7 +81,7 @@ enum class GROUP_TILE
 	SIZE,
 };
 
-enum class MON_STATE
+enum class STATE_MON
 {
 	IDLE,
 	PATROL,
@@ -101,6 +102,7 @@ enum class TYPE_EVENT
 	CREATE_OBJECT,
 	DELETE_OBJECT,
 	CHANGE_SCENE,
+	CHANGE_AI_STATE,
 
 	SIZE,
 };
@@ -144,6 +146,8 @@ extern CPlayer* sPlayer;
 #define CreateObj(pObj, group)	CEventManager::getInst()->EventCreateObject(pObj, group)
 #define DeleteObj(pObj)			CEventManager::getInst()->EventDeleteObject(pObj)
 #define ChangeScn(scene)		CEventManager::getInst()->EventChangeScene(scene)
+#define ChangeAIState(ai, state)	CEventManager::getInst()->EventChangeAIState(ai, state)
+
 
 //========================================
 //## 전역변수(인스턴스, 윈도우 핸들)	##

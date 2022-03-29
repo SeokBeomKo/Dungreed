@@ -10,6 +10,7 @@ public:
 	virtual void update();
 
 	virtual void Enter();
+	virtual void Init();
 	virtual void Exit();
 };
 

@@ -105,9 +105,6 @@ void CScene_Start::Enter()
 	pCursor->Load(L"BasicCursor", L"texture\\ui\\BasicCursor.png");
 	AddObject(pCursor, GROUP_GAMEOBJ::CURSOR);
 
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
-
 	// Camera Look ÁöÁ¤
 	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 class CGameObject;
+class AI;
 
 struct tEvent
 {
@@ -26,5 +27,6 @@ public:
 	void EventCreateObject(CGameObject* pObj, GROUP_GAMEOBJ group);
 	void EventDeleteObject(CGameObject* pObj);
 	void EventChangeScene(GROUP_SCENE scene);
+	void EventChangeAIState(AI* ai, STATE_MON state);
 };
 
