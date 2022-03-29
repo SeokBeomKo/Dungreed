@@ -13,8 +13,8 @@ CTile::CTile()
 	m_iY = 0;
 	m_iIdx = 0;
 	m_group = GROUP_TILE::NONE;
-	SetScale(fPoint(SIZE_TILE, SIZE_TILE));
 	m_bIsPlat = false;
+	SetScale(fPoint(SIZE_TILE, SIZE_TILE));
 }
 
 CTile::~CTile()
@@ -233,7 +233,7 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 		}
 		if (this->GetTileGroup() == GROUP_TILE::TOPANGLE)
 		{
-			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 0.5f< fInterH || playertop < tilebottom && playertop > tiletop)
+			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 1.f< fInterH || playertop < tilebottom && playertop > tiletop)
 			{
 				if (pOther->GetObj()->GetGravity()->CheckGravity() == false) // TODO : 필요한가 ?
 					pOther->GetObj()->GetGravity()->OnOffGravity(true);
@@ -249,7 +249,7 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 		}
 		if (this->GetTileGroup() == GROUP_TILE::BOTANGLE)
 		{
-			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 0.5f < fInterH)
+			if ((fInterLeft == tileleft || fInterRight == tileright) && fInterW + 1.f < fInterH)
 			{
 				if (pOther->GetObj()->GetGravity()->CheckGravity() == false) // TODO : 필요한가 ?
 					pOther->GetObj()->GetGravity()->OnOffGravity(true);
@@ -361,13 +361,13 @@ void CTile::OnCollision(CCollider* pOther)
 						if (this->GetTileGroup() == GROUP_TILE::GROUND ||
 							this->GetTileGroup() == GROUP_TILE::TOPANGLE)				// 그라운드 타일 은 뚫을 수 없음
 						{
-							if (fInterH > 0.5f)
+							if (fInterH > 0.8f)
 								pos.y -= fInterH;
 							pOther->GetObj()->GetGravity()->OnOffGravity(false);
 						}
 						else if (this->GetTileGroup() == GROUP_TILE::PLATFORM)		// 플랫폼 타일은 뚫을 수 있음
 						{
-							if (fInterH < 0.5f)
+							if (fInterH < 0.8f)
 								pOther->GetObj()->GetGravity()->OnOffGravity(false);
 							if (m_bIsPlat)
 							{

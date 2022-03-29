@@ -52,15 +52,15 @@ void CScene_Town::Enter()
 	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
-	//CItem* pShort_Sword = new CShort_Sword;
-	//pShort_Sword->SetPos(fPoint(3700.f, 600.f));
-	//AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
-	//CItem* pPowerKatana = new CPowerKatana;
-	//pPowerKatana->SetPos(fPoint(3900.f, 600.f));
-	//AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
-	//CItem* pPowerKatana2 = new CPowerKatana;
-	//pPowerKatana2->SetPos(fPoint(3300.f, 600.f));
-	//AddObject(pPowerKatana2, GROUP_GAMEOBJ::ITEM);
+	CItem* pShort_Sword = new CShort_Sword;
+	pShort_Sword->SetPos(fPoint(3700.f, 600.f));
+	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
+	CItem* pPowerKatana = new CPowerKatana;
+	pPowerKatana->SetPos(fPoint(3900.f, 600.f));
+	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
+	CItem* pPowerKatana2 = new CPowerKatana;
+	pPowerKatana2->SetPos(fPoint(3300.f, 600.f));
+	AddObject(pPowerKatana2, GROUP_GAMEOBJ::ITEM);
 
 	CMap* town = new CMap;
 	town->Load(L"Town", L"texture\\map\\Town.png");

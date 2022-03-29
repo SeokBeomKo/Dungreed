@@ -34,7 +34,8 @@ CPlayer::CPlayer()
 	time = 0.f;
 	timer = true;
 	timer2 = true;
-	m_fRun = 0.3f;
+	m_fRunFX = 0.3f;
+	m_fRunSound = 0.3f;
 	m_iMoveRight = 0, m_iMoveLeft = 0;
 	IsEquip = false;
 
@@ -60,6 +61,9 @@ CPlayer::CPlayer()
 	
 	// 플레이어 사운드
 	CSoundManager::getInst()->AddSound(L"dash", L"sound\\dash.wav", false);
+	CSoundManager::getInst()->AddSound(L"jumping", L"sound\\jumping.wav", false);
+	CSoundManager::getInst()->AddSound(L"step1", L"sound\\step1.wav", false);
+	CSoundManager::getInst()->AddSound(L"equip", L"sound\\equip.wav", false);
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(32.f, 64.f));
@@ -108,6 +112,7 @@ void CPlayer::SetGR(bool set)
 {
 	GR = set;
 }
+
 
 int CPlayer::GetMoveRight()
 {
@@ -235,7 +240,7 @@ void CPlayer::MoveUpdate()
 		}
 	}
 	else if(KeyDown(VK_SPACE) || KeyDown('W'))
-	{
+	{	
 		if (m_jumpCount != 0)
 		{
 			if (m_jumpCount == 2)
@@ -261,7 +266,12 @@ void CPlayer::MoveUpdate()
 		}
 	}
 
-	if (Key('A'))
+	if (KeyDown('S'))
+	{
+		GetGravity()->OnOffGravity(true);
+		pos.y += 5.f;
+	}
+	else if (Key('A'))
 	{
 		if (m_iMoveRight == 0)
 			pos.x -= m_fVelocity * fDT;
@@ -273,24 +283,27 @@ void CPlayer::MoveUpdate()
 			pos.x += m_fVelocity * fDT;
 		m_fSpeed = m_fVelocity;
 	}
-	else if (Key('S'))
-	{
-		pos.y += m_fVelocity * fDT;
-	}
 	else
 	{
 		m_fSpeed = 0;
 	}
 
-	if (m_fSpeed > 0)
+	if (m_fSpeed > 0 && !GR)
 	{
-		m_fRun -= fDT;
-		if (m_fRun < 0 && !GR)
+		m_fRunFX -= fDT;
+		if (m_fRunFX < 0)
 		{
 			pFX->PlayFX(this, L"run");
-			m_fRun = 0.3f;
+			m_fRunFX = 0.3f;
+		}
+		m_fRunSound -= fDT;
+		if (m_fRunSound < 0)
+		{
+			CSoundManager::getInst()->Play(L"step1");
+			m_fRunSound = 0.3f;
 		}
 	}
+
 	SetPos(pos);
 }
 
@@ -397,7 +410,7 @@ void CPlayer::Equip(int code)
 	pEquip->SetOwner(this);
 	pEquip->Load(Key, Path);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
-
+	CSoundManager::getInst()->Play(L"equip");
 	IsEquip = true;
 }
 

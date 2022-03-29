@@ -23,7 +23,7 @@ void CPlayerFX::CreateFX(CGameObject* Obj, wstring state)
 	m_Owner = Obj;
 	CreateAnimator();
 	fPoint pos = m_Owner->GetPos();
-	CSoundManager::getInst()->AddSound(L"jumping", L"sound\\jumping.wav", false);
+
 	if (state == L"run")
 	{
 		m_pImg = CResourceManager::getInst()->LoadD2DImage(L"RunFX", L"texture\\player\\RunFX.png");

@@ -12,9 +12,9 @@ private:
 	int m_iX;
 	int m_iY;
 	int m_iIdx;			// 텍스쳐 인덱스
+	bool m_bIsPlat;
 
 	GROUP_TILE m_group;
-	bool m_bIsPlat;
 
 	//// 충돌체 변수
 	//float tiletop, tilebottom, tileright, tileleft;

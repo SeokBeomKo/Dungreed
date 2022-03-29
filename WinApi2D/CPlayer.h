@@ -32,7 +32,8 @@ private:
 	// 플레이어 이동
 	float m_fVelocity;
 	float m_fSpeed;
-	float m_fRun;
+	float m_fRunFX;				// 달리기 이펙트
+	float m_fRunSound;			// 달리기 사운드
 	bool IsJump;
 	bool Isright;
 	int m_iMoveRight;
@@ -52,6 +53,7 @@ private:
 
 	// 중력 구현
 	bool GR;
+	bool m_bIsPlat;
 	float m_fTime;
 	float m_fGravity;
 
