@@ -3,7 +3,7 @@
 class CCollider;
 class CAnimator;
 class CGravity;
-
+class CPlayer;
 
 
 class CGameObject

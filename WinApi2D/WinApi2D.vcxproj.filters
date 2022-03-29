@@ -193,6 +193,9 @@
     <Filter Include="Resouce\Resource">
       <UniqueIdentifier>{beb29a49-4973-4263-a6e0-fbd088a759df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\01. Scene\99. Door">
+      <UniqueIdentifier>{a89e60d7-9d63-4730-a5d5-7a110de26be1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -366,6 +369,9 @@
     <ClInclude Include="CScene_Tool.h">
       <Filter>Scene\99. Tool</Filter>
     </ClInclude>
+    <ClInclude Include="CDoor.h">
+      <Filter>Object\01. Scene\99. Door</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -520,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="CResource.cpp">
       <Filter>Resouce\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CDoor.cpp">
+      <Filter>Object\01. Scene\99. Door</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

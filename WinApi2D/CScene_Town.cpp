@@ -2,6 +2,7 @@
 #include "CScene_Town.h"
 #include "CGameObject.h"
 #include "CPlayer.h"
+
 // BackGround
 #include "Back_Ground.h"
 #include "Back_Ground_Layer.h"
@@ -10,6 +11,8 @@
 
 #include "CSound.h"
 #include "CD2DImage.h"
+
+#include "CDoor.h"
 
 // 아이템
 #include "CShort_Sword.h"
@@ -29,29 +32,32 @@ void CScene_Town::update()
 		ChangeScn(GROUP_SCENE::START);
 	}
 }
-void StartDungeon(DWORD_PTR, DWORD_PTR)
-{
-	// Enter 2 번 호출.... : 타일 2개 밟으면 2번호출
-	ChangeScn(GROUP_SCENE::DUNGEON);
-}
 
 void CScene_Town::Enter()
 {
 	CCameraManager::getInst()->FadeIn(2.f);
-	// TODO : 브금
+	
+	// 브금
 	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
 
+	// 맵 충돌체
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\Town.tile";
 	LoadTile(path);
 
-	// Player 추가
+	// 씬 이동
+	CDoor* pNextDoor = new CDoor;
+	pNextDoor->SetNextScene(GROUP_SCENE::DUNGEON);
+	pNextDoor->SetPos(fPoint(3872.f, 1360.f));
+	AddObject(pNextDoor, GROUP_GAMEOBJ::TILE);
+
+	// 플레이어
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(3700.f, 650.f));
-	pPlayer->SetSteppedCallBack(StartDungeon, 0, 0);
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
+	// 아이템
 	CItem* pShort_Sword = new CShort_Sword;
 	pShort_Sword->SetPos(fPoint(4000.f, 600.f));
 	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
@@ -59,10 +65,12 @@ void CScene_Town::Enter()
 	pPowerKatana->SetPos(fPoint(3900.f, 600.f));
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
+	// 맵 이미지
 	CMap* town = new CMap;
 	town->Load(L"Town", L"texture\\map\\Town.png");
 	AddObject(town, GROUP_GAMEOBJ::MAP);
 
+	// 배경 이미지
 	Back_Ground* skyday = new Back_Ground;
 	skyday->Load(L"Sky_Day", L"texture\\background\\Sky_Day.png");
 	AddObject(skyday, GROUP_GAMEOBJ::BACKGROUND);
@@ -73,6 +81,7 @@ void CScene_Town::Enter()
 	townLayer_day->Load(L"TownLayer_Day", L"texture\\background\\TownLayer_Day.png", fPoint(0.f,550.f), 3.f);
 	AddObject(townLayer_day, GROUP_GAMEOBJ::BACKGROUND);
 
+	// 마우스 커서 변경
 	CUICursor* pCursortown = new CUICursor;
 	pCursortown->Load(L"ShootingCursor", L"texture\\ui\\ShootingCursor.png");
 	AddObject(pCursortown, GROUP_GAMEOBJ::CURSOR);
@@ -82,7 +91,7 @@ void CScene_Town::Enter()
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::ITEM);
 
 	// Camera Look 
-	CCameraManager::getInst()->SetRange(fPoint(7616.f, 1536.f));
+	CCameraManager::getInst()->SetRange(fPoint(1904.f, 384.f));
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 

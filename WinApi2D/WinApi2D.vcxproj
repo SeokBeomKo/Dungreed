@@ -161,6 +161,7 @@
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CD2DImage.h" />
+    <ClInclude Include="CDoor.h" />
     <ClInclude Include="CEquip.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CD2DImage.cpp" />
+    <ClCompile Include="CDoor.cpp" />
     <ClCompile Include="CEquip.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />

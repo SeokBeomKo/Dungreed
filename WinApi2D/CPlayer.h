@@ -6,16 +6,11 @@
 
 class CD2DImage;
 
-// 함수포인터를 위한 타입정의
-typedef void(*BTN_FUNC) (DWORD_PTR, DWORD_PTR);
-
 
 struct PlayerSave
 {
 	// 상태
 	int hp;
-	int att;
-	float attackspeed;
 	int gold;
 	int m_EquipCode;
 };
@@ -23,10 +18,6 @@ struct PlayerSave
 class CPlayer : public CGameObject
 {
 private:
-	BTN_FUNC m_pFunc;
-	DWORD_PTR m_pParam1;
-	DWORD_PTR m_pParam2;
-
 	static CPlayer* instance;
 
 	CD2DImage* m_pImg;
@@ -46,17 +37,18 @@ private:
 
 	// 플레이어 대쉬
 	bool IsDash;
-	bool IsDashLow;
-	fVec2 dashdir;
-	float m_fTimex;
-	float time;
-	bool timer;
-	bool timer2;
+	bool IsDashLow;			
+	fVec2 dashdir;				// 대쉬 사용시 이동할 방향
+	fPoint m_fptMousePos;		// 대쉬 입력 당시 마우스 좌표
+	float m_fDashTime;
+	bool m_bTimer;
+	bool m_bTimer2;
 
 	// 중력 구현
-	bool GR;
+	bool m_bIsGravity;
 	bool m_bIsPlat;
-	float m_fTime;
+	float m_fTime;				
+	float m_fTimex;
 	float m_fGravity;
 
 	// 무기
@@ -96,8 +88,6 @@ public:
 	virtual void OnCollisionEnter(CCollider* pOther);
 	virtual void OnCollision(CCollider* pOther);
 	virtual void OnCollisionExit(CCollider* pOther);
-
-	void SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2);
 
 	void SaveData(PlayerSave data);
 	PlayerSave LoadData();

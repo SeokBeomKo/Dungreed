@@ -3,9 +3,12 @@
 #include "CCollider.h"
 #include "CD2DImage.h"
 #include "CAnimator.h"
+
 #include "AI.h"
 #include "CIdleState.h"
 #include "CTraceState.h"
+
+#include "CPlayerAttack.h"
 
 CMonster::CMonster()
 {
@@ -127,6 +130,7 @@ void CMonster::OnCollisionEnter(CCollider* pOther)
 
 	if (pOtherObj->GetObjGroup() == GROUP_GAMEOBJ::PLAYER_ATTACK)
 	{
+		CPlayerAttack* pAttack = (CPlayerAttack*)pOther->GetObj();
 		m_tInfo.fHP -= 10.f;
 		if (m_tInfo.fHP <= 0)
 			DeleteObj(this);

@@ -64,18 +64,6 @@ void CCameraManager::render()
 		fRatio = 1.f - fRatio;
 
 	CRenderManager::getInst()->RenderFillRectangle(0, 0, WINSIZEX, WINSIZEY, RGB(0, 0, 0), fRatio);
-	
-	/*
-	AlphaBlend(hDC
-		, 0, 0
-		, (int)(m_pImg->GetBmpWidth())
-		, (int)(m_pImg->GetBmpHeight())
-		, m_pImg->GetDC()
-		, 0, 0
-		, (int)(m_pImg->GetBmpWidth())
-		, (int)(m_pImg->GetBmpHeight())
-		, bf);
-		*/
 
 	if (effect.fDuration < effect.fCurTime)
 	{
@@ -121,7 +109,7 @@ void CCameraManager::SetTargetObj(CGameObject* target)
 
 void CCameraManager::SetRange(fPoint range)
 {
-	m_fptRange = range;
+	m_fptRange = range * 4.f;
 }
 
 fPoint CCameraManager::GetLookAt()

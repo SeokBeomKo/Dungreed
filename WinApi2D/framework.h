@@ -63,7 +63,6 @@ enum class GROUP_SCENE
 	TOWN,
 	DUNGEON,
 
-
 	SIZE,
 };
 
@@ -76,7 +75,6 @@ enum class GROUP_TILE
 	TOPANGLE,
 	BOTANGLE,
 	SLOPE,
-	DOOR,
 
 	SIZE,
 };

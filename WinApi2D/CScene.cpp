@@ -208,14 +208,6 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->SetName(L"BOTANGLE");
             newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
         }
-        else if (GROUP_TILE::DOOR == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
-            newTile->SetName(L"DOOR");
-            newTile->SetTileGroup(GROUP_TILE::DOOR);
-        }
 
         AddObject(newTile, GROUP_GAMEOBJ::TILE);
     }

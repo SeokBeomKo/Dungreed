@@ -135,8 +135,9 @@ void CTile::Load(FILE* pFile)
 
 void CTile::OnCollisionEnter(CCollider* pOther)
 {
-	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||		// 그라운드 와 플레이어 , 무기
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
+	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
 		(this->GetTileGroup() == GROUP_TILE::GROUND ||
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||
@@ -282,7 +283,8 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 void CTile::OnCollision(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||		// 그라운드 와 플레이어 , 무기
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
 		(this->GetTileGroup() == GROUP_TILE::GROUND ||
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||
@@ -398,7 +400,8 @@ void CTile::OnCollision(CCollider* pOther)
 void CTile::OnCollisionExit(CCollider* pOther)
 {
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||		// 그라운드 와 플레이어 , 무기
-		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM) &&
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
+		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
 		(this->GetTileGroup() == GROUP_TILE::GROUND ||
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||

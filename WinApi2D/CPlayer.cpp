@@ -26,15 +26,15 @@ CPlayer::CPlayer()
 	m_fVelocity = 350;
 	IsDash = false;
 	IsDashLow = false;
-	GR = true;
+	m_bIsGravity = true;
 	m_fSpeed = 0.f;
 	IsJump = false;
 	Isright = true;
 	pEquip = new CEquip;
 	pFX = new CPlayerFX;
-	time = 0.f;
-	timer = true;
-	timer2 = true;
+	m_fDashTime = 0.f;
+	m_bTimer = true;
+	m_bTimer2 = true;
 	m_fRunFX = 0.3f;
 	m_fRunSound = 0.3f;
 	m_iMoveRight = 0, m_iMoveLeft = 0;
@@ -111,7 +111,7 @@ void CPlayer::SetJumpCount()
 
 void CPlayer::SetGR(bool set)
 {
-	GR = set;
+	m_bIsGravity = set;
 }
 
 
@@ -173,9 +173,10 @@ void CPlayer::MoveUpdate()
 		{
 			IsDashLow = true;
 		}
+		m_fptMousePos = MousePos();
 		dashdir.x = MousePos().x - realpos.x;
 		dashdir.y = MousePos().y - realpos.y;
-		time = 0.f, timer = true, timer2 = true;
+		m_fDashTime = 0.f, m_bTimer = true, m_bTimer2 = true;
 		IsDash = true;
 		IsJump = false;
 		m_fTime = GR_TIME * 2;
@@ -185,19 +186,19 @@ void CPlayer::MoveUpdate()
 
 	if (IsDash)
 	{
-		time += fDT;
-		if (time > 0.05f && timer)
+		m_fDashTime += fDT;
+		if (m_fDashTime > 0.05f && m_bTimer)
 		{
 			pFX->PlayFX(this, L"dash");
-			timer = false;
+			m_bTimer = false;
 		}
-		if (time > 0.08f && timer2)
+		if (m_fDashTime > 0.08f && m_bTimer2)
 		{
 			pFX->PlayFX(this, L"dash");
-			timer2 = false;
+			m_bTimer2 = false;
 		}
 
-		GR = true;
+		m_bIsGravity = true;
 		GetGravity()->OnOffGravity(false);
 		
 		if (m_fTimex <= 0.f && m_fTime <= 0.f)
@@ -223,7 +224,7 @@ void CPlayer::MoveUpdate()
 				m_fTimex -= 6000 * fDT;
 			}
 		}
-		if (MousePos().x - CCameraManager::getInst()->GetRenderPos(pos).x > 0)
+		if (m_fptMousePos.x - CCameraManager::getInst()->GetRenderPos(pos).x > 0)
 		{
 			if (m_iMoveLeft == 0)
 			{
@@ -265,7 +266,7 @@ void CPlayer::MoveUpdate()
 	}
 	else if (IsJump)
 	{
-		GR = true;
+		m_bIsGravity = true;
 		GetGravity()->OnOffGravity(false);
 		m_fTime -= 2000 * fDT;
 		pos.y -= m_fTime * fDT;
@@ -299,7 +300,7 @@ void CPlayer::MoveUpdate()
 		m_fSpeed = 0;
 	}
 
-	if (m_fSpeed > 0 && !GR)
+	if (m_fSpeed > 0 && !m_bIsGravity)
 	{
 		m_fRunFX -= fDT;
 		if (m_fRunFX < 0)
@@ -322,7 +323,7 @@ void CPlayer::AniUpdate()
 {
 	if (Isright)
 	{
-		if (GetGravity()->CheckGravity() || GR)
+		if (GetGravity()->CheckGravity() || m_bIsGravity)
 		{
 			GetAnimator()->Play(L"PlayerJumpright");
 		}
@@ -337,7 +338,7 @@ void CPlayer::AniUpdate()
 	}
 	else
 	{
-		if (GetGravity()->CheckGravity() || GR)
+		if (GetGravity()->CheckGravity() || m_bIsGravity)
 		{
 			GetAnimator()->Play(L"PlayerJumpleft");
 		}
@@ -369,22 +370,15 @@ void CPlayer::OnCollisionEnter(CCollider* pOther)
 		case 1:
 			Equip(pOther->GetObj()->GetItemCode());
 			m_Savedata.m_EquipCode = 1;
+			CSoundManager::getInst()->Play(L"equip");
 			break;
 		case 2:
 			Equip(pOther->GetObj()->GetItemCode());
 			m_Savedata.m_EquipCode = 2;
+			CSoundManager::getInst()->Play(L"equip");
 			break;
 		default:
 			break;
-		}
-	}
-	if (pOther->GetObj()->GetTileGroup() == GROUP_TILE::DOOR)				// 플레이어와 던전 입구
-	{
-		if (nullptr != m_pFunc)
-		{
-			m_pFunc(m_pParam1, m_pParam2);
-			sPlayer = new CPlayer;
-			sPlayer->SaveData(this->LoadData());
 		}
 	}
 }
@@ -421,15 +415,7 @@ void CPlayer::Equip(int code)
 	pEquip->SetOwner(this);
 	pEquip->Load(Key, Path);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
-	CSoundManager::getInst()->Play(L"equip");
 	IsEquip = true;
-}
-
-void CPlayer::SetSteppedCallBack(BTN_FUNC pFunc, DWORD_PTR param1, DWORD_PTR param2)
-{
-	m_pFunc = pFunc;
-	m_pParam1 = param1;
-	m_pParam2 = param2;
 }
 
 void CPlayer::SaveData(PlayerSave data)

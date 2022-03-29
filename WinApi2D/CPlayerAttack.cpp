@@ -97,9 +97,4 @@ CGameObject* CPlayerAttack::GetOwner()
 
 void CPlayerAttack::OnCollisionEnter(CCollider* pOther)
 {
-	CGameObject* pOtherObj = pOther->GetObj();
-	if (pOtherObj->GetObjGroup() == GROUP_GAMEOBJ::MONSTER)
-	{
-		// TODO : HP -
-	}
 }

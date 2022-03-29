@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "CScene_Dungeon.h"
-#include "Back_Ground_Layer.h"
+#include "CMap.h"
 #include "CUICursor.h"
 
 // 오브젝트
@@ -32,21 +32,19 @@ void CScene_Dungeon::update()
 
 void CScene_Dungeon::Enter()
 {
-	CCameraManager::getInst()->FadeIn(1.f);
 	CSoundManager::getInst()->AddSound(L"CScene_Duneon_bgm", L"sound\\1.JailField.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Duneon_bgm");
 
 	wstring path = CPathManager::getInst()->GetContentPath();
-	path += L"tile\\test2.tile";
+	path += L"tile\\EnterDG.tile";
 	LoadTile(path);
 
 	// 플레이어
 	CPlayer* pPlayer = new CPlayer;
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 	pPlayer->RegisterPlayer();
+	pPlayer->SetPos(fPoint(570.f, 600.f));
 	pPlayer->SaveData(sPlayer->LoadData());
-	
-	//pPlayer->SetPos(fPoint(WINSIZEX / 2, WINSIZEY / 2));
 	
 	// 아이템
 	CShort_Sword* pShort_Sword = new CShort_Sword;
@@ -55,9 +53,11 @@ void CScene_Dungeon::Enter()
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
 	// 배경
-	Back_Ground_Layer* dungeonlayer = new Back_Ground_Layer;
-	dungeonlayer->Load(L"SubBG", L"texture\\dungeon\\SubBG.png", fPoint(0.f,0.f), 3.f);
-	AddObject(dungeonlayer, GROUP_GAMEOBJ::BACKGROUND);
+	
+	// 맵
+	CMap* enterDG = new CMap;
+	enterDG->Load(L"EnterDG", L"texture\\dungeon\\EnterDG.png");
+	AddObject(enterDG, GROUP_GAMEOBJ::MAP);
 
 	// 몬스터
 	CMonster* pMon = CMonster::Create(MON_TYPE::NORMAL, fPoint(500.f, 500.f));
@@ -78,6 +78,8 @@ void CScene_Dungeon::Enter()
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::TILE, GROUP_GAMEOBJ::ITEM);
 
+	// Camera Look 
+	CCameraManager::getInst()->SetRange(fPoint(448.f, 192.f));
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
