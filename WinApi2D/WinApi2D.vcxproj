@@ -170,6 +170,7 @@
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMap.h" />
+    <ClInclude Include="CMonsterFX.h" />
     <ClInclude Include="CPlayerAttack.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CPlayerFX.h" />
@@ -183,6 +184,8 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CScene_Dungeon.h" />
+    <ClInclude Include="CScene_Dungeon01.h" />
+    <ClInclude Include="CScene_DungeonBOSS.h" />
     <ClInclude Include="CScene_Start.h" />
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CScene_Town.h" />
@@ -230,6 +233,7 @@
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CMonsterFX.cpp" />
     <ClCompile Include="CPlayerAttack.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CPlayerFX.cpp" />
@@ -243,6 +247,8 @@
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CScene_Dungeon.cpp" />
+    <ClCompile Include="CScene_Dungeon01.cpp" />
+    <ClCompile Include="CScene_DungeonBOSS.cpp" />
     <ClCompile Include="CScene_Start.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />
     <ClCompile Include="CScene_Town.cpp" />

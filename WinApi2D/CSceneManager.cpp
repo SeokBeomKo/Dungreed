@@ -5,6 +5,8 @@
 #include "CScene_Tool.h"
 #include "CScene_Town.h"
 #include "CScene_Dungeon.h"
+#include "CScene_Dungeon01.h"
+#include "CScene_DungeonBOSS.h"
 
 CSceneManager::CSceneManager()
 {
@@ -59,6 +61,12 @@ void CSceneManager::init()
 
 	m_arrScene[(size_t)GROUP_SCENE::DUNGEON] = new CScene_Dungeon;
 	m_arrScene[(size_t)GROUP_SCENE::DUNGEON]->SetName(L"Dungeon_Scene");
+
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEON01] = new CScene_Dungeon01;
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEON01]->SetName(L"Dungeon_Scene01");
+
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEONBOSS] = new CScene_DungeonBOSS;
+	m_arrScene[(size_t)GROUP_SCENE::DUNGEONBOSS]->SetName(L"CScene_DungeonBOSS");
 
 	m_pCurScene = m_arrScene[(size_t)GROUP_SCENE::START];
 	m_pCurScene->Enter();

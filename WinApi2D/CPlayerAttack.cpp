@@ -12,9 +12,10 @@ CPlayerAttack::CPlayerAttack()
 	m_pImg			= nullptr;
 
 	m_EffectCode	= 0;
-	time			= 0;
-	dashdir			= fPoint(0,0);
-	m_iRange		= 0;			
+	m_iDamage 		= 0;
+	m_iRange		= 0;
+	m_fTimeFX		= 0.f;
+	m_fptDirFX		= fPoint(0,0);		
 }
 
 CPlayerAttack::~CPlayerAttack()
@@ -34,6 +35,7 @@ void CPlayerAttack::EnterAttack()
 		SetScale(fPoint(40.f, 28.f) * 4.f);
 		GetCollider()->SetScale(fPoint(40.f, 28.f) * 4.f);
 		m_iRange = 50;
+		m_iDamage = 10;
 		CSoundManager::getInst()->Play(L"swing");
 	}
 	else if (m_EffectCode == 2)
@@ -43,10 +45,9 @@ void CPlayerAttack::EnterAttack()
 		SetScale(fPoint(164.f, 138.f) *1.5f);
 		GetCollider()->SetScale(fPoint(164.f, 138.f)* 1.5f);
 		m_iRange = 100;
+		m_iDamage = 15;
 		CSoundManager::getInst()->Play(L"katana");
 	}
-
-	GetAnimator()->Play(L"Attack");
 	SetObjGroup(GROUP_GAMEOBJ::PLAYER_ATTACK);
 
 	fPoint finalpos = GetPos();
@@ -54,29 +55,30 @@ void CPlayerAttack::EnterAttack()
 	fPoint realpos;
 	realpos = CCameraManager::getInst()->GetRenderPos(pos);
 
-	dashdir.x = MousePos().x - realpos.x;
-	dashdir.y = MousePos().y - realpos.y;
+	m_fptDirFX.x = MousePos().x - realpos.x;
+	m_fptDirFX.y = MousePos().y - realpos.y;
 
-	finalpos.x = finalpos.x + dashdir.normalize().x * m_iRange;
-	finalpos.y = finalpos.y + dashdir.normalize().y * m_iRange;
+	finalpos.x = finalpos.x + m_fptDirFX.normalize().x * m_iRange;
+	finalpos.y = finalpos.y + m_fptDirFX.normalize().y * m_iRange;
 
 	SetPos(finalpos);
-
 	GetCollider()->SetFinalPos(m_Owner->GetPos());
 }
 
 void CPlayerAttack::update()
 {
-	time += fDT;
+	m_fTimeFX += fDT;
 
-	if (time >= 0.4f)
-	DeleteObj(this);
+	if (m_fTimeFX >= 0.4f)
+		DeleteObj(this);
 
 	GetAnimator()->update();
 }
 
 void CPlayerAttack::render()
 {
+	GetAnimator()->Play(L"Attack");
+
 	component_render();
 }
 
@@ -88,6 +90,11 @@ void CPlayerAttack::SetOwner(CGameObject* Obj)
 void CPlayerAttack::SetCode(int code)
 {
 	m_EffectCode = code;
+}
+
+int CPlayerAttack::GetDamage()
+{
+	return m_iDamage;
 }
 
 CGameObject* CPlayerAttack::GetOwner()

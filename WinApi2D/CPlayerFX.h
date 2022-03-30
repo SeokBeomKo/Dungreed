@@ -5,7 +5,6 @@ class CPlayerFX :
     public CGameObject
 {
 private:
-    
     CD2DImage*      m_pImg;
 
     float           time;       // 재생시간 재기

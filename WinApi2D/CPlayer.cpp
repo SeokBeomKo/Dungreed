@@ -39,6 +39,7 @@ CPlayer::CPlayer()
 	m_fRunSound = 0.3f;
 	m_iMoveRight = 0, m_iMoveLeft = 0;
 	IsEquip = false;
+	m_bIsFallJump = true;
 
 	m_Savedata.hp = 100;
 
@@ -92,6 +93,11 @@ void CPlayer::SetAllMove(int right, int left)
 {
 	m_iMoveRight = right;
 	m_iMoveLeft = left;
+}
+
+void CPlayer::SetFallJump(bool set)
+{
+	m_bIsFallJump = set;
 }
 
 void CPlayer::SetJump(bool set)
@@ -173,14 +179,14 @@ void CPlayer::MoveUpdate()
 		{
 			IsDashLow = true;
 		}
-		m_fptMousePos = MousePos();
+		m_fptMousePos = MousePos() - realpos;
 		dashdir.x = MousePos().x - realpos.x;
 		dashdir.y = MousePos().y - realpos.y;
 		m_fDashTime = 0.f, m_bTimer = true, m_bTimer2 = true;
 		IsDash = true;
 		IsJump = false;
-		m_fTime = GR_TIME * 2;
-		m_fTimex = GR_TIME * 1.7;
+		m_fTime = GR_TIME * 1.9;
+		m_fTimex = GR_TIME * 1.6;
 		CSoundManager::getInst()->Play(L"dash");
 	}
 
@@ -224,7 +230,7 @@ void CPlayer::MoveUpdate()
 				m_fTimex -= 6000 * fDT;
 			}
 		}
-		if (m_fptMousePos.x - CCameraManager::getInst()->GetRenderPos(pos).x > 0)
+		if (m_fptMousePos.x > 0)
 		{
 			if (m_iMoveLeft == 0)
 			{
@@ -253,15 +259,27 @@ void CPlayer::MoveUpdate()
 	}
 	else if(KeyDown(VK_SPACE) || KeyDown('W'))
 	{	
-		if (m_jumpCount != 0)
+		if (Key('S'))
 		{
-			if (m_jumpCount == 2)
-				pFX->PlayFX(this, L"jump");
-			else
-				pFX->PlayFX(this, L"djump");
-			--m_jumpCount;
-			IsJump = true;
-			m_fTime = GR_TIME;
+			if (m_bIsFallJump)
+			{
+				GetGravity()->OnOffGravity(true);
+				pos.y += 5.f;
+				m_bIsFallJump = false;
+			}
+		}
+		else
+		{
+			if (m_jumpCount != 0)
+			{
+				if (m_jumpCount == 2)
+					pFX->PlayFX(this, L"jump");
+				else
+					pFX->PlayFX(this, L"djump");
+				--m_jumpCount;
+				IsJump = true;
+				m_fTime = GR_TIME;
+			}
 		}
 	}
 	else if (IsJump)
@@ -278,12 +296,7 @@ void CPlayer::MoveUpdate()
 		}
 	}
 
-	if (KeyDown('S'))
-	{
-		GetGravity()->OnOffGravity(true);
-		pos.y += 5.f;
-	}
-	else if (Key('A'))
+	if (Key('A'))
 	{
 		if (m_iMoveRight == 0)
 			pos.x -= m_fVelocity * fDT;

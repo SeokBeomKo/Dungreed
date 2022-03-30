@@ -66,8 +66,6 @@ void CPlayerFX::CreateFX(CGameObject* Obj, wstring state)
 	GetAnimator()->Play(state);
 	SetObjGroup(GROUP_GAMEOBJ::PLAYER_FX);
 
-	
-
 	SetPos(pos);
 }
 

@@ -3,6 +3,8 @@
 #include "CMap.h"
 #include "CUICursor.h"
 
+#include "CDoor.h"
+
 // 오브젝트
 #include "CGameObject.h"
 #include "CPlayer.h"
@@ -39,6 +41,12 @@ void CScene_Dungeon::Enter()
 	path += L"tile\\EnterDG.tile";
 	LoadTile(path);
 
+	// 씬 이동
+	CDoor* pNextDoor = new CDoor;
+	pNextDoor->SetNextScene(GROUP_SCENE::DUNGEON01);
+	pNextDoor->Setting(fPoint(1744.f, 516.f), fPoint(32.f, 256.f));
+	AddObject(pNextDoor, GROUP_GAMEOBJ::TILE);
+
 	// 플레이어
 	CPlayer* pPlayer = new CPlayer;
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
@@ -47,9 +55,9 @@ void CScene_Dungeon::Enter()
 	pPlayer->SaveData(sPlayer->LoadData());
 	
 	// 아이템
-	CShort_Sword* pShort_Sword = new CShort_Sword;
+	CItem* pShort_Sword = new CShort_Sword;
 	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
-	CPowerKatana* pPowerKatana = new CPowerKatana;
+	CItem* pPowerKatana = new CPowerKatana;
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
 
 	// 배경
@@ -58,14 +66,6 @@ void CScene_Dungeon::Enter()
 	CMap* enterDG = new CMap;
 	enterDG->Load(L"EnterDG", L"texture\\dungeon\\EnterDG.png");
 	AddObject(enterDG, GROUP_GAMEOBJ::MAP);
-
-	// 몬스터
-	CMonster* pMon = CMonster::Create(MON_TYPE::NORMAL, fPoint(500.f, 500.f));
-	AddObject(pMon, GROUP_GAMEOBJ::MONSTER);
-	CMonster* pMon2 = CMonster::Create(MON_TYPE::NORMAL, fPoint(550.f, 600.f));
-	AddObject(pMon2, GROUP_GAMEOBJ::MONSTER);
-
-
 
 	CUICursor* pCursortown = new CUICursor;
 	pCursortown->Load(L"ShootingCursor", L"texture\\ui\\ShootingCursor.png");
@@ -91,7 +91,6 @@ void CScene_Dungeon::Init()
 
 void CScene_Dungeon::Exit()
 {
-	CSoundManager::getInst()->Stop(L"CScene_Duneon_bgm");
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();

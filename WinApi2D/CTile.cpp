@@ -6,6 +6,7 @@
 #include "CCollider.h"
 #include "CGravity.h"
 
+#include "CPlayer.h"
 CTile::CTile()
 {
 	m_pImg = nullptr;
@@ -211,6 +212,8 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 					if (fInterTop == tiletop ||
 						(playerright == tileright && playerleft == tileleft))	// À§ Ãæµ¹
 					{
+						CPlayer* pPlayer = (CPlayer*)pOther->GetObj();
+						pPlayer->SetFallJump(true);
 						if (fInterH > 1.f)
 							pos.y -= fInterH;
 						pOther->GetObj()->GetGravity()->OnOffGravity(false);

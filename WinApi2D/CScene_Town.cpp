@@ -36,7 +36,10 @@ void CScene_Town::update()
 void CScene_Town::Enter()
 {
 	CCameraManager::getInst()->FadeIn(2.f);
-	
+	CSoundManager::getInst()->AddSound(L"MonsterHit", L"sound\\MonsterHit.wav", false);
+	CSoundManager::getInst()->AddSound(L"MonsterDie", L"sound\\MonsterDie.wav", false);
+	CSoundManager::getInst()->AddSound(L"MonsterSpawn", L"sound\\MonsterSpawn.wav", false);
+
 	// 브금
 	CSoundManager::getInst()->AddSound(L"CScene_Town_bgm", L"sound\\0.Town.wav", false);
 	CSoundManager::getInst()->Play(L"CScene_Town_bgm");
@@ -49,7 +52,7 @@ void CScene_Town::Enter()
 	// 씬 이동
 	CDoor* pNextDoor = new CDoor;
 	pNextDoor->SetNextScene(GROUP_SCENE::DUNGEON);
-	pNextDoor->SetPos(fPoint(3872.f, 1360.f));
+	pNextDoor->Setting(fPoint(3872.f, 1360.f), fPoint(1088.f, 32.f));
 	AddObject(pNextDoor, GROUP_GAMEOBJ::TILE);
 
 	// 플레이어

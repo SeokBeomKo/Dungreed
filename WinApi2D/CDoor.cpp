@@ -9,10 +9,6 @@ CPlayer* pPlayer = nullptr;
 CDoor::CDoor()
 {
 	pScene = nullptr;
-	SetScale(fPoint(1088.f, 32.f));
-
-	CreateCollider();
-	GetCollider()->SetScale(GetScale());
 }
 
 CDoor::~CDoor()
@@ -21,6 +17,15 @@ CDoor::~CDoor()
 
 void CDoor::update()
 {
+}
+
+void CDoor::Setting(fPoint pos, fPoint Scale)
+{
+	SetPos(pos);
+	SetScale(Scale);
+
+	CreateCollider();
+	GetCollider()->SetScale(GetScale());
 }
 
 void CDoor::SetNextScene(GROUP_SCENE next)

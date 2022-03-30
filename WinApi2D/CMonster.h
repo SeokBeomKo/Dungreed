@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObject.h"
+#include "CMonsterFX.h"
 
 class CD2DImage;
 class AI;
@@ -15,8 +16,9 @@ struct tMonInfo
 
 enum class MON_TYPE
 {
-	NORMAL,
-	RANGE,
+	BAT,
+	BAT_RED,
+
 
 	SIZE,
 };
@@ -24,8 +26,11 @@ enum class MON_TYPE
 class CMonster : public CGameObject
 {
 private:
-	tMonInfo m_tInfo;
-	AI* m_pAI;
+	tMonInfo	m_tInfo;
+	AI*			m_pAI;
+	CD2DImage*	m_pImg;
+
+	CMonsterFX* pFX;
 
 public:
 	CMonster();
@@ -43,6 +48,7 @@ public:
 	void SetSpeed(float speed);
 	void SetAI(AI* ai);
 	void SetMonInfo(const tMonInfo& info);
+	void SetResource(MON_TYPE type);
 
 	void OnCollisionEnter(CCollider* pOther);
 };

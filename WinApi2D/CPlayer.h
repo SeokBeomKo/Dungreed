@@ -29,6 +29,7 @@ private:
 	float m_fRunSound;			// 달리기 사운드
 	bool IsJump;
 	bool Isright;
+	bool m_bIsFallJump;			// 아래 점프
 	int m_iMoveRight;
 	int m_iMoveLeft;
 
@@ -71,6 +72,7 @@ public:
 	virtual void SetDash(bool set);
 	virtual void SetJumpCount();
 	virtual void SetGR(bool set);
+	void SetFallJump(bool set);
 
 	void RegisterPlayer();
 	static CPlayer* GetPlayer();
