@@ -155,6 +155,8 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
+    <ClInclude Include="CAttackStateF.h" />
+    <ClInclude Include="CAwayStateF.h" />
     <ClInclude Include="CButtonUI.h" />
     <ClInclude Include="CCameraManager.h" />
     <ClInclude Include="CCollisionManager.h" />
@@ -166,7 +168,9 @@
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGravity.h" />
-    <ClInclude Include="CIdleState.h" />
+    <ClInclude Include="CIdleStateB.h" />
+    <ClInclude Include="CIdleStateF.h" />
+    <ClInclude Include="CIdleStateG.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMap.h" />
@@ -197,7 +201,8 @@
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileButton.h" />
     <ClInclude Include="CTimeManager.h" />
-    <ClInclude Include="CTraceState.h" />
+    <ClInclude Include="CTraceStateF.h" />
+    <ClInclude Include="CTraceStateG.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CUICursor.h" />
     <ClInclude Include="CUIManager.h" />
@@ -218,6 +223,8 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
+    <ClCompile Include="CAttackStateF.cpp" />
+    <ClCompile Include="CAwayStateF.cpp" />
     <ClCompile Include="CButtonUI.cpp" />
     <ClCompile Include="CCameraManager.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
@@ -229,7 +236,9 @@
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGravity.cpp" />
-    <ClCompile Include="CIdleState.cpp" />
+    <ClCompile Include="CIdleStateB.cpp" />
+    <ClCompile Include="CIdleStateF.cpp" />
+    <ClCompile Include="CIdleStateG.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMap.cpp" />
@@ -260,7 +269,8 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileButton.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
-    <ClCompile Include="CTraceState.cpp" />
+    <ClCompile Include="CTraceStateF.cpp" />
+    <ClCompile Include="CTraceStateG.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUICursor.cpp" />
     <ClCompile Include="CUIManager.cpp" />

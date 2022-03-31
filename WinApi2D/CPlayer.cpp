@@ -23,25 +23,42 @@ CPlayer* CPlayer::instance = nullptr;
 
 CPlayer::CPlayer()
 {
-	m_fVelocity = 350;
-	IsDash = false;
-	IsDashLow = false;
-	m_bIsGravity = true;
-	m_fSpeed = 0.f;
-	IsJump = false;
-	Isright = true;
+	// 플레이어 정보
+	m_Savedata.hp			= 80;
+	m_Savedata.gold			= 0;
+	m_Savedata.m_EquipCode	= 0;
+
+	// 플레이어 이동
+	m_Move.m_fVelocity		= 350.f;
+	m_Move.m_fRunFX			= 0.3f;
+	m_Move.m_fRunSound		= 0.3f;
+	m_Move.m_bIsMove		= false;
+	m_Move.m_bIsJump		= false;
+	m_Move.m_bIsRight		= true;
+	m_Move.m_bIsFallJump	= true;
+	m_Move.m_iMoveRight		= 0;
+	m_Move.m_iMoveLeft		= 0;
+	m_Move.m_iJumpCount		= 2;
+
+	// 플레이어 대쉬
+	m_Dash.m_bIsDash		= false;
+	m_Dash.m_bDashLow		= false;
+	m_Dash.m_fVDashdir		= fVec2(0.f,0.f);
+	m_Dash.m_fptMousePos	= fPoint(0.f,0.f);
+	m_Dash.m_fDashTime		= 0.f;
+	m_Dash.m_bTimer			= true;
+	m_Dash.m_bTimer2		= true;
+
+	// 중력 구현
+	m_Gravity.m_bIsGravity	= true;
+	m_Gravity.m_fTimeY		= 0.f;
+	m_Gravity.m_fTimeX		= 0.f;
+	m_Gravity.m_fGravity	= 0.f;
+
+	m_bIsEquip = false; 
+
 	pEquip = new CEquip;
 	pFX = new CPlayerFX;
-	m_fDashTime = 0.f;
-	m_bTimer = true;
-	m_bTimer2 = true;
-	m_fRunFX = 0.3f;
-	m_fRunSound = 0.3f;
-	m_iMoveRight = 0, m_iMoveLeft = 0;
-	IsEquip = false;
-	m_bIsFallJump = true;
-
-	m_Savedata.hp = 100;
 
 	SetName(L"Player");
 	SetScale(fPoint(32.f * 4, 32.f * 4));
@@ -85,50 +102,50 @@ CPlayer* CPlayer::Clone()
 
 void CPlayer::SetMove(int right, int left)
 {
-	m_iMoveRight += right;
-	m_iMoveLeft += left;
+	m_Move.m_iMoveRight += right;
+	m_Move.m_iMoveLeft += left;
 }
 
 void CPlayer::SetAllMove(int right, int left)
 {
-	m_iMoveRight = right;
-	m_iMoveLeft = left;
+	m_Move.m_iMoveRight = right;
+	m_Move.m_iMoveLeft = left;
 }
 
 void CPlayer::SetFallJump(bool set)
 {
-	m_bIsFallJump = set;
+	m_Move.m_bIsFallJump = set;
 }
 
 void CPlayer::SetJump(bool set)
 {
-	IsJump = set;
+	m_Move.m_bIsJump = set;
 }
 
 void CPlayer::SetDash(bool set)
 {
-	IsDash = set;
+	m_Dash.m_bIsDash = set;
 }
 
 void CPlayer::SetJumpCount()
 {
-	m_jumpCount = 2;
+	m_Move.m_iJumpCount = 2;
 }
 
 void CPlayer::SetGR(bool set)
 {
-	m_bIsGravity = set;
+	m_Gravity.m_bIsGravity = set;
 }
 
 
 int CPlayer::GetMoveRight()
 {
-	return m_iMoveRight;
+	return m_Move.m_iMoveRight;
 }
 
 int CPlayer::GetMoveLeft()
 {
-	return m_iMoveLeft;
+	return m_Move.m_iMoveLeft;
 }
 
 void CPlayer::RegisterPlayer()
@@ -160,11 +177,11 @@ void CPlayer::MoveUpdate()
 
 	if (MousePos().x <= realpos.x)
 	{
-		Isright = false;
+		m_Move.m_bIsRight = false;
 	}
 	else
 	{
-		Isright = true;
+		m_Move.m_bIsRight = true;
 	}
 
 	if (KeyDown(VK_LBUTTON))
@@ -177,83 +194,83 @@ void CPlayer::MoveUpdate()
 	{
 		if (MousePos().y > realpos.y)
 		{
-			IsDashLow = true;
+			m_Dash.m_bDashLow = true;
 		}
-		m_fptMousePos = MousePos() - realpos;
-		dashdir.x = MousePos().x - realpos.x;
-		dashdir.y = MousePos().y - realpos.y;
-		m_fDashTime = 0.f, m_bTimer = true, m_bTimer2 = true;
-		IsDash = true;
-		IsJump = false;
-		m_fTime = GR_TIME * 1.9;
-		m_fTimex = GR_TIME * 1.6;
+		m_Dash.m_fptMousePos = MousePos() - realpos;
+		m_Dash.m_fVDashdir.x = MousePos().x - realpos.x;
+		m_Dash.m_fVDashdir.y = MousePos().y - realpos.y;
+		m_Dash.m_fDashTime = 0.f, m_Dash.m_bTimer = true, m_Dash.m_bTimer2 = true;
+		m_Dash.m_bIsDash = true;
+		m_Move.m_bIsJump = false;
+		m_Gravity.m_fTimeY = GR_TIME * 1.9;
+		m_Gravity.m_fTimeX = GR_TIME * 1.6;
 		CSoundManager::getInst()->Play(L"dash");
 	}
 
-	if (IsDash)
+	if (m_Dash.m_bIsDash)
 	{
-		m_fDashTime += fDT;
-		if (m_fDashTime > 0.05f && m_bTimer)
+		m_Dash.m_fDashTime += fDT;
+		if (m_Dash.m_fDashTime > 0.05f && m_Dash.m_bTimer)
 		{
 			pFX->PlayFX(this, L"dash");
-			m_bTimer = false;
+			m_Dash.m_bTimer = false;
 		}
-		if (m_fDashTime > 0.08f && m_bTimer2)
+		if (m_Dash.m_fDashTime > 0.08f && m_Dash.m_bTimer2)
 		{
 			pFX->PlayFX(this, L"dash");
-			m_bTimer2 = false;
+			m_Dash.m_bTimer2 = false;
 		}
 
-		m_bIsGravity = true;
+		m_Gravity.m_bIsGravity = true;
 		GetGravity()->OnOffGravity(false);
 		
-		if (m_fTimex <= 0.f && m_fTime <= 0.f)
+		if (m_Gravity.m_fTimeX <= 0.f && m_Gravity.m_fTimeY <= 0.f)
 		{
-			IsDash = false;
-			if (!IsDashLow)
+			m_Dash.m_bIsDash = false;
+			if (!m_Dash.m_bDashLow)
 			{
-				m_fTime = 0.f;
-				GetGravity()->OnOffGravity(true, m_fTime);
+				m_Gravity.m_fTimeY = 0.f;
+				GetGravity()->OnOffGravity(true, m_Gravity.m_fTimeY);
 			}
 			else
 			{
-				m_fTime = 200.f;
-				GetGravity()->OnOffGravity(true, m_fTime);
+				m_Gravity.m_fTimeY = 200.f;
+				GetGravity()->OnOffGravity(true, m_Gravity.m_fTimeY);
 			}
-			IsDashLow = false;
+			m_Dash.m_bDashLow = false;
 		}
 		else
 		{
-			m_fTime -= 7500 * fDT;
-			if (m_fTimex > 0)
+			m_Gravity.m_fTimeY -= 7500 * fDT;
+			if (m_Gravity.m_fTimeX > 0)
 			{
-				m_fTimex -= 6000 * fDT;
+				m_Gravity.m_fTimeX -= 6000 * fDT;
 			}
 		}
-		if (m_fptMousePos.x > 0)
+		if (m_Dash.m_fptMousePos.x > 0)
 		{
-			if (m_iMoveLeft == 0)
+			if (m_Move.m_iMoveLeft == 0)
 			{
-				pos.x += m_fTimex * dashdir.normalize().x * fDT;
-				pos.y += m_fTime * dashdir.normalize().y * fDT;
+				pos.x += m_Gravity.m_fTimeX * m_Dash.m_fVDashdir.normalize().x * fDT;
+				pos.y += m_Gravity.m_fTimeY * m_Dash.m_fVDashdir.normalize().y * fDT;
 			}
 			else
 			{
-				pos.x += 0 * dashdir.normalize().x * fDT;
-				pos.y += m_fTime * dashdir.normalize().y * fDT;
+				pos.x += 0 * m_Dash.m_fVDashdir.normalize().x * fDT;
+				pos.y += m_Gravity.m_fTimeY * m_Dash.m_fVDashdir.normalize().y * fDT;
 			}
 		}
 		else
 		{
-			if (m_iMoveRight == 0)
+			if (m_Move.m_iMoveRight == 0)
 			{
-				pos.x += m_fTimex * dashdir.normalize().x * fDT;
-				pos.y += m_fTime * dashdir.normalize().y * fDT;
+				pos.x += m_Gravity.m_fTimeX * m_Dash.m_fVDashdir.normalize().x * fDT;
+				pos.y += m_Gravity.m_fTimeY * m_Dash.m_fVDashdir.normalize().y * fDT;
 			}
 			else
 			{
-				pos.x += 0 * dashdir.normalize().x * fDT;
-				pos.y += m_fTime * dashdir.normalize().y * fDT;
+				pos.x += 0 * m_Dash.m_fVDashdir.normalize().x * fDT;
+				pos.y += m_Gravity.m_fTimeY * m_Dash.m_fVDashdir.normalize().y * fDT;
 			}
 		}
 	}
@@ -261,71 +278,71 @@ void CPlayer::MoveUpdate()
 	{	
 		if (Key('S'))
 		{
-			if (m_bIsFallJump)
+			if (m_Move.m_bIsFallJump)
 			{
 				GetGravity()->OnOffGravity(true);
 				pos.y += 5.f;
-				m_bIsFallJump = false;
+				m_Move.m_bIsFallJump = false;
 			}
 		}
 		else
 		{
-			if (m_jumpCount != 0)
+			if (m_Move.m_iJumpCount != 0)
 			{
-				if (m_jumpCount == 2)
+				if (m_Move.m_iJumpCount == 2)
 					pFX->PlayFX(this, L"jump");
 				else
 					pFX->PlayFX(this, L"djump");
-				--m_jumpCount;
-				IsJump = true;
-				m_fTime = GR_TIME;
+				--m_Move.m_iJumpCount;
+				m_Move.m_bIsJump = true;
+				m_Gravity.m_fTimeY = GR_TIME;
 			}
 		}
 	}
-	else if (IsJump)
+	else if (m_Move.m_bIsJump)
 	{
-		m_bIsGravity = true;
+		m_Gravity.m_bIsGravity = true;
 		GetGravity()->OnOffGravity(false);
-		m_fTime -= 2000 * fDT;
-		pos.y -= m_fTime * fDT;
-		if (m_fTime <= 0.f)
+		m_Gravity.m_fTimeY -= 2000 * fDT;
+		pos.y -= m_Gravity.m_fTimeY * fDT;
+		if (m_Gravity.m_fTimeY <= 0.f)
 		{
-			IsJump = false;
-			m_fTime = 0.f;
-			GetGravity()->OnOffGravity(true, m_fTime);
+			m_Move.m_bIsJump = false;
+			m_Gravity.m_fTimeY = 0.f;
+			GetGravity()->OnOffGravity(true, m_Gravity.m_fTimeY);
 		}
 	}
 
 	if (Key('A'))
 	{
-		if (m_iMoveRight == 0)
-			pos.x -= m_fVelocity * fDT;
-		m_fSpeed = m_fVelocity;
+		if (m_Move.m_iMoveRight == 0)
+			pos.x -= m_Move.m_fVelocity * fDT;
+		m_Move.m_bIsMove = true;
 	}
 	else if (Key('D'))
 	{
-		if (m_iMoveLeft == 0)
-			pos.x += m_fVelocity * fDT;
-		m_fSpeed = m_fVelocity;
+		if (m_Move.m_iMoveLeft == 0)
+			pos.x += m_Move.m_fVelocity * fDT;
+		m_Move.m_bIsMove = true;
 	}
 	else
 	{
-		m_fSpeed = 0;
+		m_Move.m_bIsMove = false;
 	}
 
-	if (m_fSpeed > 0 && !m_bIsGravity)
+	if (m_Move.m_bIsMove && !m_Gravity.m_bIsGravity)
 	{
-		m_fRunFX -= fDT;
-		if (m_fRunFX < 0)
+		m_Move.m_fRunFX -= fDT;
+		if (m_Move.m_fRunFX < 0)
 		{
 			pFX->PlayFX(this, L"run");
-			m_fRunFX = 0.3f;
+			m_Move.m_fRunFX = 0.3f;
 		}
-		m_fRunSound -= fDT;
-		if (m_fRunSound < 0)
+		m_Move.m_fRunSound -= fDT;
+		if (m_Move.m_fRunSound < 0)
 		{
 			CSoundManager::getInst()->Play(L"step1");
-			m_fRunSound = 0.3f;
+			m_Move.m_fRunSound = 0.3f;
 		}
 	}
 
@@ -334,13 +351,13 @@ void CPlayer::MoveUpdate()
 
 void CPlayer::AniUpdate()
 {
-	if (Isright)
+	if (m_Move.m_bIsRight)
 	{
-		if (GetGravity()->CheckGravity() || m_bIsGravity)
+		if (GetGravity()->CheckGravity() || m_Gravity.m_bIsGravity)
 		{
 			GetAnimator()->Play(L"PlayerJumpright");
 		}
-		else if (m_fSpeed > 0)
+		else if (m_Move.m_bIsMove)
 		{
 			GetAnimator()->Play(L"PlayerRunright");
 		}
@@ -351,11 +368,11 @@ void CPlayer::AniUpdate()
 	}
 	else
 	{
-		if (GetGravity()->CheckGravity() || m_bIsGravity)
+		if (GetGravity()->CheckGravity() || m_Gravity.m_bIsGravity)
 		{
 			GetAnimator()->Play(L"PlayerJumpleft");
 		}
-		else if (m_fSpeed > 0)
+		else if (m_Move.m_bIsMove)
 		{
 			GetAnimator()->Play(L"PlayerRunleft");
 		}
@@ -418,17 +435,17 @@ void CPlayer::Equip(int code)
 	default:
 		return;
 	}
-	if (IsEquip)
+	if (m_bIsEquip)
 	{
 		DeleteObj(pEquip);
-		IsEquip = false;
+		m_bIsEquip = false;
 		pEquip = new CEquip;
 	}
 
 	pEquip->SetOwner(this);
 	pEquip->Load(Key, Path);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
-	IsEquip = true;
+	m_bIsEquip = true;
 }
 
 void CPlayer::SaveData(PlayerSave data)

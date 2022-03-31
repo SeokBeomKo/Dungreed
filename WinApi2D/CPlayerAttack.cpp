@@ -68,7 +68,14 @@ void CPlayerAttack::EnterAttack()
 void CPlayerAttack::update()
 {
 	m_fTimeFX += fDT;
-
+	
+	// TODO : 충돌체 제거 빠르게
+	//if (GetCollider() != nullptr)
+	//{
+	//	if (m_fTimeFX >= 0.1f)
+	//		DeleteCollider();
+	//}
+	
 	if (m_fTimeFX >= 0.4f)
 		DeleteObj(this);
 

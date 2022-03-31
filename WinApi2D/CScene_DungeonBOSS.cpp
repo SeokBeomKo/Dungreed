@@ -7,6 +7,7 @@
 #include "CGameObject.h"
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CDoor.h"
 
 // 아이템
 #include "CShort_Sword.h"
@@ -14,6 +15,9 @@
 
 CScene_DungeonBOSS::CScene_DungeonBOSS()
 {
+	m_Round.m_bClear = false;
+	m_Round.m_ICheckRound = 1;
+	m_Round.m_bRound01 = true;
 }
 
 CScene_DungeonBOSS::~CScene_DungeonBOSS()
@@ -23,6 +27,7 @@ CScene_DungeonBOSS::~CScene_DungeonBOSS()
 void CScene_DungeonBOSS::update()
 {
 	CScene::update();
+	RoundMaster();
 
 	if (KeyDown(VK_TAB))
 	{
@@ -32,15 +37,15 @@ void CScene_DungeonBOSS::update()
 
 void CScene_DungeonBOSS::Enter()
 {
-	CSoundManager::getInst()->Stop(L"CScene_Duneon_bgm");
-	CSoundManager::getInst()->AddSound(L"BossBgm", L"sound\\BossBgm.wav", false);
-	CSoundManager::getInst()->Play(L"BossBgm");
-	CSoundManager::getInst()->AddSound(L"BossEnter", L"sound\\BossEnter.wav", false);
-	CSoundManager::getInst()->Play(L"BossEnter");
-
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\DGBOSS.tile";
 	LoadTile(path);
+
+	// 클리어
+	if (m_Round.m_bClear)	// 클리어 했다면
+	{
+		SettingDoor();	// 출입구 열어줌
+	}
 
 	// 플레이어
 	CPlayer* pPlayer = new CPlayer;
@@ -63,7 +68,6 @@ void CScene_DungeonBOSS::Enter()
 	AddObject(enterDG, GROUP_GAMEOBJ::MAP);
 
 	// 몬스터
-	
 
 	CUICursor* pCursortown = new CUICursor;
 	pCursortown->Load(L"ShootingCursor", L"texture\\ui\\ShootingCursor.png");
@@ -87,4 +91,53 @@ void CScene_DungeonBOSS::Exit()
 	DeleteAll();
 
 	CCollisionManager::getInst()->Reset();
+}
+
+void CScene_DungeonBOSS::RoundMaster()
+{
+	switch (m_Round.m_ICheckRound)
+	{
+	case 1:
+		if (m_Round.m_bRound01)
+		{
+			Round01();
+			m_Round.m_bRound01 = false;
+		}
+		else if (GetObjectSize(GROUP_GAMEOBJ::MONSTER) == 0)
+		{
+			m_Round.m_ICheckRound++;
+		}
+		break;
+	case 2:
+		SettingDoor();
+		m_Round.m_ICheckRound++;
+		m_Round.m_bClear = true;
+		break;
+	default:
+		return;
+	}
+}
+
+void CScene_DungeonBOSS::Round01()
+{
+	CSoundManager::getInst()->Stop(L"CScene_Duneon_bgm");
+	CSoundManager::getInst()->AddSound(L"BossBgm", L"sound\\BossBgm.wav", false);
+	CSoundManager::getInst()->Play(L"BossBgm");
+	CSoundManager::getInst()->AddSound(L"BossEnter", L"sound\\BossEnter.wav", false);
+	CSoundManager::getInst()->Play(L"BossEnter");
+	CMonster* pMon = CMonster::Create(MON_TYPE::BOSS, fPoint(678.f, 595.f));
+	AddObject(pMon, GROUP_GAMEOBJ::MONSTER);
+}
+
+void CScene_DungeonBOSS::SettingDoor()
+{
+	// 씬 이동
+	CDoor* pNextDoorLeft = new CDoor;
+	pNextDoorLeft->SetNextScene(GROUP_SCENE::DUNGEON01);
+	pNextDoorLeft->Setting(fPoint(16.f, 966.f), fPoint(32.f, 256.f));
+	AddObject(pNextDoorLeft, GROUP_GAMEOBJ::TILE);
+	CDoor* pNextDoorRight = new CDoor;
+	pNextDoorRight->SetNextScene(GROUP_SCENE::TOWN);
+	pNextDoorRight->Setting(fPoint(1360.f, 966.f), fPoint(32.f, 256.f));
+	AddObject(pNextDoorRight, GROUP_GAMEOBJ::TILE);
 }

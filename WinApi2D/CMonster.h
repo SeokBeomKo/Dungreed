@@ -19,6 +19,7 @@ enum class MON_TYPE
 	BAT,
 	BAT_RED,
 
+	BOSS,
 
 	SIZE,
 };

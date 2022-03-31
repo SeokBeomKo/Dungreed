@@ -188,6 +188,14 @@ void CGameObject::CreateCollider()
 	m_pCollider->m_pOwner = this;
 }
 
+void CGameObject::DeleteCollider()
+{
+	if (nullptr != m_pCollider)
+	{
+		delete m_pCollider;
+	}
+}
+
 CAnimator* CGameObject::GetAnimator()
 {
 	return m_pAnimator;

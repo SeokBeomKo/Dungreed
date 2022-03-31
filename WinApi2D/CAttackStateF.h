@@ -1,10 +1,11 @@
 #pragma once
 #include "CState.h"
-class CTraceState : public CState
+class CAttackStateF :
+    public CState
 {
 public:
-	CTraceState(STATE_MON state);
-	virtual ~CTraceState();
+	CAttackStateF(STATE_MON state);
+	virtual ~CAttackStateF();
 
 	virtual void update();
 	virtual void Enter();

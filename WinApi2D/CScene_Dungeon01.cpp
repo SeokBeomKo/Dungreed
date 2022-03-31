@@ -47,7 +47,7 @@ void CScene_Dungeon01::Enter()
 	// 클리어
 	if (m_Round.m_bClear)	// 클리어 했다면
 	{
-		m_Round.m_ICheckRound = 4;	// 출입구 열어줌
+		SettingDoor();	// 출입구 열어줌
 	}
 
 	// 플레이어

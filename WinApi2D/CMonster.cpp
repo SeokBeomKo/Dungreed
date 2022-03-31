@@ -1,23 +1,41 @@
 #include "framework.h"
-#include "CMonster.h"
 #include "CCollider.h"
 #include "CD2DImage.h"
 #include "CAnimator.h"
+#include "CPlayerAttack.h"
+
+#include "CMonster.h"
 #include "CMonsterFX.h"
 
 #include "AI.h"
-#include "CIdleState.h"
-#include "CTraceState.h"
 
-#include "CPlayerAttack.h"
+// 플라이몹 스테이트
+#include "CIdleStateF.h"
+#include "CTraceStateF.h"
+#include "CAwayStateF.h"
+
+// 그라운드몹 스테이트
+#include "CIdleStateG.h"
+#include "CTraceStateG.h"
+
+// 보스몹 스테이트
+#include "CIdleStateB.h"
+
 
 
 CMonster::CMonster()
 {
-	m_pAI = nullptr;
-	
+	m_tInfo.fSpeed			= 0.f;
+	m_tInfo.fHP				= 0.f;
+	m_tInfo.fRecogRange		= 0.f;
+	m_tInfo.fAttRange		= 0.f;
+	m_tInfo.fAtt			= 0.f;
+
+	m_pAI		= nullptr;
+	m_pImg		= nullptr;
+	pFX			= new CMonsterFX;
+
 	SetName(L"Monster");
-	pFX = new CMonsterFX;
 }
 
 CMonster::~CMonster()
@@ -59,14 +77,36 @@ CMonster* CMonster::Create(MON_TYPE type, fPoint pos)
 		info.fSpeed = 150.f;
 
 		AI* pAI = new AI;
-		pAI->AddState(new CIdleState(STATE_MON::IDLE));
-		pAI->AddState(new CTraceState(STATE_MON::TRACE));
+		pAI->AddState(new CIdleStateF(STATE_MON::IDLE));
+		pAI->AddState(new CTraceStateF(STATE_MON::TRACE));
 		pAI->SetCurState(STATE_MON::IDLE);
 		pMon->SetMonInfo(info);
 		pMon->SetAI(pAI);
 	}
 	break;
 	case MON_TYPE::BAT_RED:
+		break;
+
+	case MON_TYPE::BOSS:
+	{
+		pMon = new CMonster;
+		pMon->SetResource(MON_TYPE::BOSS);
+		pMon->SetPos(pos);
+
+		tMonInfo info = {};
+		info.fAtt = 10.f;
+		info.fAttRange = 50.f;
+		info.fRecogRange = 1000.f;
+		info.fHP = 100.f;
+		info.fSpeed = 0.f;
+
+		AI* pAI = new AI;
+		pAI->AddState(new CIdleStateB(STATE_MON::IDLE));
+		// pAI->AddState(new CTraceStateF(STATE_MON::ATTACK));
+		pAI->SetCurState(STATE_MON::IDLE);
+		pMon->SetMonInfo(info);
+		pMon->SetAI(pAI);
+	}
 		break;
 	default:
 		break;
@@ -142,6 +182,19 @@ void CMonster::SetResource(MON_TYPE type)
 	break;
 	case MON_TYPE::BAT_RED:
 		break;
+	case MON_TYPE::BOSS:
+	{
+		CD2DImage* m_pImg = CResourceManager::getInst()->LoadD2DImage(L"SkellBossIdle", L"texture\\monster\\SkellBossIdle.png");
+		SetScale(fPoint(71.f * 4.f, 97.f * 4.f));
+
+		CreateCollider();
+		GetCollider()->SetScale(GetScale() - fPoint(64.f, 64.f));
+		GetCollider()->SetOffsetPos(fPoint(32.f, 32.f));
+
+		CreateAnimator();
+		GetAnimator()->CreateAnimation(L"SkellBossIdle", m_pImg, fPoint(0.f, 0.f), fPoint(71.f, 97.f), fPoint(71.f, 0.f), 0.08f, 10);
+		GetAnimator()->Play(L"SkellBossIdle");
+	}
 	default:
 		break;
 	}

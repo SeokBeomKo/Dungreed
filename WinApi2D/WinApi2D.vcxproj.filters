@@ -196,14 +196,17 @@
     <Filter Include="Scene\02. Dungeon\99. BOSS">
       <UniqueIdentifier>{4eb156f8-d1f4-42be-8f47-f375ea788c52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component\01. AI\State\FlyMob">
-      <UniqueIdentifier>{1984f425-678a-40ad-89d5-287a82f3a31e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Component\01. AI\State\BossMob">
+    <Filter Include="Engine\Component\01. AI\State\01. BossMob">
       <UniqueIdentifier>{aedac1b8-2adb-4b43-a9d0-038747e92974}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component\01. AI\State\GroundMob">
+    <Filter Include="Engine\Component\01. AI\State\02. FlyMob">
+      <UniqueIdentifier>{1984f425-678a-40ad-89d5-287a82f3a31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\01. AI\State\03. GroundMob">
       <UniqueIdentifier>{77cbaed4-271f-4a97-ae62-6dd281dce368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\01. AI\State\00. Base">
+      <UniqueIdentifier>{da9110d8-a48e-4a06-b921-58262aad4f18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -342,14 +345,11 @@
     <ClInclude Include="AI.h">
       <Filter>Engine\Component\01. AI</Filter>
     </ClInclude>
-    <ClInclude Include="CState.h">
-      <Filter>Engine\Component\01. AI\State</Filter>
+    <ClInclude Include="CIdleStateF.h">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
     </ClInclude>
-    <ClInclude Include="CIdleState.h">
-      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
-    </ClInclude>
-    <ClInclude Include="CTraceState.h">
-      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
+    <ClInclude Include="CTraceStateF.h">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
     </ClInclude>
     <ClInclude Include="CButtonUI.h">
       <Filter>Object\07. UI\CButton</Filter>
@@ -389,6 +389,24 @@
     </ClInclude>
     <ClInclude Include="CMonsterFX.h">
       <Filter>Object\03. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAwayStateF.h">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>Engine\Component\01. AI\State\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleStateG.h">
+      <Filter>Engine\Component\01. AI\State\03. GroundMob</Filter>
+    </ClInclude>
+    <ClInclude Include="CTraceStateG.h">
+      <Filter>Engine\Component\01. AI\State\03. GroundMob</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackStateF.h">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleStateB.h">
+      <Filter>Engine\Component\01. AI\State\01. BossMob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -509,14 +527,11 @@
     <ClCompile Include="AI.cpp">
       <Filter>Engine\Component\01. AI</Filter>
     </ClCompile>
-    <ClCompile Include="CState.cpp">
-      <Filter>Engine\Component\01. AI\State</Filter>
+    <ClCompile Include="CIdleStateF.cpp">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
     </ClCompile>
-    <ClCompile Include="CIdleState.cpp">
-      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
-    </ClCompile>
-    <ClCompile Include="CTraceState.cpp">
-      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
+    <ClCompile Include="CTraceStateF.cpp">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
     </ClCompile>
     <ClCompile Include="CButtonUI.cpp">
       <Filter>Object\07. UI\CButton</Filter>
@@ -556,6 +571,24 @@
     </ClCompile>
     <ClCompile Include="CMonsterFX.cpp">
       <Filter>Object\03. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CAwayStateF.cpp">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>Engine\Component\01. AI\State\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleStateG.cpp">
+      <Filter>Engine\Component\01. AI\State\03. GroundMob</Filter>
+    </ClCompile>
+    <ClCompile Include="CTraceStateG.cpp">
+      <Filter>Engine\Component\01. AI\State\03. GroundMob</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackStateF.cpp">
+      <Filter>Engine\Component\01. AI\State\02. FlyMob</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleStateB.cpp">
+      <Filter>Engine\Component\01. AI\State\01. BossMob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

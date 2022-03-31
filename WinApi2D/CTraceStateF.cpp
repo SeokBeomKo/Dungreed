@@ -1,18 +1,18 @@
 #include "framework.h"
-#include "CIdleState.h"
+#include "CTraceStateF.h"
 #include "CPlayer.h"
 #include "CMonster.h"
 
-CIdleState::CIdleState(STATE_MON state)
+CTraceStateF::CTraceStateF(STATE_MON state)
 	: CState(state)
 {
 }
 
-CIdleState::~CIdleState()
+CTraceStateF::~CTraceStateF()
 {
 }
 
-void CIdleState::update()
+void CTraceStateF::update()
 {
 	CPlayer* pPlayer = CPlayer::GetPlayer();
 	if (nullptr == pPlayer)
@@ -25,17 +25,20 @@ void CIdleState::update()
 
 	fVec2 fvDiff = fptPlayerPos - fptMonsterPos;
 	float fLen = fvDiff.Length();
-	if (fLen < pMonster->GetMonInfo().fRecogRange)
+	if (fLen >= pMonster->GetMonInfo().fRecogRange)
 	{
-		ChangeAIState(GetOwnerAI(), STATE_MON::TRACE);
+		ChangeAIState(GetOwnerAI(), STATE_MON::IDLE);
 	}
 
+	fPoint pos = pMonster->GetPos();
+	pos += fvDiff.normalize() * 100 * fDT;
+	pMonster->SetPos(pos);
 }
 
-void CIdleState::Enter()
+void CTraceStateF::Enter()
 {
 }
 
-void CIdleState::Exit()
+void CTraceStateF::Exit()
 {
 }

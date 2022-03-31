@@ -70,6 +70,7 @@ public:
 
 	CCollider* GetCollider();				// 충돌체 반환
 	void CreateCollider();					// 충돌체 생성
+	void DeleteCollider();
 
 	CAnimator* GetAnimator();				// 애니메이터 반환
 	void CreateAnimator();					// 애니메이터 생성
