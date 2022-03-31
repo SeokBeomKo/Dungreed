@@ -5,6 +5,8 @@
 #include "CAnimator.h"
 #include "CSound.h"
 
+#include "CMonster.h"
+
 
 CMonsterFX::CMonsterFX()
 {
@@ -57,9 +59,11 @@ void CMonsterFX::PlayFX(CGameObject* Obj, wstring state)
 void CMonsterFX::update()
 {
 	time += fDT;
-	
+
 	if (time >= limit)
+	{
 		DeleteObj(this);
+	}
 
 	GetAnimator()->update();
 }

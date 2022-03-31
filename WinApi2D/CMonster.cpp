@@ -49,6 +49,7 @@ CMonster* CMonster::Create(MON_TYPE type, fPoint pos)
 		pMon = new CMonster;
 		pMon->SetResource(MON_TYPE::BAT);
 		pMon->SetPos(pos);
+		pMon->Spawn();
 
 		tMonInfo info = {};
 		info.fAtt = 10.f;
@@ -101,6 +102,11 @@ const tMonInfo& CMonster::GetMonInfo()
 	return m_tInfo;
 }
 
+void CMonster::Spawn()
+{
+	pFX->PlayFX(this, L"Spawn");
+}
+
 void CMonster::SetSpeed(float speed)
 {
 	m_tInfo.fSpeed = speed;
@@ -132,8 +138,6 @@ void CMonster::SetResource(MON_TYPE type)
 		CreateAnimator();
 		GetAnimator()->CreateAnimation(L"Bat", m_pImg, fPoint(0.f, 0.f), fPoint(31.f, 19.f), fPoint(31.f, 0.f), 0.08f, 6);
 		GetAnimator()->Play(L"Bat");
-
-		pFX->PlayFX(this, L"Spawn");
 	}
 	break;
 	case MON_TYPE::BAT_RED:

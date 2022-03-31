@@ -45,6 +45,8 @@ public:
 	float GetSpeed();
 	const tMonInfo& GetMonInfo();
 
+	void Spawn();
+
 	void SetSpeed(float speed);
 	void SetAI(AI* ai);
 	void SetMonInfo(const tMonInfo& info);

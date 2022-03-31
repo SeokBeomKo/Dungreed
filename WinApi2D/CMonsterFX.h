@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObject.h"
+
 class CMonsterFX :
     public CGameObject
 {
