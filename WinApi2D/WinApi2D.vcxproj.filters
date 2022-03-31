@@ -88,9 +88,6 @@
     <Filter Include="Engine\Component\01. AI\State">
       <UniqueIdentifier>{88d5106d-4c22-4fef-a481-c75f7cd4b4b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component\01. AI\State\Mob">
-      <UniqueIdentifier>{1984f425-678a-40ad-89d5-287a82f3a31e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\02. Animator">
       <UniqueIdentifier>{1209e5ef-2c30-47c7-a534-fd0e085e2ee1}</UniqueIdentifier>
     </Filter>
@@ -198,6 +195,15 @@
     </Filter>
     <Filter Include="Scene\02. Dungeon\99. BOSS">
       <UniqueIdentifier>{4eb156f8-d1f4-42be-8f47-f375ea788c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\01. AI\State\FlyMob">
+      <UniqueIdentifier>{1984f425-678a-40ad-89d5-287a82f3a31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\01. AI\State\BossMob">
+      <UniqueIdentifier>{aedac1b8-2adb-4b43-a9d0-038747e92974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\01. AI\State\GroundMob">
+      <UniqueIdentifier>{77cbaed4-271f-4a97-ae62-6dd281dce368}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -340,10 +346,10 @@
       <Filter>Engine\Component\01. AI\State</Filter>
     </ClInclude>
     <ClInclude Include="CIdleState.h">
-      <Filter>Engine\Component\01. AI\State\Mob</Filter>
+      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
     </ClInclude>
     <ClInclude Include="CTraceState.h">
-      <Filter>Engine\Component\01. AI\State\Mob</Filter>
+      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
     </ClInclude>
     <ClInclude Include="CButtonUI.h">
       <Filter>Object\07. UI\CButton</Filter>
@@ -507,10 +513,10 @@
       <Filter>Engine\Component\01. AI\State</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
-      <Filter>Engine\Component\01. AI\State\Mob</Filter>
+      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
     </ClCompile>
     <ClCompile Include="CTraceState.cpp">
-      <Filter>Engine\Component\01. AI\State\Mob</Filter>
+      <Filter>Engine\Component\01. AI\State\FlyMob</Filter>
     </ClCompile>
     <ClCompile Include="CButtonUI.cpp">
       <Filter>Object\07. UI\CButton</Filter>

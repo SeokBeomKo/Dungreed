@@ -102,6 +102,11 @@ wstring CScene::GetName()
     return m_strName;
 }
 
+int CScene::GetObjectSize(GROUP_GAMEOBJ group)
+{
+    return m_arrObj[(UINT)group].size();
+}
+
 void CScene::AddObject(CGameObject* pObj, GROUP_GAMEOBJ type)
 {
     m_arrObj[(int)type].push_back(pObj);

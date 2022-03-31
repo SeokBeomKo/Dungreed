@@ -32,7 +32,6 @@ void CMonsterFX::CreateFX(CGameObject* Obj, wstring state)
 	{
 		m_pImg = CResourceManager::getInst()->LoadD2DImage(L"MonsterSpawn", L"texture\\monster\\MonsterSpawn.png");
 		GetAnimator()->CreateAnimation(state, m_pImg, fPoint(0.f, 0.f), fPoint(31.f,31.f), fPoint(31.f, 0), 0.1f, 15);
-		CSoundManager::getInst()->Play(L"MonsterSpawn");
 		limit = 1.5f;
 	}
 	else if (state == L"Die")
