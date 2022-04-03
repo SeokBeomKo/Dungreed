@@ -23,7 +23,7 @@ public:
 	void render();
 
 	void CreateAnimation(const wstring& strName, CD2DImage* tex, fPoint lt, fPoint slice,
-		fPoint step, float duration, UINT frmCount, bool reverse = false);
+		fPoint step, float duration, UINT frmCount, bool reverse = false, bool rotate = false, float pos = 0);
 	CAnimation* FindAnimation(const wstring& strName);
 	void Play(const wstring& strName);
 };

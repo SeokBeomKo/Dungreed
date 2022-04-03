@@ -39,7 +39,7 @@ void CAnimator::render()
 	}
 }
 
-void CAnimator::CreateAnimation(const wstring& strName, CD2DImage* tex, fPoint lt, fPoint slice, fPoint step, float duration, UINT frmCount, bool reverse)
+void CAnimator::CreateAnimation(const wstring& strName, CD2DImage* tex, fPoint lt, fPoint slice, fPoint step, float duration, UINT frmCount, bool reverse, bool rotate, float pos)
 {
 	CAnimation* pAni = FindAnimation(strName);
 	assert(nullptr == pAni);
@@ -50,6 +50,8 @@ void CAnimator::CreateAnimation(const wstring& strName, CD2DImage* tex, fPoint l
 	pAni->m_pAnimator = this;
 	pAni->Create(tex, lt, slice, step, duration, frmCount);
 	pAni->m_bReverse = reverse;
+	pAni->m_bRotate = rotate;
+	pAni->m_fPlayerPos = pos;
 
 	m_mapAni.insert(make_pair(strName, pAni));
 }

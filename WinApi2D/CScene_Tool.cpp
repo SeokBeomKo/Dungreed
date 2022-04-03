@@ -427,8 +427,8 @@ void CScene_Tool::PrintMap()
 		m_pMap,
 		0 - pos.x,
 		0 - pos.y,
-		2 * m_pMap->GetWidth() - pos.x,
-		2 * m_pMap->GetHeight() - pos.y
+		4 * m_pMap->GetWidth() - pos.x,
+		4 * m_pMap->GetHeight() - pos.y
 	);
 }
 

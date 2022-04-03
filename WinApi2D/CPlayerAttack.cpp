@@ -28,36 +28,38 @@ void CPlayerAttack::EnterAttack()
 	CreateCollider();
 	CSoundManager::getInst()->AddSound(L"katana", L"sound\\katana.wav", false);
 	CSoundManager::getInst()->AddSound(L"swing", L"sound\\swing.wav", false);
+
+	fPoint finalpos = GetPos();
+	fPoint pos = m_Owner->GetPos();
+	fPoint realpos = CCameraManager::getInst()->GetRenderPos(pos);
+
+	m_fptDirFX.x = MousePos().x - realpos.x;
+	m_fptDirFX.y = MousePos().y - realpos.y;
+
+	float rotateDegree = atan2(m_fptDirFX.y, m_fptDirFX.x) * 180 / 3.141592;
+
 	if (m_EffectCode == 1)
 	{
 		m_pImg = CResourceManager::getInst()->LoadD2DImage(L"ShortSwordFX", L"texture\\weapon\\effect\\ShortSwordFX.png");
-		GetAnimator()->CreateAnimation(L"Attack", m_pImg, fPoint(0.f, 0.f), fPoint(40.f, 28.f), fPoint(40.f, 0.f), 0.134f, 3);
-		SetScale(fPoint(40.f, 28.f) * 4.f);
+		GetAnimator()->CreateAnimation(L"Attack", m_pImg, fPoint(0.f, 0.f), fPoint(28.f, 40.f), fPoint(0.f, 40.f), 0.134f, 3, false, true, rotateDegree);
+		SetScale(fPoint(28.f, 40.f) * 4.f);
 		GetCollider()->SetScale(fPoint(40.f, 28.f) * 4.f);
-		m_iRange = 50;
+		m_iRange = 100;
 		m_iDamage = 10;
 		CSoundManager::getInst()->Play(L"swing");
 	}
 	else if (m_EffectCode == 2)
 	{
 		m_pImg = CResourceManager::getInst()->LoadD2DImage(L"EXPowerKatanaSwingPlusFX", L"texture\\weapon\\effect\\EXPowerKatanaSwingPlusFX.png");
-		GetAnimator()->CreateAnimation(L"Attack", m_pImg, fPoint(0.f, 0.f), fPoint(164.f, 138.f), fPoint(164.f, 0.f), 0.0333f, 12);
-		SetScale(fPoint(164.f, 138.f) *1.5f);
+		GetAnimator()->CreateAnimation(L"Attack", m_pImg, fPoint(0.f, 0.f), fPoint(138.f, 164.f), fPoint(0.f, 164.f), 0.0333f, 12, false, true, rotateDegree);
+		SetScale(fPoint(138.f, 164.f) *1.5f);
 		GetCollider()->SetScale(fPoint(164.f, 138.f)* 1.5f);
-		m_iRange = 100;
+		m_iRange = 150;
 		m_iDamage = 15;
 		CSoundManager::getInst()->Play(L"katana");
 	}
 	SetObjGroup(GROUP_GAMEOBJ::PLAYER_ATTACK);
-
-	fPoint finalpos = GetPos();
-	fPoint pos = m_Owner->GetPos();
-	fPoint realpos;
-	realpos = CCameraManager::getInst()->GetRenderPos(pos);
-
-	m_fptDirFX.x = MousePos().x - realpos.x;
-	m_fptDirFX.y = MousePos().y - realpos.y;
-
+	
 	finalpos.x = finalpos.x + m_fptDirFX.normalize().x * m_iRange;
 	finalpos.y = finalpos.y + m_fptDirFX.normalize().y * m_iRange;
 

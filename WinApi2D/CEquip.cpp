@@ -17,16 +17,24 @@ void CEquip::render()
     fPoint pos = GetPos();
     fPoint renderpos = CCameraManager::getInst()->GetRenderPos(pos);
     fPoint scale = GetScale();
-    
+
+    fPoint mousepos = MousePos();
+    fVec2 d;
+    d.x = (mousepos.x - renderpos.x);
+    d.y = (mousepos.y - renderpos.y);
+
+    float rotateDegree = atan2(d.y, d.x) * 180 / 3.141592;
+
     CRenderManager::getInst()->RenderImage(
         m_pImg,
         renderpos.x - scale.x / 2.f,
         renderpos.y - scale.y / 2.f,
         renderpos.x + scale.x / 2.f,
-        renderpos.y + scale.y / 2.f, true
+        renderpos.y + scale.y / 2.f, true,
+        renderpos - fPoint(40.f,0.f),
+        rotateDegree
     );
 
-    //CRenderManager::getInst()->GetRenderTarget()->SetTransform();
     // TODO : 마우스 좌표따라 회전
     component_render();
 
@@ -35,7 +43,12 @@ void CEquip::render()
 void CEquip::update()
 {
     fPoint pos = m_Owner->GetPos();
-    pos.x += 50.f;
+    fPoint realpos = CCameraManager::getInst()->GetRenderPos(pos);
+    if (MousePos().x > realpos.x)
+        pos.x += 50.f;
+    else
+        pos.x += 30.f;
+    pos.y += 10.f;
     
     // TODO : 마우스 좌표따라 회전
 
