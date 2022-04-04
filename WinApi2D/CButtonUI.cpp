@@ -31,7 +31,8 @@ void CButtonUI::render()
 			GetFinalPos().x,
 			GetFinalPos().y,
 			GetFinalPos().x + GetScale().x,
-			GetFinalPos().y + GetScale().y
+			GetFinalPos().y + GetScale().y,
+			20.f
 		);
 	}
 

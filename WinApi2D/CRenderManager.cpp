@@ -62,7 +62,7 @@ void CRenderManager::init()
 
 	// 텍스트 포맷 생성
 	m_pWriteFactory->CreateTextFormat(
-		L"굴림",
+		L"Aa카시오페아",
 		NULL,
 		DWRITE_FONT_WEIGHT_NORMAL,
 		DWRITE_FONT_STYLE_NORMAL,
@@ -121,7 +121,7 @@ void CRenderManager::RenderRevFrame(CD2DImage* img, float dstX, float dstY, floa
 		D2D1_POINT_2F{ (dstX + dstW) / 2.f, (dstY + dstH) / 2.f }));
 }
 
-void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW, float dstH, float fontSize, COLORREF color, fVec2 pos, float angle, int wAlign, int hAlign)
+void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW, float dstH, float fontSize, COLORREF color)
 {
 	int red = color & 0xFF;
 	int green = (color >> 8) & 0xFF;
@@ -131,7 +131,7 @@ void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW,
 	{
 		m_pTextFormat->Release();
 		m_pWriteFactory->CreateTextFormat(
-			L"굴림",
+			L"Aa카시오페아",
 			NULL,
 			DWRITE_FONT_WEIGHT_NORMAL,
 			DWRITE_FONT_STYLE_NORMAL,
@@ -139,16 +139,13 @@ void CRenderManager::RenderText(wstring str, float dstX, float dstY, float dstW,
 			fontSize,
 			L"ko",
 			&m_pTextFormat);
+		m_pTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		m_pTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	}
-	m_pTextFormat->SetTextAlignment((DWRITE_TEXT_ALIGNMENT)wAlign);
-	m_pTextFormat->SetParagraphAlignment((DWRITE_PARAGRAPH_ALIGNMENT)hAlign);
 
 	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
-
-	Matrix3x2F matrot = D2D1::Matrix3x2F::Rotation(0, D2D1::Point2F(0, 0));
-	m_pRenderTarget->SetTransform(matrot);
 	m_pRenderTarget->DrawTextW(str.c_str(), (UINT)str.size(), m_pTextFormat,
-		D2D1::RectF(dstX, dstY, dstX + dstW, dstY + dstH), m_pBrush);
+		D2D1::RectF(dstX, dstY, dstW, dstH), m_pBrush);
 }
 
 void CRenderManager::RenderRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color, fVec2 pos, float angle)

@@ -270,3 +270,12 @@ CD2DImage* CResourceManager::LoadToolD2DImage(const wstring& strPath)
 
 	return m_pToolImage;
 }
+
+void CResourceManager::AddFonts(const wstring& strRelativePath)
+{
+	// Sound 저장 경로 확인
+	wstring strFilePath = CPathManager::getInst()->GetRelativeContentPath();
+	strFilePath += strRelativePath;
+
+	AddFontResource(strFilePath.c_str());
+}

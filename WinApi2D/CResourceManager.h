@@ -29,5 +29,7 @@ public:
 	CD2DImage* LoadD2DImage(const wstring& strKey, const wstring& strRelativePath);	// D2DImage 불러오기 이미 있는 경우 있던 D2DImage 반환
 
 	CD2DImage* LoadToolD2DImage(const wstring& strPath);
+
+	void AddFonts(const wstring& strRelativePath);
 };
 
