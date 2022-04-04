@@ -11,6 +11,8 @@ CRenderManager::CRenderManager()
 	m_pBitmap = nullptr;
 	m_pBrush = nullptr;
 	m_pTextFormat = nullptr;
+	m_pPathGeometry = nullptr;
+	geometry = nullptr;
 }
 
 CRenderManager::~CRenderManager()
@@ -179,7 +181,7 @@ void CRenderManager::RenderFillRectangle(float dstX, float dstY, float dstW, flo
 void CRenderManager::RenderEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth, fVec2 pos, float angle)
 {
 	D2D1_ELLIPSE m_imgRect = { dstX, dstY, dstW, dstH };
-
+	
 	int red = color & 0xFF;
 	int green = (color >> 8) & 0xFF;
 	int blue = (color >> 16) & 0xFF;
@@ -188,6 +190,23 @@ void CRenderManager::RenderEllipse(float dstX, float dstY, float dstW, float dst
 	Matrix3x2F matrot = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y));
 	m_pRenderTarget->SetTransform(matrot);
 	m_pRenderTarget->DrawEllipse(m_imgRect, m_pBrush, strokeWidth);
+}
+
+void CRenderManager::RenderGeometry(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth, bool right)
+{
+	if (right)
+	geometry = GenTriangleGeometry(
+		Point2F(dstX, dstY), Point2F(dstX, dstH), Point2F(dstW, dstH));
+	else
+		geometry = GenTriangleGeometry(
+			Point2F(dstW, dstY), Point2F(dstX, dstH), Point2F(dstW, dstH));
+
+	int red = color & 0xFF;
+	int green = (color >> 8) & 0xFF;
+	int blue = (color >> 16) & 0xFF;
+
+	m_pBrush->SetColor(D2D1::ColorF(red / 255.f, green / 255.0f, blue / 255.0f, 1.f));
+	m_pRenderTarget->DrawGeometry(geometry, m_pBrush, strokeWidth);
 }
 
 void CRenderManager::RenderFillEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color, fVec2 pos, float angle)
@@ -217,6 +236,42 @@ void CRenderManager::RenderLine(fVec2 startPoint, fVec2 endPoint, COLORREF color
 	Matrix3x2F matrot = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y));
 	m_pRenderTarget->SetTransform(matrot);
 	m_pRenderTarget->DrawLine(start, end, m_pBrush, strokeWidth);
+}
+
+ID2D1PathGeometry* CRenderManager::GenTriangleGeometry(D2D1_POINT_2F pt1, D2D1_POINT_2F pt2, D2D1_POINT_2F pt3)
+{
+	ID2D1GeometrySink* pSink = NULL;
+	HRESULT hr = S_OK;
+	m_pPathGeometry;
+
+	if (SUCCEEDED(hr))
+	{
+		hr = m_pFactory->CreatePathGeometry(&m_pPathGeometry);
+
+		if (SUCCEEDED(hr))
+		{
+			// Write to the path geometry using the geometry sink.
+			hr = m_pPathGeometry->Open(&pSink);
+
+			if (SUCCEEDED(hr))
+			{
+				pSink->BeginFigure(
+					pt1,
+					D2D1_FIGURE_BEGIN_FILLED
+				);
+
+				pSink->AddLine(pt2);
+
+				pSink->AddLine(pt3);
+
+				pSink->EndFigure(D2D1_FIGURE_END_CLOSED);
+
+				hr = pSink->Close();
+			}
+			SafeRelease(&pSink);
+		}
+	}
+	return m_pPathGeometry;
 }
 
 ID2D1Bitmap* CRenderManager::GetBitmap()

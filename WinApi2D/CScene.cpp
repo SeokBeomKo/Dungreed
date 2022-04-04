@@ -169,11 +169,7 @@ void CScene::LoadTile(const wstring& strPath)
         newTile->SetD2DImage(pImg);
         newTile->SetPos(fPoint((float)(newTile->GetX() * CTile::SIZE_TILE), (float)(newTile->GetY() * CTile::SIZE_TILE)));
 
-        if (GROUP_TILE::SLOPE == newTile->GetGroup())
-        {
-            // TODO : OBB 충돌체 추가
-        }
-        else if (GROUP_TILE::GROUND == newTile->GetGroup())
+        if (GROUP_TILE::GROUND == newTile->GetGroup())
         {
             newTile->CreateCollider();
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
@@ -213,6 +209,23 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->SetName(L"BOTANGLE");
             newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
         }
+        else if (GROUP_TILE::RIGHTSLOPE == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"RIGHTSLOPE");
+            newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
+        }
+        else if (GROUP_TILE::LEFTSLOPE == newTile->GetGroup())
+        {
+            newTile->CreateCollider();
+            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            newTile->SetName(L"LEFTSLOPE");
+            newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
+        }
+
 
         AddObject(newTile, GROUP_GAMEOBJ::TILE);
     }

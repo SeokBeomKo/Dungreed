@@ -33,7 +33,7 @@ using namespace std;
 
 
 //========================================
-//## 게임 그룹						##
+//##		게임 그룹					##
 //========================================
 
 enum class GROUP_GAMEOBJ
@@ -78,7 +78,8 @@ enum class GROUP_TILE
 	WALL,
 	TOPANGLE,
 	BOTANGLE,
-	SLOPE,
+	RIGHTSLOPE,
+	LEFTSLOPE,
 
 	SIZE,
 };
@@ -157,3 +158,12 @@ extern CPlayer* sPlayer;
 
 extern HINSTANCE hInst;
 extern HWND hWnd;
+
+template <class T> void SafeRelease(T** ppT)
+{
+	if (*ppT)
+	{
+		(*ppT)->Release();
+		*ppT = NULL;
+	}
+}

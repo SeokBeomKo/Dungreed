@@ -363,6 +363,16 @@ void CScene_Tool::ClickTileGroup(CButtonUI* button)
 	}
 	else if (m_gTile == GROUP_TILE::BOTANGLE)
 	{
+		m_gTile = GROUP_TILE::RIGHTSLOPE;
+		button->SetText(L"RIGHTSLOPE");
+	}
+	else if (m_gTile == GROUP_TILE::RIGHTSLOPE)
+	{
+		m_gTile = GROUP_TILE::LEFTSLOPE;
+		button->SetText(L"LEFTSLOPE");
+	}
+	else if (m_gTile == GROUP_TILE::LEFTSLOPE)
+	{
 		m_gTile = GROUP_TILE::NONE;
 		button->SetText(L"NONE");
 	}
@@ -520,6 +530,29 @@ void CScene_Tool::PrintTileGroup()
 				CTile::SIZE_TILE / 2.f,
 				RGB(200, 200, 0),
 				3.f
+			);
+		}
+		else if (GROUP_TILE::RIGHTSLOPE == pTile->GetGroup())
+		{
+			CRenderManager::getInst()->RenderGeometry(
+				pTile->GetPos().x - pos.x,
+				pTile->GetPos().y - pos.y,
+				pTile->GetPos().x + CTile::SIZE_TILE - pos.x,
+				pTile->GetPos().y + CTile::SIZE_TILE - pos.y,
+				RGB(200, 200, 0),
+				3.f
+			);
+		}
+		else if (GROUP_TILE::LEFTSLOPE == pTile->GetGroup())
+		{
+			CRenderManager::getInst()->RenderGeometry(
+				pTile->GetPos().x - pos.x,
+				pTile->GetPos().y - pos.y,
+				pTile->GetPos().x + CTile::SIZE_TILE - pos.x,
+				pTile->GetPos().y + CTile::SIZE_TILE - pos.y,
+				RGB(200, 200, 0),
+				3.f,
+				false
 			);
 		}
 	}

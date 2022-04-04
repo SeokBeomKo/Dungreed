@@ -22,6 +22,9 @@ private:
 
 	IDWriteTextFormat* m_pTextFormat;
 
+	ID2D1PathGeometry* m_pPathGeometry;
+	ID2D1PathGeometry* geometry;
+
 public:
 	void init();
 
@@ -35,9 +38,11 @@ public:
 	void RenderRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color = RGB(0, 0, 0), fVec2 pos = fVec2(0, 0), float angle = 0);
 	void RenderFillRectangle(float dstX, float dstY, float dstW, float dstH, COLORREF color = RGB(0, 0, 0), float alpha = 1.0f, fVec2 pos = fVec2(0, 0), float angle = 0);
 	void RenderEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth, fVec2 pos = fVec2(0, 0), float angle = 0);
+	void RenderGeometry(float dstX, float dstY, float dstW, float dstH, COLORREF color, float strokeWidth, bool right = true);
 	void RenderFillEllipse(float dstX, float dstY, float dstW, float dstH, COLORREF color = RGB(0, 0, 0), fVec2 pos = fVec2(0, 0), float angle = 0);
 	void RenderLine(fVec2 startPoint, fVec2 endPoint, COLORREF color = RGB(0, 0, 0), float strokeWidth = 1.f, fVec2 pos = fVec2(0, 0), float angle = 0);
 
+	ID2D1PathGeometry* GenTriangleGeometry(D2D1_POINT_2F pt1, D2D1_POINT_2F pt2, D2D1_POINT_2F pt3);
 	ID2D1Bitmap* GetBitmap();
 	ID2D1HwndRenderTarget* GetRenderTarget();
 	IWICImagingFactory* GetImageFactory();
