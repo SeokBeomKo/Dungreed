@@ -143,7 +143,8 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE))
+			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
 	{
 		float tiletop, tilebottom, tileright, tileleft;
 		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
@@ -197,6 +198,23 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 
 		fPoint pos = pOther->GetObj()->GetPos();
 		fPoint scale = pOther->GetObj()->GetScale();
+
+		float slopeW;
+		float slopeH;
+		if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+		{
+			if (playerleft > tileleft && playerleft < tileright)
+			{
+				slopeW = tileright - playerleft;
+				slopeH = tilebottom - playerbottom;
+				if (slopeW >= slopeH)
+					pos.y -= 0.8f;
+				else
+					pos.y += 0.8f;
+				pOther->GetObj()->GetGravity()->OnOffGravity(false);
+				pOther->GetObj()->SetPos(pos);
+			}
+		}
 
 		if (fInterW >= fInterH)												// 상하인지 좌우인지
 		{
@@ -292,7 +310,8 @@ void CTile::OnCollision(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE))
+			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
 	{
 		pOther->GetObj()->SetGR(false);
 
@@ -349,6 +368,25 @@ void CTile::OnCollision(CCollider* pOther)
 
 		fPoint pos = pOther->GetObj()->GetPos();
 		fPoint scale = pOther->GetObj()->GetScale();
+
+		float slopeW;
+		float slopeH;
+
+		if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+		{
+			if (playerleft > tileleft && playerleft < tileright)
+			{
+				slopeW = tileright - playerleft;
+				slopeH = tilebottom - playerbottom;
+				if (slopeW >= slopeH)
+					pos.y -= 1.f;
+				else
+					pos.y += 1.f;
+				pOther->GetObj()->GetGravity()->OnOffGravity(false);
+				pOther->GetObj()->SetPos(pos);
+			}
+		}
+
 		if (fInterW >= fInterH)													// 상하 인지 좌우 인지
 		{
 			if (this->GetTileGroup() == GROUP_TILE::GROUND ||
@@ -409,7 +447,8 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE))
+			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
 	{
 		pOther->GetObj()->SetGR(false);
 
@@ -468,7 +507,8 @@ void CTile::OnCollisionExit(CCollider* pOther)
 		{
 			pOther->GetObj()->GetGravity()->OnOffGravity(true, pOther->GetObj()->GetGravity()->GetTime());
 		}
-		if (this->GetTileGroup() == GROUP_TILE::GROUND)
+		if (this->GetTileGroup() == GROUP_TILE::GROUND ||
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
 		{
 			pOther->GetObj()->GetGravity()->OnOffGravity(true);
 		}

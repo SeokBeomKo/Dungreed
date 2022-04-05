@@ -215,7 +215,7 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
             newTile->SetName(L"RIGHTSLOPE");
-            newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
+            newTile->SetTileGroup(GROUP_TILE::RIGHTSLOPE);
         }
         else if (GROUP_TILE::LEFTSLOPE == newTile->GetGroup())
         {
@@ -223,7 +223,7 @@ void CScene::LoadTile(const wstring& strPath)
             newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
             newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
             newTile->SetName(L"LEFTSLOPE");
-            newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
+            newTile->SetTileGroup(GROUP_TILE::LEFTSLOPE);
         }
 
 

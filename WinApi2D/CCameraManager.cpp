@@ -40,7 +40,7 @@ void CCameraManager::update()
 	CalDiff();
 
 	// tool씬 사용시 해제
-	// CheckRange();
+	CheckRange();
 }
 
 void CCameraManager::render()
