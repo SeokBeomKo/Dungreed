@@ -207,12 +207,13 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 			{
 				slopeW = tileright - playerleft;
 				slopeH = tilebottom - playerbottom;
-				if (slopeW >= slopeH)
-					pos.y -= 0.8f;
+				if (slopeW > slopeH)
+					pos.y -= slopeW - slopeH;
 				else
-					pos.y += 0.8f;
+					pos.y += slopeH - slopeW;
 				pOther->GetObj()->GetGravity()->OnOffGravity(false);
 				pOther->GetObj()->SetPos(pos);
+				pOther->GetObj()->SetJumpCount();
 			}
 		}
 
@@ -378,10 +379,10 @@ void CTile::OnCollision(CCollider* pOther)
 			{
 				slopeW = tileright - playerleft;
 				slopeH = tilebottom - playerbottom;
-				if (slopeW >= slopeH)
-					pos.y -= 1.f;
+				if (slopeW > slopeH)
+					pos.y -= slopeW - slopeH;
 				else
-					pos.y += 1.f;
+					pos.y += slopeH - slopeW;
 				pOther->GetObj()->GetGravity()->OnOffGravity(false);
 				pOther->GetObj()->SetPos(pos);
 			}
@@ -511,6 +512,17 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
 		{
 			pOther->GetObj()->GetGravity()->OnOffGravity(true);
+			if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+			{
+				if (fInterH > fInterW) // 우측으로 이동할 경우에만 작동
+				{
+					int a = 0;
+					fPoint pos = pOther->GetObj()->GetPos();
+					pos.y += 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
+					pos.x += 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
+					pOther->GetObj()->SetPos(pos);
+				}
+			}
 		}
 
 		if (this->GetTileGroup() == GROUP_TILE::WALL)

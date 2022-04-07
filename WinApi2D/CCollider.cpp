@@ -83,13 +83,34 @@ void CCollider::render()
 		rgb = RGB(0, 255, 0);
 
 	fPoint fptRenderPos = CCameraManager::getInst()->GetRenderPos(m_fptFinalPos);
+	if (this->GetObj()->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+	{
+		CRenderManager::getInst()->RenderGeometry(
+			fptRenderPos.x - m_fptScale.x / 2.f,
+			fptRenderPos.y - m_fptScale.y / 2.f,
+			fptRenderPos.x + m_fptScale.x / 2.f,
+			fptRenderPos.y + m_fptScale.y / 2.f,
+			rgb);
+	}
+	else if (this->GetObj()->GetTileGroup() == GROUP_TILE::LEFTSLOPE)
+	{
+		CRenderManager::getInst()->RenderGeometry(
+			fptRenderPos.x - m_fptScale.x / 2.f,
+			fptRenderPos.y - m_fptScale.y / 2.f,
+			fptRenderPos.x + m_fptScale.x / 2.f,
+			fptRenderPos.y + m_fptScale.y / 2.f,
+			rgb, 1.f, false);
 
-	CRenderManager::getInst()->RenderRectangle(
-		fptRenderPos.x - m_fptScale.x / 2.f,
-		fptRenderPos.y - m_fptScale.y / 2.f,
-		fptRenderPos.x + m_fptScale.x / 2.f,
-		fptRenderPos.y + m_fptScale.y / 2.f,
-		rgb);
+	}
+	else
+	{
+		CRenderManager::getInst()->RenderRectangle(
+			fptRenderPos.x - m_fptScale.x / 2.f,
+			fptRenderPos.y - m_fptScale.y / 2.f,
+			fptRenderPos.x + m_fptScale.x / 2.f,
+			fptRenderPos.y + m_fptScale.y / 2.f,
+			rgb);
+	}
 }
 
 void CCollider::OnCollision(CCollider* pOther)

@@ -112,8 +112,8 @@ bool CCollisionManager::IsCollision(CCollider* pLeftCollider, CCollider* pRightC
 	fPoint fptRightPos = pRightCollider->GetFinalPos();
 	fPoint fptRightScale = pRightCollider->GetScale();
 
-	if (abs(fptLeftPos.x - fptRightPos.x) < (fptLeftScale.x + fptRightScale.x) / 2.f
-		&& abs(fptLeftPos.y - fptRightPos.y) < (fptLeftScale.y + fptRightScale.y) / 2.f)
+	if (abs(fptLeftPos.x - fptRightPos.x) <= (fptLeftScale.x + fptRightScale.x) / 2.f
+		&& abs(fptLeftPos.y - fptRightPos.y) <= (fptLeftScale.y + fptRightScale.y) / 2.f)
 	{
 		return true;
 	}
