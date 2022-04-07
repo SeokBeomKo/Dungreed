@@ -6,18 +6,17 @@
 
 class CD2DImage;
 
-
+// 플레이어 정보
 struct PlayerSave
 {
-	// 플레이어 정보
 	int hp;				// 체력
 	int gold;			// 골드
 	int m_EquipCode;	// 장착하고있는 무기
 };
 
+// 플레이어 이동
 struct PlayerMove
 {
-	// 플레이어 이동
 	float m_fVelocity;			// 플레이어 이동속도
 	float m_fRunFX;				// 달리기 이펙트 간격
 	float m_fRunSound;			// 달리기 사운드 간격
@@ -25,14 +24,15 @@ struct PlayerMove
 	bool m_bIsJump;				// 플레이어 점프중인지
 	bool m_bIsRight;			// 바라보는 방향
 	bool m_bIsFallJump;			// 아래 점프
+	bool m_bIsDiag;				// 대각선 타일에서 점프
 	int m_iMoveRight;			// 벽타일 오른쪽이동
 	int m_iMoveLeft;			// 벽타일 왼쪽이동
 	int m_iJumpCount;			// 플레이어 점프횟수
 };
 
+// 플레이어 대쉬
 struct PlayerDash
 {
-	// 플레이어 대쉬
 	bool m_bIsDash;
 	bool m_bDashLow;
 	fVec2 m_fVDashdir;			// 대쉬 사용시 이동할 방향
@@ -42,9 +42,9 @@ struct PlayerDash
 	bool m_bTimer2;				// 대쉬 FX 용 타이머
 };
 
+// 중력 구현
 struct Gravity
 {
-	// 중력 구현
 	bool m_bIsGravity;			// 중력 영향 받는중지
 	float m_fTimeY;
 	float m_fTimeX;
@@ -89,6 +89,7 @@ public:
 
 	virtual int GetMoveRight();
 	virtual int GetMoveLeft();
+	virtual bool GetDiag();
 
 	virtual void update();
 

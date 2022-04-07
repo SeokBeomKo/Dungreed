@@ -36,6 +36,7 @@ CPlayer::CPlayer()
 	m_Move.m_bIsJump		= false;
 	m_Move.m_bIsRight		= true;
 	m_Move.m_bIsFallJump	= true;
+	m_Move.m_bIsDiag		= true;
 	m_Move.m_iMoveRight		= 0;
 	m_Move.m_iMoveLeft		= 0;
 	m_Move.m_iJumpCount		= 2;
@@ -148,6 +149,11 @@ int CPlayer::GetMoveLeft()
 	return m_Move.m_iMoveLeft;
 }
 
+bool CPlayer::GetDiag()
+{
+	return m_Move.m_bIsDiag;
+}
+
 void CPlayer::RegisterPlayer()
 {
 	instance = this;
@@ -209,6 +215,7 @@ void CPlayer::MoveUpdate()
 
 	if (m_Dash.m_bIsDash)
 	{
+		// TODO : 대쉬 이펙트 2번, 나중에 수정 필요 자연스럽게 ?
 		m_Dash.m_fDashTime += fDT;
 		if (m_Dash.m_fDashTime > 0.05f && m_Dash.m_bTimer)
 		{
@@ -287,6 +294,7 @@ void CPlayer::MoveUpdate()
 		}
 		else
 		{
+			m_Move.m_bIsDiag = false;		// 대각선 타일 탈출
 			if (m_Move.m_iJumpCount != 0)
 			{
 				if (m_Move.m_iJumpCount == 2)
@@ -309,6 +317,7 @@ void CPlayer::MoveUpdate()
 		{
 			m_Move.m_bIsJump = false;
 			m_Gravity.m_fTimeY = 0.f;
+			m_Move.m_bIsDiag = true;		// 대각선 타일 재사용
 			GetGravity()->OnOffGravity(true, m_Gravity.m_fTimeY);
 		}
 	}

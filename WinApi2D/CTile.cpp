@@ -144,7 +144,8 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
 			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
+			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
 	{
 		float tiletop, tilebottom, tileright, tileleft;
 		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
@@ -201,19 +202,38 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 
 		float slopeW;
 		float slopeH;
-		if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+		// TODO : 대각선 타일과 그라운드 종류 타일이 만나는 지점에서 대쉬사용시 뚫음
+		if (pOther->GetObj()->GetDiag())
 		{
-			if (playerleft > tileleft && playerleft < tileright)
+			if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)		// 우측 대각선 충돌 처리
 			{
-				slopeW = tileright - playerleft;
-				slopeH = tilebottom - playerbottom;
-				if (slopeW > slopeH)
-					pos.y -= slopeW - slopeH;
-				else
-					pos.y += slopeH - slopeW;
-				pOther->GetObj()->GetGravity()->OnOffGravity(false);
-				pOther->GetObj()->SetPos(pos);
-				pOther->GetObj()->SetJumpCount();
+				if (playerleft > tileleft && playerleft < tileright)
+				{
+					slopeW = tileright - playerleft;
+					slopeH = tilebottom - playerbottom;
+					if (slopeW > slopeH)
+						pos.y -= slopeW - slopeH;
+					else
+						pos.y += slopeH - slopeW;
+					pOther->GetObj()->GetGravity()->OnOffGravity(false);
+					pOther->GetObj()->SetPos(pos);
+					pOther->GetObj()->SetJumpCount();
+				}
+			}
+			if (this->GetTileGroup() == GROUP_TILE::LEFTSLOPE)		// 좌측 대각선 충돌 처리
+			{
+				if (playerright < tileright && playerright > tileleft)
+				{
+					slopeW = playerright - tileleft;
+					slopeH = tilebottom - playerbottom;
+					if (slopeW > slopeH)
+						pos.y -= slopeW - slopeH;
+					else
+						pos.y += slopeH - slopeW;
+					pOther->GetObj()->GetGravity()->OnOffGravity(false);
+					pOther->GetObj()->SetPos(pos);
+					pOther->GetObj()->SetJumpCount();
+				}
 			}
 		}
 
@@ -312,7 +332,8 @@ void CTile::OnCollision(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
 			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
+			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
 	{
 		pOther->GetObj()->SetGR(false);
 
@@ -373,18 +394,35 @@ void CTile::OnCollision(CCollider* pOther)
 		float slopeW;
 		float slopeH;
 
-		if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+		if (pOther->GetObj()->GetDiag())
 		{
-			if (playerleft > tileleft && playerleft < tileright)
+			if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)		// 우측 대각선 충돌 처리
 			{
-				slopeW = tileright - playerleft;
-				slopeH = tilebottom - playerbottom;
-				if (slopeW > slopeH)
-					pos.y -= slopeW - slopeH;
-				else
-					pos.y += slopeH - slopeW;
-				pOther->GetObj()->GetGravity()->OnOffGravity(false);
-				pOther->GetObj()->SetPos(pos);
+				if (playerleft > tileleft && playerleft < tileright)
+				{
+					slopeW = tileright - playerleft;
+					slopeH = tilebottom - playerbottom;
+					if (slopeW > slopeH)
+						pos.y -= slopeW - slopeH;
+					else
+						pos.y += slopeH - slopeW;
+					pOther->GetObj()->GetGravity()->OnOffGravity(false);
+					pOther->GetObj()->SetPos(pos);
+				}
+			}
+			if (this->GetTileGroup() == GROUP_TILE::LEFTSLOPE)		// 좌측 대각선 충돌 처리
+			{
+				if (playerright < tileright && playerright > tileleft)
+				{
+					slopeW = playerright - tileleft;
+					slopeH = tilebottom - playerbottom;
+					if (slopeW > slopeH)
+						pos.y -= slopeW - slopeH;
+					else
+						pos.y += slopeH - slopeW;
+					pOther->GetObj()->GetGravity()->OnOffGravity(false);
+					pOther->GetObj()->SetPos(pos);
+				}
 			}
 		}
 
@@ -449,7 +487,8 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			this->GetTileGroup() == GROUP_TILE::WALL ||
 			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
 			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE))
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
+			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
 	{
 		pOther->GetObj()->SetGR(false);
 
@@ -509,17 +548,27 @@ void CTile::OnCollisionExit(CCollider* pOther)
 			pOther->GetObj()->GetGravity()->OnOffGravity(true, pOther->GetObj()->GetGravity()->GetTime());
 		}
 		if (this->GetTileGroup() == GROUP_TILE::GROUND ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
+			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
+			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE)
 		{
 			pOther->GetObj()->GetGravity()->OnOffGravity(true);
 			if (this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE)
 			{
 				if (fInterH > fInterW) // 우측으로 이동할 경우에만 작동
 				{
-					int a = 0;
 					fPoint pos = pOther->GetObj()->GetPos();
 					pos.y += 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
 					pos.x += 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
+					pOther->GetObj()->SetPos(pos);
+				}
+			}
+			if (this->GetTileGroup() == GROUP_TILE::LEFTSLOPE);
+			{
+				if (fInterH > fInterW) // 좌측으로 이동할 경우에만 작동
+				{
+					fPoint pos = pOther->GetObj()->GetPos();
+					pos.y += 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
+					pos.x -= 2.f;		// 모서리부분 바로 벗어나기위한 위치 재조정
 					pOther->GetObj()->SetPos(pos);
 				}
 			}

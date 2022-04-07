@@ -65,8 +65,9 @@ public:
 	virtual void SetDash(bool set)	{};
 	virtual void SetGR(bool set)	{};
 
-	virtual int GetMoveRight() { return 0; };
-	virtual int GetMoveLeft() { return 0; };
+	virtual int GetMoveRight()	{ return 0; };
+	virtual int GetMoveLeft()	{ return 0; };
+	virtual bool GetDiag()		{ return true; };
 
 	CCollider* GetCollider();				// 충돌체 반환
 	void CreateCollider();					// 충돌체 생성
