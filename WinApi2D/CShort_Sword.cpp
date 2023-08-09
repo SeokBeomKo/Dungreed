@@ -11,7 +11,7 @@ CShort_Sword::CShort_Sword()
     SetPos(fPoint(1200.f, 550.f));
     SetName(L"Short_Sword");
     SetItemCode(1);
-    SetObjGroup(GROUP_GAMEOBJ::ITEM);
+    SetObjGroup(GROUP_GAMEOBJ::WEAPON);
 
     CreateCollider();
     GetCollider()->SetScale(GetScale());

@@ -23,6 +23,6 @@ public:
 
     void Load(wstring strKey, wstring strPath);
 
-    void PlayerAttack(int code);
+    void PlayerAttack(CWeapon* _weapon);
 };
 

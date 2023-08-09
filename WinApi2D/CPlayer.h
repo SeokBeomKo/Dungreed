@@ -11,7 +11,7 @@ struct PlayerSave
 {
 	int hp;				// 체력
 	int gold;			// 골드
-	int m_EquipCode;	// 장착하고있는 무기
+	CWeapon* m_pWeapon;	// 장착하고있는 무기
 };
 
 // 플레이어 이동
@@ -60,7 +60,6 @@ private:
 
 	// 무기
 	CEquip* pEquip;
-	bool m_bIsEquip;
 
 	// 플레이어 이펙트
 	CPlayerFX* pFX;
@@ -95,7 +94,7 @@ public:
 
 	void MoveUpdate();
 	void AniUpdate();
-	void Equip(int code);
+	void Equip(CWeapon* _item);
 
 	virtual void render();
 	virtual void OnCollisionEnter(CCollider* pOther);

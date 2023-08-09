@@ -6,6 +6,8 @@
 
 CEquip::CEquip()
 {
+    m_Owner = nullptr;
+    m_pImg = nullptr;
 }
 
 CEquip::~CEquip()
@@ -77,12 +79,12 @@ void CEquip::Load(wstring strKey, wstring strPath)
 	SetScale(fPoint(m_pImg->GetWidth() * 4.f, m_pImg->GetHeight() * 4.f));
 }
 
-void CEquip::PlayerAttack(int code)
+void CEquip::PlayerAttack(CWeapon* _weapon)
 {
     CPlayerAttack* attack = new CPlayerAttack;
     attack->SetOwner(m_Owner);
     attack->SetPos(m_Owner->GetPos());
-    attack->SetCode(code);
+    attack->Set(_weapon);
     attack->EnterAttack();
     CreateObj(attack, GROUP_GAMEOBJ::PLAYER_ATTACK);
 }

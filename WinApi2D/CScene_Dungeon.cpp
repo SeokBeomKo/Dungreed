@@ -55,10 +55,10 @@ void CScene_Dungeon::Enter()
 	pPlayer->SaveData(sPlayer->LoadData());
 	
 	// 아이템
-	CItem* pShort_Sword = new CShort_Sword;
+	/*CItem* pShort_Sword = new CShort_Sword;
 	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
 	CItem* pPowerKatana = new CPowerKatana;
-	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
+	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);*/
 
 	// 배경
 	

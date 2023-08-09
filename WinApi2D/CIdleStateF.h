@@ -1,5 +1,6 @@
 #pragma once
 #include "CState.h"
+
 class CIdleStateF : public CState
 {
 public:

@@ -1,25 +1,21 @@
 #pragma once
 #include "CGameObject.h"
+#include "CItem.h"
 
-class CWeapon;
-
-class CItem :
-    public CGameObject
+class CWeapon :
+    public CItem
 {
 private:
 
 public:
-    CD2DImage* m_Img;
+    WeaponInfo info;
 
-    wstring m_strKey;
-    wstring m_strPath;
+    CWeapon();
+    CWeapon(wstring _key, wstring _path, WeaponInfo _info);
+    virtual CWeapon* Clone() { return nullptr; };
+    virtual ~CWeapon();
 
-    CItem();
-    CItem(wstring _key, wstring _path);
-    virtual CItem* Clone() { return nullptr; };
-    virtual ~CItem();
-
-    virtual CWeapon* GetWeapon() { return nullptr; }
+    virtual CWeapon* GetWeapon() { return this; }
 
     virtual wstring GetKey();
     virtual wstring GetPath();

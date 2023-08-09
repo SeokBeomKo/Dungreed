@@ -24,5 +24,4 @@ public:
 
 	void AddState(CState* state);
 	void ChangeState(STATE_MON nextState);
-
 };

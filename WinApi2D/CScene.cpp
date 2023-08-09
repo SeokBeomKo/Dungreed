@@ -169,63 +169,47 @@ void CScene::LoadTile(const wstring& strPath)
         newTile->SetD2DImage(pImg);
         newTile->SetPos(fPoint((float)(newTile->GetX() * CTile::SIZE_TILE), (float)(newTile->GetY() * CTile::SIZE_TILE)));
 
-        if (GROUP_TILE::GROUND == newTile->GetGroup())
+        newTile->CreateCollider();
+        newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
+        newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+
+        switch (GROUP_TILE::GROUND)
         {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+        case GROUP_TILE::NONE:
+            break;
+        case GROUP_TILE::GROUND:
             newTile->SetName(L"GROUND");
             newTile->SetTileGroup(GROUP_TILE::GROUND);
-        }
-        else if (GROUP_TILE::PLATFORM == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::PLATFORM:
             newTile->SetName(L"PLATFORM");
             newTile->SetTileGroup(GROUP_TILE::PLATFORM);
-        }
-        else if (GROUP_TILE::WALL == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::WALL:
             newTile->SetName(L"WALL");
             newTile->SetTileGroup(GROUP_TILE::WALL);
-        }
-        else if (GROUP_TILE::TOPANGLE == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::TOPANGLE:
             newTile->SetName(L"TOPANGLE");
             newTile->SetTileGroup(GROUP_TILE::TOPANGLE);
-        }
-        else if (GROUP_TILE::BOTANGLE == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::BOTANGLE:
             newTile->SetName(L"BOTANGLE");
             newTile->SetTileGroup(GROUP_TILE::BOTANGLE);
-        }
-        else if (GROUP_TILE::RIGHTSLOPE == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::RIGHTSLOPE:
             newTile->SetName(L"RIGHTSLOPE");
             newTile->SetTileGroup(GROUP_TILE::RIGHTSLOPE);
-        }
-        else if (GROUP_TILE::LEFTSLOPE == newTile->GetGroup())
-        {
-            newTile->CreateCollider();
-            newTile->GetCollider()->SetScale(fPoint(CTile::SIZE_TILE, CTile::SIZE_TILE));
-            newTile->GetCollider()->SetOffsetPos(fPoint(CTile::SIZE_TILE / 2.f, CTile::SIZE_TILE / 2.f));
+            break;
+        case GROUP_TILE::LEFTSLOPE:
             newTile->SetName(L"LEFTSLOPE");
             newTile->SetTileGroup(GROUP_TILE::LEFTSLOPE);
+            break;
+        case GROUP_TILE::SIZE:
+            break;
+        default:
+            break;
         }
-
 
         AddObject(newTile, GROUP_GAMEOBJ::TILE);
     }

@@ -11,8 +11,7 @@
 #include "CMonster.h"
 
 // 아이템
-#include "CShort_Sword.h"
-#include "CPowerKatana.h"
+#include "CWeapon.h"
 
 CScene_Dungeon01::CScene_Dungeon01()
 {
@@ -58,10 +57,13 @@ void CScene_Dungeon01::Enter()
 	pPlayer->SaveData(sPlayer->LoadData());
 
 	// 아이템
-	CItem* pShort_Sword = new CShort_Sword;
-	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
-	CItem* pPowerKatana = new CPowerKatana;
+	/*CItem* pPowerKatana= new CWeapon(L"PowerKatana", L"texture\\weapon\\PowerKatana.png");
+	pPowerKatana->SetPos(fPoint(800.f, 550.f));
 	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
+
+	CItem* pShort_Sword = new CWeapon(L"Short_Sword", L"texture\\weapon\\ShortSword.png");
+	pShort_Sword->SetPos(fPoint(1200.f, 550.f));
+	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);*/
 
 	// 배경
 

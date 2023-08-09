@@ -142,7 +142,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   hWnd = CreateWindowW(szWindowClass,         // 클래스 이름
+    hWnd = CreateWindowW(szWindowClass,         // 클래스 이름
                             szTitle,                // 윈도우 타이틀 이름
                             WINSTYLE,               // 윈도우 스타일, 내부 뜯어서 보여주기
                             WINSTARTX,              // 윈도우 화면 X

@@ -32,6 +32,43 @@ using namespace std;
 #include "Logger.h"
 
 
+// wstring m_wSoundName;
+// wstring m_wSoundPath;
+// wstring m_wImgName;
+// wstring m_wImgPath;
+// wstring m_wAniName;
+// fPoint lt;
+// fPoint slice;		// scale
+// fPoint step;
+// float duration;
+// UINT frmCount;
+
+WeaponInfo* short_sword = new WeaponInfo{
+	L"katana",
+	L"sound\\katana.wav",
+	L"EXPowerKatanaSwingPlusFX",
+	L"texture\\weapon\\effect\\EXPowerKatanaSwingPlusFX.png",
+	L"Attack",
+	fPoint(0.f, 0.f),
+	fPoint(138.f, 164.f),
+	fPoint(0.f, 164.f),
+	0.0333f,
+	12
+};
+
+WeaponInfo* katana = new WeaponInfo{
+	L"swing", 
+	L"sound\\swing.wav",
+	L"ShortSwordFX", 
+	L"texture\\weapon\\effect\\ShortSwordFX.png",
+	L"Attack",
+	fPoint(0.f, 0.f),
+	fPoint(28.f, 40.f), 
+	fPoint(0.f, 40.f), 
+	0.134f, 
+	3
+};
+
 //========================================
 //##		게임 그룹					##
 //========================================
@@ -51,6 +88,7 @@ enum class GROUP_GAMEOBJ
 	MONSTER_ATTACK,
 	MISSILE_MONSTER,
 	ITEM,
+	WEAPON,
 
 	UI,		         // UI는 모든 게임오브젝트 중 최상단 Layer에 위치
 	CURSOR,

@@ -14,6 +14,8 @@
 #include "CPlayerAttack.h"
 #include "CPlayerFX.h"
 
+#include "CWeapon.h"
+
 #define GR_POWER 2000
 #define GR_TIME 1000
 #define DS_SEC	0.15
@@ -26,7 +28,6 @@ CPlayer::CPlayer()
 	// 플레이어 정보
 	m_Savedata.hp			= 80;
 	m_Savedata.gold			= 0;
-	m_Savedata.m_EquipCode	= 0;
 
 	// 플레이어 이동
 	m_Move.m_fVelocity		= 350.f;
@@ -55,8 +56,6 @@ CPlayer::CPlayer()
 	m_Gravity.m_fTimeY		= 0.f;
 	m_Gravity.m_fTimeX		= 0.f;
 	m_Gravity.m_fGravity	= 0.f;
-
-	m_bIsEquip = false; 
 
 	pEquip = new CEquip;
 	pFX = new CPlayerFX;
@@ -193,7 +192,7 @@ void CPlayer::MoveUpdate()
 	if (KeyDown(VK_LBUTTON))
 	{
 		if (pEquip->GetOwner() != nullptr)
-			pEquip->PlayerAttack(m_Savedata.m_EquipCode);
+			pEquip->PlayerAttack(m_Savedata.m_pWeapon);
 	}
 
 	if (KeyDown(VK_RBUTTON))
@@ -402,23 +401,9 @@ void CPlayer::render()
 void CPlayer::OnCollisionEnter(CCollider* pOther)
 {
 
-	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM)				// 플레이어와 장비
+	if (pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::WEAPON)				// 플레이어와 장비
 	{
-		switch (pOther->GetObj()->GetItemCode())
-		{
-		case 1:
-			Equip(pOther->GetObj()->GetItemCode());
-			m_Savedata.m_EquipCode = 1;
-			CSoundManager::getInst()->Play(L"equip");
-			break;
-		case 2:
-			Equip(pOther->GetObj()->GetItemCode());
-			m_Savedata.m_EquipCode = 2;
-			CSoundManager::getInst()->Play(L"equip");
-			break;
-		default:
-			break;
-		}
+		Equip(pOther->GetObj()->GetWeapon());
 	}
 }
 
@@ -430,37 +415,24 @@ void CPlayer::OnCollisionExit(CCollider* pOther)
 {
 }
 
-void CPlayer::Equip(int code)
+void CPlayer::Equip(CWeapon* _weapon)
 {
 	wstring Key, Path;
-	switch (code)
-	{
-	case 1:
-		Key = L"Short_Sword"; Path = L"texture\\weapon\\ShortSword.png";			// 무기 경로
-		break;
-	case 2:
-		Key = L"PowerKatana"; Path = L"texture\\weapon\\PowerKatana.png";
-		break;
-	default:
-		return;
-	}
-	if (m_bIsEquip)
+	if (nullptr != pEquip)
 	{
 		DeleteObj(pEquip);
-		m_bIsEquip = false;
 		pEquip = new CEquip;
 	}
 
 	pEquip->SetOwner(this);
-	pEquip->Load(Key, Path);
+	pEquip->Load(_weapon->m_strKey, _weapon->m_strPath);
 	CreateObj(pEquip, GROUP_GAMEOBJ::PLAYER_WEAPON);
-	m_bIsEquip = true;
 }
 
 void CPlayer::SaveData(PlayerSave data)
 {
 	m_Savedata = data;
-	Equip(m_Savedata.m_EquipCode);
+	Equip(m_Savedata.m_pWeapon);
 }
 
 PlayerSave CPlayer::LoadData()

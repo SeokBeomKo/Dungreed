@@ -139,13 +139,7 @@ void CTile::OnCollisionEnter(CCollider* pOther)
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
-		(this->GetTileGroup() == GROUP_TILE::GROUND ||
-			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
-			this->GetTileGroup() == GROUP_TILE::WALL ||
-			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
-			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
+		(this->GetTileGroup() != GROUP_TILE::NONE))
 	{
 		float tiletop, tilebottom, tileright, tileleft;
 		tiletop = GetCollider()->GetFinalPos().y - GetCollider()->GetScale().y / 2.f;
@@ -327,13 +321,7 @@ void CTile::OnCollision(CCollider* pOther)
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||		// 그라운드 와 플레이어 , 무기
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
-		(this->GetTileGroup() == GROUP_TILE::GROUND ||
-			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
-			this->GetTileGroup() == GROUP_TILE::WALL ||
-			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
-			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
+		(this->GetTileGroup() != GROUP_TILE::NONE))
 	{
 		pOther->GetObj()->SetGR(false);
 
@@ -482,13 +470,7 @@ void CTile::OnCollisionExit(CCollider* pOther)
 	if ((pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::PLAYER ||		// 그라운드 와 플레이어 , 무기
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::ITEM ||
 		pOther->GetObj()->GetObjGroup() == GROUP_GAMEOBJ::MONSTER) &&
-		(this->GetTileGroup() == GROUP_TILE::GROUND ||
-			this->GetTileGroup() == GROUP_TILE::PLATFORM ||
-			this->GetTileGroup() == GROUP_TILE::WALL ||
-			this->GetTileGroup() == GROUP_TILE::TOPANGLE ||
-			this->GetTileGroup() == GROUP_TILE::BOTANGLE ||
-			this->GetTileGroup() == GROUP_TILE::RIGHTSLOPE ||
-			this->GetTileGroup() == GROUP_TILE::LEFTSLOPE))
+		(this->GetTileGroup() != GROUP_TILE::NONE))
 	{
 		pOther->GetObj()->SetGR(false);
 

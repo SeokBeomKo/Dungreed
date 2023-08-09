@@ -3,6 +3,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
+
 CIdleStateF::CIdleStateF(STATE_MON state)
 	: CState(state)
 {

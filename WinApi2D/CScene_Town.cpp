@@ -15,8 +15,7 @@
 #include "CDoor.h"
 
 // 아이템
-#include "CShort_Sword.h"
-#include "CPowerKatana.h"
+#include "CWeapon.h"
 
 CScene_Town::CScene_Town()
 {
@@ -61,12 +60,13 @@ void CScene_Town::Enter()
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	// 아이템
-	CItem* pShort_Sword = new CShort_Sword;
+	CWeapon* pShort_Sword = new CWeapon(L"Short_Sword", L"texture\\weapon\\ShortSword.png", short_sword);
 	pShort_Sword->SetPos(fPoint(4000.f, 600.f));
-	AddObject(pShort_Sword, GROUP_GAMEOBJ::ITEM);
-	CItem* pPowerKatana = new CPowerKatana;
+	AddObject(pShort_Sword, GROUP_GAMEOBJ::WEAPON);
+
+	CItem* pPowerKatana = new CWeapon(L"PowerKatana", L"texture\\weapon\\PowerKatana.png", katana);
 	pPowerKatana->SetPos(fPoint(3900.f, 600.f));
-	AddObject(pPowerKatana, GROUP_GAMEOBJ::ITEM);
+	AddObject(pPowerKatana, GROUP_GAMEOBJ::WEAPON);
 
 	// 맵 이미지
 	CMap* town = new CMap;

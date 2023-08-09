@@ -1,5 +1,20 @@
 #pragma once
 
+class WeaponInfo
+{
+public:
+	wstring m_wSoundName;
+	wstring m_wSoundPath;
+	wstring m_wImgName;
+	wstring m_wImgPath;
+	wstring m_wAniName;
+	fPoint	lt;
+	fPoint	slice;		// scale
+	fPoint	step;
+	float	duration;
+	UINT	frmCount;
+};
+
 struct iPoint
 {
 	int x;

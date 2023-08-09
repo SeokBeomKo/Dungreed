@@ -53,7 +53,7 @@ public:
 
 		return _instance;
 	}
-	void release()
+	void releasea()
 	{
 		//ΩÃ±€≈Ê ¿÷¿∏∏È «ÿ¡¶
 		if (nullptr != _instance)

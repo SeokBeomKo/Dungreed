@@ -5,6 +5,7 @@ class CAnimator;
 class CGravity;
 class CPlayer;
 
+class CWeapon;
 
 class CGameObject
 {
@@ -83,6 +84,6 @@ public:
 	virtual void OnCollisionEnter(CCollider* _pOther) {}	// 재정의용 충돌시 가상함수
 	virtual void OnCollisionExit(CCollider* _pOther) {}		// 재정의용 탈충돌 가상함수
 
-	
+	virtual CWeapon* GetWeapon() { return nullptr; }
 };
 

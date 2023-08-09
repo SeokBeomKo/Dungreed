@@ -408,6 +408,9 @@
     <ClInclude Include="CIdleStateB.h">
       <Filter>Engine\Component\01. AI\State\01. BossMob</Filter>
     </ClInclude>
+    <ClInclude Include="CWeapon.h">
+      <Filter>Object\04. Item\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -589,6 +592,9 @@
     </ClCompile>
     <ClCompile Include="CIdleStateB.cpp">
       <Filter>Engine\Component\01. AI\State\01. BossMob</Filter>
+    </ClCompile>
+    <ClCompile Include="CWeapon.cpp">
+      <Filter>Object\04. Item\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
